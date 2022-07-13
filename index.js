@@ -1,6 +1,8 @@
 //express project setup
 const express = require('express');
+const db = require('./dbConnection');
 require('dotenv').config()
+
 
 
 const app = express();

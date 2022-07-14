@@ -1,10 +1,12 @@
+
 const express = require('express');
 const router = express.Router();
-const db = require('./dbConnection');
-const { signupValidation, loginValidation } = require('./validation');
+const db = require('../dbConnection');
+const { signupValidation, loginValidation } = require('../validation');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 router.post('/register', signupValidation, (req, res, next) => {
     db.query(
         `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(req.body.email)});`,
@@ -23,9 +25,9 @@ router.post('/register', signupValidation, (req, res, next) => {
                     } else {
                         // has hashed pw => add to database
                         db.query(
-                            `INSERT INTO users (name, email, password) VALUES ('${req.body.name}', ${db.escape(
+                            `INSERT INTO users (name, email, password,AuthType) VALUES ('${req.body.name}', ${db.escape(
                                 req.body.email
-                            )}, ${db.escape(hash)})`,
+                            )}, ${db.escape(hash)},${req.body.AuthType})`,
                             (err, result) => {
                                 if (err) {
                                     throw err;
@@ -48,6 +50,7 @@ router.post('/login', loginValidation, (req, res, next) => {
     db.query(
         `SELECT * FROM users WHERE email = ${db.escape(req.body.email)};`,
         (err, result) => {
+
             // user does not exists
             if (err) {
                 throw err;
@@ -61,6 +64,7 @@ router.post('/login', loginValidation, (req, res, next) => {
                 });
             }
             // check password
+
             bcrypt.compare(
                 req.body.password,
                 result[0]['password'],
@@ -74,9 +78,6 @@ router.post('/login', loginValidation, (req, res, next) => {
                     }
                     if (bResult) {
                         const token = jwt.sign({ id: result[0].id }, 'the-super-strong-secrect', { expiresIn: '1h' });
-                        db.query(
-                            `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
-                        );
                         return res.status(200).send({
                             msg: 'Logged in!',
                             token,

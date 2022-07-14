@@ -1,41 +1,10 @@
-//express project setup
 const express = require('express');
-const app = express();
 const router = express.Router();
 const db = require('./dbConnection');
 const { signupValidation, loginValidation } = require('./validation');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
-
-const PORT = 3000;
-// const db = require('./dbConnection');
-require('dotenv').config()
-const path = require('path');
-const bodyParser = require('body-parser');
-
-app.use(express.static("public"));
-app.set('view engine', 'ejs');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-
-
-//home route
-app.get('/', (req, res) => res.send('Hello World!'));
-
-
-app.get('/signup', (req, res) => {
-    res.render('pages/signup');
-})
-
-app.post('/signup', (req, res) => {
-    res.send(`The Name is ${req.body.suName} and the email is ${req.body.suEmail}`);
-})
-
 router.post('/register', signupValidation, (req, res, next) => {
     db.query(
         `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(req.body.email)});`,
@@ -75,7 +44,7 @@ router.post('/register', signupValidation, (req, res, next) => {
         }
     );
 });
-app.post('/login', loginValidation, (req, res, next) => {
+router.post('/login', loginValidation, (req, res, next) => {
     db.query(
         `SELECT * FROM users WHERE email = ${db.escape(req.body.email)};`,
         (err, result) => {
@@ -140,8 +109,3 @@ router.post('/get-user', signupValidation, (req, res, next) => {
     });
 });
 module.exports = router;
-
-
-
-//app listen
-app.listen(PORT, () => console.log(`Example app listening on http://localhost:${PORT}`));

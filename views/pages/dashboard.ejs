@@ -39,14 +39,15 @@
 							</a>
 						</div>
 						<!--//col-->
-						<div class="search-mobile-trigger d-sm-none col">
-							<i class="search-mobile-trigger-icon fas fa-search"></i>
+						<div class="col-auto d-none d-sm-block">
+							<% if (user) { %>
+								<h4>Welcome <%= user %>
+								</h4>
+								<% } %>
+
 						</div>
 						<!--//col-->
-
-
 						<div class="app-utilities col-auto">
-
 							<div class="app-utility-item app-user-dropdown dropdown">
 								<a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#"
 									role="button" aria-expanded="false"><img src="assets/images/user.png"
@@ -57,7 +58,7 @@
 									<li>
 										<hr class="dropdown-divider">
 									</li>
-									<li><a class="dropdown-item" href="login.html">Log Out</a></li>
+									<li><a class="dropdown-item" href="/logout">Log Out</a></li>
 								</ul>
 							</div>
 							<!--//app-user-dropdown-->

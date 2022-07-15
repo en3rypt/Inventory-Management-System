@@ -7,6 +7,16 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+
+router.get('/login', (req, res) => {
+    res.render('pages/login', { error: false });
+})
+router.get('/signup', (req, res) => {
+    res.render('pages/signup');
+
+})
+
+
 router.post('/register', signupValidation, (req, res, next) => {
     db.query(
         `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(req.body.email)});`,
@@ -24,10 +34,18 @@ router.post('/register', signupValidation, (req, res, next) => {
                         });
                     } else {
                         // has hashed pw => add to database
+                        if (req.body.AuthType === '1') {
+                            var AuthType = 1;
+                        } else if (req.body.AuthType === '2') {
+                            var AuthType = 2;
+                        } else if (req.body.AuthType === '3') {
+                            var AuthType = 3;
+                        }
+
                         db.query(
                             `INSERT INTO users (name, email, password,AuthType) VALUES ('${req.body.name}', ${db.escape(
                                 req.body.email
-                            )}, ${db.escape(hash)},${req.body.AuthType})`,
+                            )}, ${db.escape(hash)},${AuthType})`,
                             (err, result) => {
                                 if (err) {
                                     throw err;
@@ -59,9 +77,7 @@ router.post('/login', loginValidation, (req, res, next) => {
                 });
             }
             if (!result.length) {
-                return res.status(401).send({
-                    msg: 'Email or password is incorrect!'
-                });
+                return res.status(401).render('pages/login', { error: true });
             }
             // check password
 
@@ -77,26 +93,32 @@ router.post('/login', loginValidation, (req, res, next) => {
                         });
                     }
                     if (bResult) {
-
+                        console.log(req.body)
                         var payload = {
+                            id: result[0]['id'],
                             name: result[0]['Name'],
                             AuthType: result[0]['AuthType']
                         }
                         const token = jwt.sign(payload, 'the-super-strong-secrect', { expiresIn: '1h' });
-                        return res.status(200).send({
-                            msg: 'Logged in!',
-                            token,
-                            user: result[0]
-                        });
+                        return res.cookie("access_token", token, {
+                            httpOnly: true,
+                            maxAge: 360000,
+                        }).status(200).redirect('/');
                     }
                     return res.status(401).send({
-                        msg: 'Username or password is incorrect!'
+                        msg: 'Username or password is incorrect3!'
                     });
                 }
             );
         }
     );
 });
+
+router.get('/logout', (req, res) => {
+    res.clearCookie('access_token').redirect('/login');
+})
+
+
 router.post('/get-user', signupValidation, (req, res, next) => {
     if (
         !req.headers.authorization ||

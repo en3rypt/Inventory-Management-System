@@ -52,7 +52,7 @@ s = [ '''CREATE TABLE IF NOT EXISTS REQUESTS (
 	ID INT NOT NULL AUTO_INCREMENT,
 	Name varchar(255) NOT NULL,
 	Email varchar(50) NOT NULL,
-	password varchar(20) NOT NULL,
+	password varchar(100) NOT NULL,
 	AuthType INT NOT NULL,
 	PRIMARY KEY (ID)
 );

@@ -2,108 +2,118 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-    <title>
-        Sign Up
-    </title>
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-    <!-- Nucleo Icons -->
-    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <!-- CSS Files -->
-    <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+    <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- FontAwesome JS-->
+    <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
+
+    <!-- App CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
+
 </head>
 
-<body class="bg-gray-200">
-
-    <!-- {% include 'includes/navigation-fullscreen.html' %} -->
-
-    <main class="main-content mt-0">
-        <section>
-            <div class="page-header min-vh-100">
-                <div class="container">
-                    <div class="row">
-                        <div
-                            class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
-                            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center"
-                                style="background-image: url('/assets/img/illustrations/illustration-signup.jpg'); background-size: cover;">
+<body class="app app-login p-0">
+    <div class="row g-0 app-auth-wrapper">
+        <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
+            <div class="d-flex flex-column align-content-end">
+                <div class="app-auth-body mx-auto">
+                    <div class="app-auth-branding mb-4"><a class="app-logo" href="index.html"><img
+                                class="logo-icon me-2" src="assets/images/app-logo.svg" alt="logo"></a></div>
+                    <h2 class="auth-heading text-center mb-5">Sign Up</h2>
+                    <div class="auth-form-container text-start">
+                        <form class="auth-form login-form" action="/register" method="post">
+                            <div class="mb-3">
+                                <label class="sr-only" for="name">Name</label>
+                                <input id="name" name="name" type="text" class="form-control" placeholder="Name"
+                                    required="required">
                             </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
-                            <div class="card card-plain">
-                                <div class="card-header">
-                                    <h4 class="font-weight-bolder">Sign Up</h4>
-                                    <p class="mb-0">Enter your email and password to register</p>
-                                </div>
-                                <div class="card-body">
-                                    <form role="form" action="/signup" method="POST">
-                                        <div class="input-group input-group-outline mb-3">
-                                            <label class="form-label">Name</label>
-                                            <input type="text" name="suName" class="form-control">
-                                        </div>
-                                        <div class="input-group input-group-outline mb-3">
-                                            <label class="form-label">Email</label>
-                                            <input type="email" name="suEmail" class="form-control">
-                                        </div>
-                                        <div class="input-group input-group-outline mb-3">
-                                            <label class="form-label">Password</label>
-                                            <input type="password" name="suPassword" class="form-control">
-                                        </div>
-                                        <!-- <div class="form-check form-check-info text-start ps-0">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckDefault" checked>
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                I agree the <a href="javascript:;"
-                                                    class="text-dark font-weight-bolder">Terms and Conditions</a>
-                                            </label>
-                                        </div> -->
-                                        <div class="text-center">
-                                            <input type="submit"
-                                                class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">
-                                            </input>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                                    <p class="mb-2 text-sm mx-auto">
-                                        Already have an account?
-                                        <a href="/sign-in.html" class="text-primary text-gradient font-weight-bold">Sign
-                                            in</a>
-                                    </p>
-                                </div>
+                            <div class="email mb-3">
+                                <label class="sr-only" for="email">Email</label>
+                                <input id="email" name="email" type="email" class="form-control signin-email"
+                                    placeholder="Email address" required="required">
                             </div>
-                        </div>
+
+                            <!--//form-group-->
+                            <div class="password mb-3">
+                                <label class="sr-only" for="password">Password</label>
+                                <input id="password" name="password" type="password"
+                                    class="form-control signin-password" placeholder="Password" required="required">
+                            </div>
+                            <label class="sr-only">Auth Type</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="AuthType" id="flexRadioComm"
+                                    value="1" required>
+                                <label class="form-check-label" for="flexRadioComm">
+                                    Comm
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="AuthType" id="flexRadioComm"
+                                    value="2" required>
+                                <label class="form-check-label" for="flexRadioComm">
+                                    SI
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="AuthType" id="flexRadioComm"
+                                    value="3" required>
+                                <label class="form-check-label" for="flexRadioComm">
+                                    Clerk
+                                </label>
+                            </div>
+
+                            <!--//form-group-->
+                            <div class="text-center">
+                                <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Sign
+                                    Up</button>
+                            </div>
+                        </form>
+
+                        <!-- <div class="auth-option text-center pt-5">No Account? Sign up <a class="text-link"
+                                href="signup.html">here</a>.</div> -->
                     </div>
+                    <!--//auth-form-container-->
+
                 </div>
+                <!--//auth-body-->
+
+                <footer class="app-auth-footer">
+                    <div class="container text-center py-3">
+                        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+                        <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
+                                style="color: #fb866a;"></i> by <a class="app-link" href=""
+                                target="_blank">softies2k25</a> </small>
+
+                    </div>
+                </footer>
+                <!--//app-auth-footer-->
             </div>
-        </section>
+            <!--//flex-column-->
+        </div>
+        <!--//auth-main-col-->
+        <div class="col-12 col-md-5 col-lg-6 h-100 auth-background-col">
+            <div class="auth-background-holder">
+            </div>
+            <div class="auth-background-mask"></div>
+            <div class="auth-background-overlay p-3 p-lg-5">
 
-    </main>
+            </div>
+            <!--//auth-background-overlay-->
+        </div>
+        <!--//auth-background-col-->
 
-    <!-- {% include 'includes/scripts.html' %} -->
+    </div>
+    <!--//row-->
 
-    <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-                damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-        }
-    </script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="/assets/js/material-dashboard.min.js?v=3.0.0"></script>
 
 </body>
 

@@ -86,6 +86,7 @@ router.post('/login', loginValidation, (req, res, next) => {
                 result[0]['password'],
                 (bErr, bResult) => {
                     // wrong password
+                    // console.log(bResult);
                     if (bErr) {
                         throw bErr;
                         return res.status(401).send({
@@ -93,13 +94,13 @@ router.post('/login', loginValidation, (req, res, next) => {
                         });
                     }
                     if (bResult) {
-                        console.log(req.body)
+                        // console.log(result[0]['AuthType']);
                         var payload = {
-                            id: result[0]['id'],
                             name: result[0]['Name'],
                             AuthType: result[0]['AuthType']
                         }
                         const token = jwt.sign(payload, 'the-super-strong-secrect', { expiresIn: '1h' });
+                        console.log(token);
                         return res.cookie("access_token", token, {
                             httpOnly: true,
                             maxAge: 360000,

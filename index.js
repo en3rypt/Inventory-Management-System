@@ -6,7 +6,7 @@ const path = require('path');
 const router = require('./routes/routes');
 require('dotenv').config()
 
-const { requireAuth, checkUser } = require('./middleware/authMiddleware')
+const { requireAuth, checkUser, authRole } = require('./middleware/authMiddleware')
 
 
 const app = express();
@@ -22,11 +22,11 @@ app.use(bodyParser.urlencoded({
 
 
 app.get('*', checkUser);
-app.get('/', requireAuth, (req, res) => {
+app.get('/', requireAuth, authRole(1), (req, res) => {
     res.render('pages/dashboard');
 })
 
-app.get('/orders', (req, res) => {
+app.get('/orders', requireAuth, (req, res) => {
     res.render('pages/orders');
 })
 

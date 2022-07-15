@@ -4,10 +4,8 @@ const requireAuth = (req, res, next) => {
     if (token) {
         jwt.verify(token, 'the-super-strong-secrect', (err, decodedToken) => {
             if (err) {
-                console.log(err.msg)
                 res.redirect('/login')
             } else {
-                console.log(decodedToken)
                 next()
             }
         })
@@ -25,6 +23,7 @@ const checkUser = (req, res, next) => {
                 next();
             } else {
                 res.locals.user = decodedToken.name;
+                res.locals.auth = decodedToken.AuthType;
                 next()
             }
         })
@@ -34,4 +33,14 @@ const checkUser = (req, res, next) => {
     }
 }
 
-module.exports = { requireAuth, checkUser }
+const authRole = (role) => {
+    return (req, res, next) => {
+        if (res.locals.auth !== role) {
+            return res.status(401).redirect('/login')
+        }
+        next()
+
+    }
+}
+
+module.exports = { requireAuth, checkUser, authRole }

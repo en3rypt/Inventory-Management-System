@@ -77,7 +77,12 @@ router.post('/login', loginValidation, (req, res, next) => {
                         });
                     }
                     if (bResult) {
-                        const token = jwt.sign({ id: result[0].id }, 'the-super-strong-secrect', { expiresIn: '1h' });
+
+                        var payload = {
+                            name: result[0]['Name'],
+                            AuthType: result[0]['AuthType']
+                        }
+                        const token = jwt.sign(payload, 'the-super-strong-secrect', { expiresIn: '1h' });
                         return res.status(200).send({
                             msg: 'Logged in!',
                             token,

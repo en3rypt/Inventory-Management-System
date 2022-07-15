@@ -100,7 +100,7 @@ router.post('/login', loginValidation, (req, res, next) => {
                             AuthType: result[0]['AuthType']
                         }
                         const token = jwt.sign(payload, 'the-super-strong-secrect', { expiresIn: '1h' });
-                        console.log(token);
+                        // console.log(token);
                         return res.cookie("access_token", token, {
                             httpOnly: true,
                             maxAge: 360000,
@@ -118,6 +118,8 @@ router.post('/login', loginValidation, (req, res, next) => {
 router.get('/logout', (req, res) => {
     res.clearCookie('access_token').redirect('/login');
 })
+
+
 
 
 router.post('/get-user', signupValidation, (req, res, next) => {

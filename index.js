@@ -46,4 +46,4 @@ app.get('/logout', (req, res) => {
     res.clearCookie('access_token').redirect('/login');
 })
 //app listen
-app.listen(PORT, () => console.log(`Example app listening on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT} .`));

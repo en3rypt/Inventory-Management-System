@@ -75,7 +75,7 @@
                                                                 <option value="<%= item.ID %>">
                                                                     <%= item.Name %>
                                                                 </option>
-                                                                <% }); %>
+                                                                <% }) %>
                                                         </select>
                                                         <input class="form-control w-75 d-inline" id="item-quantity">
                                                         <button type="button" id="req-item-add"
@@ -150,7 +150,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% requestsData.forEach(request=> { %>
+                                        <% requestsData.forEach(function(request) { %>
                                             <tr>
                                                 <td class="cell">
                                                     <%= request.ID %>
@@ -159,14 +159,13 @@
                                                     <%= request.StationID %>
                                                 </td>
                                                 <td class="cell">
-                                                    <% requestItemList.forEach(function(rID) { %>
+                                                    <% Object.keys(reqItemlist).forEach(function(rID) { %>
                                                         <% if (rID==request.ID) { %>
-                                                            <%= Object.keys(rID).forEach(function(key) { %>
-                                                                <%= key %>
-                                                                    <%= rID[key] %>
-                                                                        <% }; %>
+                                                            <% Object.keys(reqItemlist[rID]).forEach(function(item) { %>
+                                                                <%= item %> x<%= reqItemlist[rID][item] %><br>
+                                                                        <% }) %>
                                                                             <% } %>
-                                                                                <% }); %>
+                                                                                <% }) %>
                                                 </td>
                                                 <td class="cell">
                                                     <%= request.Approval %>

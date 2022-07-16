@@ -30,10 +30,10 @@ app.use(bodyParser.urlencoded({
 //     res.render('pages/orders');
 // })
 // MiddlWares
+app.get('*', checkUser);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/items', requireAuth, items);
-app.get('*', checkUser);
 app.get('/', requireAuth, authRole(1), (req, res) => {
     res.render('pages/dashboard');
 })

@@ -7,6 +7,7 @@ db = mysql.connector.connect(
 )
 cur = db.cursor()
 
+cur.execute('DROP DATABASE IF EXISTS CBE_STOCKS')
 # database creation
 cur.execute("CREATE DATABASE IF NOT EXISTS CBE_STOCKS")
 cur.execute("USE CBE_STOCKS")

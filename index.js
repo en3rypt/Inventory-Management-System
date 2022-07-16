@@ -3,8 +3,10 @@ const express = require('express');
 const cookieParser = require("cookie-parser");
 const bodyParser = require('body-parser');
 const path = require('path');
-const router = require('./routes/routes');
+const login = require('./routes/login');
+const signup = require('./routes/signup');
 const items = require('./routes/items');
+const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 const { requireAuth, checkUser, authRole } = require('./middleware/authMiddleware')
@@ -22,35 +24,24 @@ app.use(bodyParser.urlencoded({
 }));
 
 
+
+
+// app.get('/orders', requireAuth, (req, res) => {
+//     res.render('pages/orders');
+// })
+// MiddlWares
+app.use('/login', login);
+app.use('/signup', signup);
+app.use('/items', requireAuth, items);
 app.get('*', checkUser);
 app.get('/', requireAuth, authRole(1), (req, res) => {
     res.render('pages/dashboard');
 })
 
-// app.get('/orders', requireAuth, (req, res) => {
-//     res.render('pages/orders');
-// })
-
-app.use('/items', requireAuth, items);
 
 
-
-
-// app.get('/signup', (req, res) => {
-//     res.render('pages/signup');
-// })
-
-// app.post('/signup', (req, res) => {
-//     res.send(`The Name is ${req.body.suName} and the email is ${req.body.suEmail}`);
-// })
-
-
-// app.post('/orders', (req, res) => {
-//     res.send(`The ID is ${req.body.itemid} and the category is ${req.body.categoryid}, the name is ${req.body.itemname} and the quantity is ${req.body.itemquantity}`);
-// })
-
-app.use('/', router);
-
-
+app.get('/logout', (req, res) => {
+    res.clearCookie('access_token').redirect('/login');
+})
 //app listen
 app.listen(PORT, () => console.log(`Example app listening on http://localhost:${PORT}`));

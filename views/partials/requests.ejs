@@ -42,7 +42,7 @@
                                     data-bs-target="#newEntryModal">New Request</button>
                                 <div class="modal fade" id="newEntryModal" tabindex="-1"
                                     aria-labelledby="newEntryModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="newEntryModalLabel">Enter data for
@@ -52,36 +52,36 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form action="/requests" method="POST">
-                                                    <!-- <div class="mb-3">
-                                                        <label for="recipient-name"
-                                                            class="col-form-label">ID:</label>
-                                                        <input type="text" class="form-control" id="item-id"
-                                                            name="itemid">
-                                                    </div> -->
                                                     <div class="mb-3">
-                                                        <label for="message-text" class="col-form-label">Category
-                                                            ID:</label>
-                                                        <!-- <input class="form-control" list="datalistOptions"
-                                                            id="category-id" name="categoryid"> -->
-                                                        <select id="category-id" name="categoryid">
-                                                            <% categs.forEach(function(categ) { %>
-                                                                <option value="<%= categ %>">
-                                                                    <%= categ %>
+                                                        <label for="recipient-name"
+                                                            class="col-form-label">RequestID:</label>
+                                                        <input type="text" class="form-control" id="req-stationid"
+                                                            name="reqid">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="recipient-name"
+                                                            class="col-form-label">StationID:</label>
+                                                        <input type="text" class="form-control" id="req-stationid"
+                                                            name="reqstationid">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="message-text" class="col-form-label">Add
+                                                            items:</label><br>
+                                                        <ul class="added-items-ul">
+
+                                                        </ul>
+                                                        <select id="item-name-drop">
+                                                            <% itemRows.forEach(function(item) { %>
+                                                                <option value="<%= item.ID %>">
+                                                                    <%= item.Name %>
                                                                 </option>
                                                                 <% }); %>
                                                         </select>
-                                                        <!-- <input type="text" class="form-control" id="category-id"
-                                                            name="categoryid"> -->
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="message-text" class="col-form-label">Name:</label>
-                                                        <input class="form-control" id="item-name" name="itemname">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="message-text"
-                                                            class="col-form-label">Quantity:</label>
-                                                        <input class="form-control" id="item-quantity"
-                                                            name="itemquantity">
+                                                        <input class="form-control w-75 d-inline" id="item-quantity">
+                                                        <button type="button" id="req-item-add"
+                                                            class="btn app-btn-secondary">Add</button>
+                                                        <input type="text" id="added-JSON" name="addedJSON"
+                                                            class="d-none">
                                                     </div>
                                             </div>
                                             <div class="modal-footer">
@@ -142,14 +142,15 @@
                                         <tr>
                                             <th class="cell">ID</th>
                                             <th class="cell">StationID</th>
+                                            <th class="cell">Items</th>
                                             <th class="cell">Approval</th>
-                                            <th class="cell">ApprovedBy</th>
+                                            <!-- <th class="cell">ApprovedBy</th> -->
                                             <!-- <th class="cell"></th> -->
                                             <!-- <th class="cell"></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% requestsData.forEach(function(request) { %>
+                                        <% requestsData.forEach(request=> { %>
                                             <tr>
                                                 <td class="cell">
                                                     <%= request.ID %>
@@ -158,13 +159,17 @@
                                                     <%= request.StationID %>
                                                 </td>
                                                 <td class="cell">
+                                                    <% requestItemList.forEach(function(rID) { %>
+                                                        <% if (rID==request.ID) { %>
+                                                            <%= Object.keys(rID).forEach(function(key) { %>
+                                                                <%= key %>
+                                                                    <%= rID[key] %>
+                                                                        <% }; %>
+                                                                            <% } %>
+                                                                                <% }); %>
+                                                </td>
+                                                <td class="cell">
                                                     <%= request.Approval %>
-                                                </td>
-                                                <td class="cell">
-                                                    <%= request.ApprovedBy %>
-                                                </td>
-                                                <td class="cell">
-                                                    <%= request.DateOfReceival %>
                                                 </td>
                                             </tr>
                                             <% }); %>
@@ -472,5 +477,16 @@
 
     </footer>
     <!--//app-footer-->
-
 </div>
+
+<script>
+    addedItemsList = {};
+    const reqAddBtn = document.getElementById('req-item-add');
+    reqAddBtn.addEventListener('click', (e) => {
+        let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
+        let itemQty = document.getElementById('item-quantity').value;
+        document.querySelector('.added-items-ul').innerHTML += `<li>${itemName} x ${itemQty}</li>`;
+        addedItemsList[itemName] = parseInt(itemQty);
+        document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList); //passing this to the backend with bodyparser and a d-none input.
+    });
+</script>

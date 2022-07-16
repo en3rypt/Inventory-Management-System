@@ -47,3 +47,8 @@ app.get('/logout', (req, res) => {
 })
 //app listen
 app.listen(PORT, () => console.log(`Example app listening on http://localhost:${PORT}`));
+
+let bruh = { name: 'bruh' };
+Object.keys(bruh).forEach(key => {
+    console.log(key + " -> " + bruh[key]);
+});

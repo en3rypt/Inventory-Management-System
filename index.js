@@ -6,6 +6,7 @@ const path = require('path');
 const login = require('./routes/login');
 const signup = require('./routes/signup');
 const items = require('./routes/items');
+const requests = require('./routes/requests');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
@@ -34,6 +35,7 @@ app.get('*', checkUser);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/items', requireAuth, items);
+app.use('/requests', requireAuth, requests);
 app.get('/', requireAuth, authRole(1), (req, res) => {
     res.render('pages/index', { option: 'dashboard' });
 })

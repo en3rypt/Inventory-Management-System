@@ -35,7 +35,7 @@ app.use('/login', login);
 app.use('/signup', signup);
 app.use('/items', requireAuth, items);
 app.get('/', requireAuth, authRole(1), (req, res) => {
-    res.render('pages/dashboard');
+    res.render('pages/index', { option: 'dashboard' });
 })
 
 

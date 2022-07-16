@@ -13,7 +13,7 @@ items.get('/', (req, res) => {
                 throw err;
             }
             const categs = categResult.map(categ => categ.ID);
-            res.render('pages/items', { itemsData: result, categs: categs });
+            res.render('pages/items', { option: "items", itemsData: result, categs: categs });
         });
     });
 });

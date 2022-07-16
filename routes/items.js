@@ -13,7 +13,7 @@ items.get('/', (req, res) => {
                 throw err;
             }
             const categs = categResult.map(categ => categ.ID);
-            res.render('pages/items', { option: "items", itemsData: result, categs: categs });
+            res.render('pages/index', { option: "items", itemsData: result, categs: categs });
         });
     });
 });
@@ -22,7 +22,7 @@ items.get('/', (req, res) => {
 
 items.post('/', (req, res) => {
     db.query(
-        `INSERT INTO items (ID, CategoryID, Name, Quantity, DateOfReceival) VALUES ('${req.body.itemid}', ${req.body.categoryid}, '${req.body.itemname}', ${req.body.itemquantity}, current_timestamp())`,
+        `INSERT INTO items (CategoryID, Name, Quantity) VALUES ( ${req.body.categoryid}, '${req.body.itemname}', ${req.body.itemquantity})`,
         (err, result) => {
             if (err) {
                 throw err;

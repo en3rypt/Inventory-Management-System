@@ -46,9 +46,4 @@ app.get('/logout', (req, res) => {
     res.clearCookie('access_token').redirect('/login');
 })
 //app listen
-app.listen(PORT, () => console.log(`Example app listening on http://localhost:${PORT}`));
-
-let bruh = { name: 'bruh' };
-Object.keys(bruh).forEach(key => {
-    console.log(key + " -> " + bruh[key]);
-});
+app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT} .`));

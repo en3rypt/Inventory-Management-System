@@ -102,6 +102,12 @@
 
                                 </a>
                             </div>
+                            <div class="col-auto">
+                                <a id="print-btn" class="btn app-btn-secondary" href="#">
+                                    <img
+                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMtJREFUSEvVlWENwjAQhb8pQALgABzgAAs4wAI4QMKk4GCTAA5wALmES8pl69orJWM/m977+q59t4bKX1NZnxjgmQkf1JoFYKqN6tTt4L8AF2APrDIvWLffgBY460JoX8SPTmFbJoCTLIaAB7AAtkDvBG2ADhAnawuIvoYBoM2JHvZDJ3QwO8BYF7/moBjgnUXJDn4GyB0Vow40B7a3qYCw7q7TICzevWO+NIRcgIgfgKsNmj15ai6Kx3Xq1HD/D6oBUoWj+6YusBjyAkqyMBlM3PP1AAAAAElFTkSuQmCC" />
+                                </a>
+                            </div>
                         </div>
                         <!--//row-->
                     </div>
@@ -131,7 +137,7 @@
                 <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
                     <div class="app-card app-card-orders-table shadow-sm mb-5">
                         <div class="app-card-body">
-                            <div class="table-responsive">
+                            <div id="tbl_print" class="table-responsive">
                                 <table id="tbl_export" class="table app-table-hover mb-0 text-center">
                                     <thead>
                                         <tr>
@@ -139,8 +145,6 @@
                                             <th class="cell">CategoryID</th>
                                             <th class="cell">Name</th>
                                             <th class="cell">Quantity</th>
-                                            <!-- <th class="cell"></th> -->
-                                            <!-- <th class="cell"></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -160,104 +164,7 @@
                                                 </td>
                                             </tr>
                                             <% }); %>
-                                                <!-- <tr>
-                                            <td class="cell"></td>
-                                            <td class="cell"></td>
-                                            <td class="cell"></td>
-                                            <td class="cell"></td>
-                                            <td class="cell"></td>
-                                        </tr> -->
                                     </tbody>
-
-
-                                    <!-- <tbody>
-                                        <tr>
-                                            <td class="cell">#15346</td>
-                                            <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet
-                                                    eget
-                                                    volutpat erat</span></td>
-                                            <td class="cell">John Sanders</td>
-                                            <td class="cell"><span>17 Oct</span><span class="note">2:16
-                                                    PM</span>
-                                            </td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$259.35</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="cell">#15345</td>
-                                            <td class="cell"><span class="truncate">Consectetur adipiscing
-                                                    elit</span></td>
-                                            <td class="cell">Dylan Ambrose</td>
-                                            <td class="cell"><span class="cell-data">16 Oct</span><span
-                                                    class="note">03:16 AM</span></td>
-                                            <td class="cell"><span class="badge bg-warning">Pending</span></td>
-                                            <td class="cell">$96.20</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="cell">#15344</td>
-                                            <td class="cell"><span class="truncate">Pellentesque diam
-                                                    imperdiet</span></td>
-                                            <td class="cell">Teresa Holland</td>
-                                            <td class="cell"><span class="cell-data">16 Oct</span><span
-                                                    class="note">01:16 AM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$123.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="cell">#15343</td>
-                                            <td class="cell"><span class="truncate">Vestibulum a accumsan lectus
-                                                    sed
-                                                    mollis ipsum</span></td>
-                                            <td class="cell">Jayden Massey</td>
-                                            <td class="cell"><span class="cell-data">15 Oct</span><span
-                                                    class="note">8:07 PM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$199.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="cell">#15342</td>
-                                            <td class="cell"><span class="truncate">Justo feugiat neque</span>
-                                            </td>
-                                            <td class="cell">Reina Brooks</td>
-                                            <td class="cell"><span class="cell-data">12 Oct</span><span
-                                                    class="note">04:23 PM</span></td>
-                                            <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-                                            <td class="cell">$59.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="cell">#15341</td>
-                                            <td class="cell"><span class="truncate">Morbi vulputate lacinia
-                                                    neque et
-                                                    sollicitudin</span></td>
-                                            <td class="cell">Raymond Atkins</td>
-                                            <td class="cell"><span class="cell-data">11 Oct</span><span
-                                                    class="note">11:18 AM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$678.26</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-
-                                    </tbody> -->
                                 </table>
                             </div>
                             <!--//table-responsive-->
@@ -470,10 +377,17 @@
 
 <script>
     const dwnldBtn = document.getElementById('dwnld-btn');
+    const printBtn = document.getElementById('print-btn');
+
 
     dwnldBtn.addEventListener('click', () => {
-        ExportToExcel('xlsx')
+        ExportToExcel('xlsx');
     })
+
+    printBtn.addEventListener('click', () => {
+        printDiv('tbl_print');
+    })
+
 
     function ExportToExcel(type, fn, dl) {
         var elt = document.getElementById('tbl_export');
@@ -481,5 +395,12 @@
         return dl ?
             XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
             XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+    }
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
     }
 </script>

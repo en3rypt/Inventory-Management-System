@@ -5,6 +5,7 @@ const db = require('../dbConnection');
 categories.get('/', (req, res) => {
 
     db.query(`SELECT * FROM categories`, (err, result) => {
+        console.log(result);
         if (err) {
             throw err;
         }
@@ -12,4 +13,15 @@ categories.get('/', (req, res) => {
     });
 })
 
+categories.post('/', (req, res) => {
+    db.query(
+        `INSERT INTO categories (Name) VALUES ('${req.body.categname}')`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            }
+            res.redirect('/categories');
+        }
+    );
+})
 module.exports = categories;

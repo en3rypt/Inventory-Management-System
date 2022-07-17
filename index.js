@@ -40,7 +40,9 @@ app.get('/', requireAuth, authRole(1), (req, res) => {
     res.render('pages/index', { option: 'dashboard' });
 })
 
-
+app.get('/Categories', (req,res)=> {
+    res.render('pages/Categories', {option: 'dashboard'});
+})
 
 app.get('/logout', (req, res) => {
     res.clearCookie('access_token').redirect('/login');

@@ -154,13 +154,61 @@
                                                     <%= request.StationID %>
                                                 </td>
                                                 <td class="cell">
-                                                    <% Object.keys(reqItemlist).forEach(function(rID) { %>
-                                                        <% if (rID==request.ID) { %>
-                                                            <% Object.keys(reqItemlist[rID]).forEach(function(item) { %>
-                                                                <%= item %> x<%= reqItemlist[rID][item] %><br>
-                                                                        <% }) %>
-                                                                            <% } %>
-                                                                                <% }) %>
+
+                                                    <div class="col-auto">
+                                                        <button type="button" class="btn app-btn-secondary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#v<%=request.ID%>">View</button>
+                                                        <div class="modal fade" id="v<%=request.ID%>" tabindex="-1"
+                                                            aria-labelledby="v<%=request.ID%>Label" aria-hidden="true">
+                                                            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="viewRequewstLabel">
+                                                                            Requested Items List
+                                                                        </h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <table class="table  table-hover">
+                                                                            <thead>
+                                                                                <tr>
+
+                                                                                    <th scope="col">Item</th>
+                                                                                    <th scope="col">Quantity</th>
+
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <% Object.keys(reqItemlist).forEach(function(rID)
+                                                                                    { %>
+                                                                                    <% if (rID==request.ID) { %>
+                                                                                        <% Object.keys(reqItemlist[rID]).forEach(function(item)
+                                                                                            { %>
+                                                                                            <tr>
+
+                                                                                                <td>
+                                                                                                    <%= item %>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <%= reqItemlist[rID][item]
+                                                                                                        %>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <% }) %>
+                                                                                                <% } %>
+                                                                                                    <% }) %>
+
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td class="cell">
                                                     <% if (request.Approval==0 ) { %>

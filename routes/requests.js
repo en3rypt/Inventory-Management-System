@@ -22,6 +22,7 @@ requests.get('/', (req, res) => {
                         reqItemlist[row.ReqID] = {};
                     reqItemlist[row.ReqID][row.Name] = row.ReqItemQty;
                 });
+                console.log(itemRowResult);
                 res.render('pages/index', { option: "requests", requestsData: result, itemRows: itemRowResult, reqItemlist: reqItemlist });
             });
         });

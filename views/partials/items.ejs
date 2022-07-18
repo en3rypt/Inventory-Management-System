@@ -33,81 +33,83 @@
 
                                 </select>
                             </div>
-                            <div class="col-auto">
-                                <!-- <a class="btn app-btn-secondary" href="#">
+                            <% if(auth==3){ %>
+                                <div class="col-auto">
+                                    <!-- <a class="btn app-btn-secondary" href="#">
                                 <i class="fa-solid fa-plus"></i>
                                 New Entry
                             </a> -->
-                                <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#newEntryModal">New Item</button>
-                                <div class="modal fade" id="newEntryModal" tabindex="-1"
-                                    aria-labelledby="newEntryModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="newEntryModalLabel">Enter data for
-                                                    new item</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="/items" method="POST">
-                                                    <!-- <div class="mb-3">
+                                    <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#newEntryModal">New Item</button>
+                                    <div class="modal fade" id="newEntryModal" tabindex="-1"
+                                        aria-labelledby="newEntryModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="newEntryModalLabel">Enter data for
+                                                        new item</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/items" method="POST">
+                                                        <!-- <div class="mb-3">
                                                         <label for="recipient-name"
                                                             class="col-form-label">ID:</label>
                                                         <input type="text" class="form-control" id="item-id"
                                                             name="itemid">
                                                     </div> -->
-                                                    <div class="mb-3">
-                                                        <label for="message-text" class="col-form-label">Category:
-                                                        </label>
-                                                        <!-- <input class="form-control" list="datalistOptions"
+                                                        <div class="mb-3">
+                                                            <label for="message-text" class="col-form-label">Category:
+                                                            </label>
+                                                            <!-- <input class="form-control" list="datalistOptions"
                                                             id="category-id" name="categoryid"> -->
-                                                        <select id="category-id" name="categoryid">
-                                                            <% categs.forEach(function(categ) { %>
-                                                                <option value="<%= categ.ID %>">
-                                                                    <%= categ.Name %>
-                                                                </option>
-                                                                <% }); %>
-                                                        </select>
-                                                        <!-- <input type="text" class="form-control" id="category-id"
+                                                            <select id="category-id" name="categoryid">
+                                                                <% categs.forEach(function(categ) { %>
+                                                                    <option value="<%= categ.ID %>">
+                                                                        <%= categ.Name %>
+                                                                    </option>
+                                                                    <% }); %>
+                                                            </select>
+                                                            <!-- <input type="text" class="form-control" id="category-id"
                                                             name="categoryid"> -->
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="message-text" class="col-form-label">Name:</label>
-                                                        <input class="form-control" id="item-name" name="itemname">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="message-text"
-                                                            class="col-form-label">Quantity:</label>
-                                                        <input class="form-control" id="item-quantity"
-                                                            name="itemquantity">
-                                                    </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="message-text"
+                                                                class="col-form-label">Name:</label>
+                                                            <input class="form-control" id="item-name" name="itemname">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="message-text"
+                                                                class="col-form-label">Quantity:</label>
+                                                            <input class="form-control" id="item-quantity"
+                                                                name="itemquantity">
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <input type="submit" class="btn btn-primary">
+                                                </div>
+                                                </form>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <input type="submit" class="btn btn-primary">
-                                            </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <% } %>
+                                    <div class="col-auto">
+                                        <a id="dwnld-btn" class="btn app-btn-secondary" href="#">
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABFElEQVRIid3Vq07EUBDG8d9yCeEN1iM2IbwIIBHreQkkJUEgMCRoNIJn2ASBR2DAcfEgwHBbREvo7p52p10wTNI0zcw3/+mZOefwH20D9xhOebK2gEjymSDf4kjMEAd/DWgMaQNoBGkLSEI6FeIq33hMykZ0C3VlRpPUQeeCCY+KBGtYxC3OWpUm3YMuXnCMbbxjNaALA+AQT7jESQNdOLCLj8LXi+qiPSA/o17xjM2EvyPR/OiYLuMaA7xhCyt4bFDgCGD8VzN8yqeoJ1+q/YAuvA9u0MdV8d3HUlA7YeFpiOiaNLmVpQAPxbvqQDv1s7SZycqnXkbruKsB1EFmvk6rbKeUfLfsmP8lwIV835xjr+z4AvIlgCqqAWC1AAAAAElFTkSuQmCC">
 
-                            <div class="col-auto">
-                                <a id="dwnld-btn" class="btn app-btn-secondary" href="#">
-                                    <img
-                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABFElEQVRIid3Vq07EUBDG8d9yCeEN1iM2IbwIIBHreQkkJUEgMCRoNIJn2ASBR2DAcfEgwHBbREvo7p52p10wTNI0zcw3/+mZOefwH20D9xhOebK2gEjymSDf4kjMEAd/DWgMaQNoBGkLSEI6FeIq33hMykZ0C3VlRpPUQeeCCY+KBGtYxC3OWpUm3YMuXnCMbbxjNaALA+AQT7jESQNdOLCLj8LXi+qiPSA/o17xjM2EvyPR/OiYLuMaA7xhCyt4bFDgCGD8VzN8yqeoJ1+q/YAuvA9u0MdV8d3HUlA7YeFpiOiaNLmVpQAPxbvqQDv1s7SZycqnXkbruKsB1EFmvk6rbKeUfLfsmP8lwIV835xjr+z4AvIlgCqqAWC1AAAAAElFTkSuQmCC">
-
-                                </a>
-                            </div>
-                            <div class="col-auto">
-                                <a id="print-btn" class="btn app-btn-secondary" href="#">
-                                    <img
-                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMtJREFUSEvVlWENwjAQhb8pQALgABzgAAs4wAI4QMKk4GCTAA5wALmES8pl69orJWM/m977+q59t4bKX1NZnxjgmQkf1JoFYKqN6tTt4L8AF2APrDIvWLffgBY460JoX8SPTmFbJoCTLIaAB7AAtkDvBG2ADhAnawuIvoYBoM2JHvZDJ3QwO8BYF7/moBjgnUXJDn4GyB0Vow40B7a3qYCw7q7TICzevWO+NIRcgIgfgKsNmj15ai6Kx3Xq1HD/D6oBUoWj+6YusBjyAkqyMBlM3PP1AAAAAElFTkSuQmCC" />
-                                </a>
-                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a id="print-btn" class="btn app-btn-secondary" href="#">
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMtJREFUSEvVlWENwjAQhb8pQALgABzgAAs4wAI4QMKk4GCTAA5wALmES8pl69orJWM/m977+q59t4bKX1NZnxjgmQkf1JoFYKqN6tTt4L8AF2APrDIvWLffgBY460JoX8SPTmFbJoCTLIaAB7AAtkDvBG2ADhAnawuIvoYBoM2JHvZDJ3QwO8BYF7/moBjgnUXJDn4GyB0Vow40B7a3qYCw7q7TICzevWO+NIRcgIgfgKsNmj15ai6Kx3Xq1HD/D6oBUoWj+6YusBjyAkqyMBlM3PP1AAAAAElFTkSuQmCC" />
+                                        </a>
+                                    </div>
                         </div>
                         <!--//row-->
                     </div>

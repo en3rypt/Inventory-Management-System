@@ -32,65 +32,68 @@
 
                                 </select>
                             </div> -->
-                            <div class="col-auto">
-                                <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#newEntryModal">New Outvoucher</button>
-                                <div class="modal fade" id="newEntryModal" tabindex="-1"
-                                    aria-labelledby="newEntryModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="newEntryModalLabel">Enter data for
-                                                    new Out-voucher</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="/outvouchers" method="POST">
-                                                    <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Outvoucher
-                                                            ID:</label>
-                                                        <input type="text" class="form-control" id="req-receiverid"
-                                                            name="reqid">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Receiver
-                                                            ID:</label>
-                                                        <input type="text" class="form-control" id="req-receiverid"
-                                                            name="reqreceiverid">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="message-text" class="col-form-label">Add
-                                                            items:</label><br>
-                                                        <ul class="added-items-ul">
+                            <% if(auth==3){ %>
+                                <div class="col-auto">
+                                    <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#newEntryModal">New Outvoucher</button>
+                                    <div class="modal fade" id="newEntryModal" tabindex="-1"
+                                        aria-labelledby="newEntryModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="newEntryModalLabel">Enter data for
+                                                        new Out-voucher</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/outvouchers" method="POST">
+                                                        <div class="mb-3">
+                                                            <label for="recipient-name"
+                                                                class="col-form-label">Outvoucher
+                                                                ID:</label>
+                                                            <input type="text" class="form-control" id="req-receiverid"
+                                                                name="reqid">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="recipient-name" class="col-form-label">Receiver
+                                                                ID:</label>
+                                                            <input type="text" class="form-control" id="req-receiverid"
+                                                                name="reqreceiverid">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="message-text" class="col-form-label">Add
+                                                                items:</label><br>
+                                                            <ul class="added-items-ul">
 
-                                                        </ul>
-                                                        <select id="item-name-drop">
-                                                            <% itemRows.forEach(function(item) { %>
-                                                                <option value="<%= item.ID %>">
-                                                                    <%= item.Name %>
-                                                                </option>
-                                                                <% }) %>
-                                                        </select>
-                                                        <input class="form-control w-75 d-inline" id="item-quantity">
-                                                        <button type="button" id="req-item-add"
-                                                            class="btn app-btn-secondary">Add</button>
-                                                        <input type="text" id="added-JSON" name="addedJSON"
-                                                            class="d-none">
-                                                    </div>
+                                                            </ul>
+                                                            <select id="item-name-drop">
+                                                                <% itemRows.forEach(function(item) { %>
+                                                                    <option value="<%= item.ID %>">
+                                                                        <%= item.Name %>
+                                                                    </option>
+                                                                    <% }) %>
+                                                            </select>
+                                                            <input class="form-control w-75 d-inline"
+                                                                id="item-quantity">
+                                                            <button type="button" id="req-item-add"
+                                                                class="btn app-btn-secondary">Add</button>
+                                                            <input type="text" id="added-JSON" name="addedJSON"
+                                                                class="d-none">
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <input type="submit" class="btn btn-primary">
+                                                </div>
+                                                </form>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <input type="submit" class="btn btn-primary">
-                                            </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- <div class="col-auto">
+                                <% } %>
+                                    <!-- <div class="col-auto">
                                 <a class="btn app-btn-secondary" href="#">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">

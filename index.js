@@ -40,7 +40,7 @@ app.use('/items', requireAuth, items);
 app.use('/invouchers', requireAuth, invouchers);
 app.use('/outvouchers', requireAuth, outvouchers);
 app.use('/categories', requireAuth, categories);
-app.get('/', requireAuth, authRole(1), (req, res) => {
+app.get('/', requireAuth, (req, res) => {
     res.render('pages/index', { option: 'dashboard' });
 })
 

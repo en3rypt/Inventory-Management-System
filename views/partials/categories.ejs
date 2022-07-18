@@ -33,55 +33,59 @@
 
                                 </select>
                             </div>
-                            <div class="col-auto">
-                                <!-- <a class="btn app-btn-secondary" href="#">
+                            <% if(auth==3){ %>
+                                <div class="col-auto">
+                                    <!-- <a class="btn app-btn-secondary" href="#">
                                 <i class="fa-solid fa-plus"></i>
                                 New Entry
                             </a> -->
-                                <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#newEntryModal">New category</button>
-                                <div class="modal fade" id="newEntryModal" tabindex="-1"
-                                    aria-labelledby="newEntryModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="newEntryModalLabel">Enter
-                                                    new Category</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="/categories" method="POST">
+                                    <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#newEntryModal">New category</button>
+                                    <div class="modal fade" id="newEntryModal" tabindex="-1"
+                                        aria-labelledby="newEntryModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="newEntryModalLabel">Enter
+                                                        new Category</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/categories" method="POST">
 
-                                                    <div class="mb-3">
-                                                        <label for="categ-name" class="col-form-label">Category:</label>
-                                                        <input class="form-control" id="categ-name" name="categname">
-                                                    </div>
+                                                        <div class="mb-3">
+                                                            <label for="categ-name"
+                                                                class="col-form-label">Category:</label>
+                                                            <input class="form-control" id="categ-name"
+                                                                name="categname">
+                                                        </div>
 
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <input type="submit" class="btn btn-primary">
+                                                </div>
+                                                </form>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <input type="submit" class="btn btn-primary">
-                                            </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-auto">
-                                <a class="btn app-btn-secondary" href="#">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
-                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                                        <path fill-rule="evenodd"
-                                            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                                    </svg>
-                                    Download CSV
-                                </a>
-                            </div>
+                                <% } %>
+                                    <div class="col-auto">
+                                        <a class="btn app-btn-secondary" href="#">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                class="bi bi-download me-1" fill="currentColor"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                            </svg>
+                                            Download CSV
+                                        </a>
+                                    </div>
                         </div>
                         <!--//row-->
                     </div>

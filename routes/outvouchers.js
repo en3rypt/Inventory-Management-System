@@ -1,10 +1,10 @@
 const express = require('express');
-const requests = express.Router();
+const outvouchers = express.Router();
 const db = require('../dbConnection');
 
 
-requests.get('/', (req, res) => {
-    db.query(`SELECT * FROM requests`, (err, result) => {
+outvouchers.get('/', (req, res) => {
+    db.query(`SELECT * FROM outvouchers`, (err, result) => {
         if (err) {
             throw err;
         }
@@ -12,18 +12,18 @@ requests.get('/', (req, res) => {
             if (err) {
                 throw err;
             }
-            db.query(`SELECT * FROM requests INNER JOIN requesteditems ON requests.ID = requesteditems.ReqID INNER JOIN items ON requesteditems.ReqItemID = items.ID;`, (err, reqItemResult) => {
+            db.query(`SELECT * FROM outvouchers INNER JOIN requesteditems ON outvouchers.ID = requesteditems.ReqID INNER JOIN items ON requesteditems.ReqItemID = items.ID;`, (err, reqItemResult) => {
                 if (err) {
                     throw err;
                 }
-                let reqItemlist = {};
+                let ovItemlist = {};
                 reqItemResult.forEach(row => {
-                    if (!reqItemlist[row.ReqID])
-                        reqItemlist[row.ReqID] = {};
-                    reqItemlist[row.ReqID][row.Name] = row.ReqItemQty;
+                    if (!ovItemlist[row.ReqID])
+                        ovItemlist[row.ReqID] = {};
+                    ovItemlist[row.ReqID][row.Name] = row.ReqItemQty;
                 });
                 console.log(itemRowResult);
-                res.render('pages/index', { option: "requests", requestsData: result, itemRows: itemRowResult, reqItemlist: reqItemlist });
+                res.render('pages/index', { option: "outvouchers", outvouchersData: result, itemRows: itemRowResult, ovItemlist: ovItemlist });
             });
         });
     });
@@ -31,10 +31,10 @@ requests.get('/', (req, res) => {
 
 
 
-requests.post('/', (req, res) => {
+outvouchers.post('/', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
     db.query(
-        `INSERT INTO requests (ID, StationID) VALUES (${req.body.reqid},${req.body.reqstationid})`,
+        `INSERT INTO outvouchers (ID, StationID) VALUES (${req.body.reqid},${req.body.reqstationid})`,
         (err, result) => {
             if (err) {
                 throw err;
@@ -51,10 +51,10 @@ requests.post('/', (req, res) => {
                     })
                 })
             }
-            res.redirect('/requests');
+            res.redirect('/outvouchers');
         }
     );
 })
 
 
-module.exports = requests;
+module.exports = outvouchers;

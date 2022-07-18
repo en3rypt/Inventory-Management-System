@@ -6,7 +6,8 @@ const path = require('path');
 const login = require('./routes/login');
 const signup = require('./routes/signup');
 const items = require('./routes/items');
-const requests = require('./routes/requests');
+const outvouchers = require('./routes/outvouchers');
+const invouchers = require('./routes/invouchers');
 const categories = require('./routes/categories');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
@@ -36,7 +37,8 @@ app.get('*', checkUser);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/items', requireAuth, items);
-app.use('/requests', requireAuth, requests);
+app.use('/invouchers', requireAuth, invouchers);
+app.use('/outvouchers', requireAuth, outvouchers);
 app.use('/categories', requireAuth, categories);
 app.get('/', requireAuth, authRole(1), (req, res) => {
     res.render('pages/index', { option: 'dashboard' });

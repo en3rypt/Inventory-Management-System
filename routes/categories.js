@@ -5,7 +5,7 @@ const db = require('../dbConnection');
 categories.get('/', (req, res) => {
 
     db.query(`SELECT * FROM categories`, (err, result) => {
-        console.log(result);
+        // console.log(result);
         if (err) {
             throw err;
         }

@@ -5,7 +5,7 @@
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Out-vouchers</h1>
+                    <h1 class="app-page-title mb-0">In-vouchers</h1>
                 </div>
                 <div class="col-auto">
                     <div class="page-utilities">
@@ -22,6 +22,7 @@
                                 </form>
 
                             </div>
+                            
                             <div class="col-auto">
 
                                 <select class="form-select w-auto">
@@ -34,30 +35,30 @@
                             </div> -->
                             <div class="col-auto">
                                 <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#newEntryModal">New Outvoucher</button>
+                                    data-bs-target="#newEntryModal">New Invoucher</button>
                                 <div class="modal fade" id="newEntryModal" tabindex="-1"
                                     aria-labelledby="newEntryModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-xl modal-dialog-scrollable">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="newEntryModalLabel">Enter data for
-                                                    new Out-voucher</h5>
+                                                    new In-voucher</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/outvouchers" method="POST">
+                                                <form action="/invouchers" method="POST">
                                                     <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Outvoucher
+                                                        <label for="recipient-name" class="col-form-label">Invoucher
                                                             ID:</label>
-                                                        <input type="text" class="form-control" id="req-receiverid"
+                                                        <input type="text" class="form-control" id="req-supplierid"
                                                             name="reqid">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Receiver
+                                                        <label for="recipient-name" class="col-form-label">Supplier
                                                             ID:</label>
-                                                        <input type="text" class="form-control" id="req-receiverid"
-                                                            name="reqreceiverid">
+                                                        <input type="text" class="form-control" id="req-supplierid"
+                                                            name="reqsupplierid">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="message-text" class="col-form-label">Add
@@ -135,19 +136,19 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
-                                            <th class="cell">Receiver ID</th>
+                                            <th class="cell">Supplier ID</th>
                                             <th class="cell">Items</th>
                                             <th class="cell">Approval</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% outvouchersData.forEach(function(request) { %>
+                                        <% invouchersData.forEach(function(request) { %>
                                             <tr>
                                                 <td class="cell">
                                                     <%= request.ID %>
                                                 </td>
                                                 <td class="cell">
-                                                    <%= request.ReceiverID %>
+                                                    <%= request.SupplierID %>
                                                 </td>
                                                 <td class="cell">
 
@@ -178,10 +179,10 @@
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                                <% Object.keys(ovItemlist).forEach(function(rID)
+                                                                                <% Object.keys(ivItemlist).forEach(function(rID)
                                                                                     { %>
                                                                                     <% if (rID==request.ID) { %>
-                                                                                        <% Object.keys(ovItemlist[rID]).forEach(function(item)
+                                                                                        <% Object.keys(ivItemlist[rID]).forEach(function(item)
                                                                                             { %>
                                                                                             <tr>
 
@@ -189,7 +190,7 @@
                                                                                                     <%= item %>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <%= ovItemlist[rID][item]
+                                                                                                    <%= ivItemlist[rID][item]
                                                                                                         %>
                                                                                                 </td>
                                                                                             </tr>
@@ -252,27 +253,30 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
-                                            <th class="cell">Receiver ID</th>
+                                            <th class="cell">Supplier ID</th>
                                             <th class="cell">Items</th>
                                             <th class="cell">Approval</th>
+                                            <!-- <th class="cell">ApprovedBy</th> -->
+                                            <!-- <th class="cell"></th> -->
+                                            <!-- <th class="cell"></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% outvouchersData.forEach(function(request) { %>
+                                        <% invouchersData.forEach(function(request) { %>
                                             <% if (request.Approval==1) { %>
                                                 <tr>
                                                     <td class="cell">
                                                         <%= request.ID %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= request.ReceiverID %>
+                                                        <%= request.SupplierID %>
                                                     </td>
                                                     <td class="cell">
-                                                        <% Object.keys(ovItemlist).forEach(function(rID) { %>
+                                                        <% Object.keys(ivItemlist).forEach(function(rID) { %>
                                                             <% if (rID==request.ID) { %>
-                                                                <% Object.keys(ovItemlist[rID]).forEach(function(item) {
+                                                                <% Object.keys(ivItemlist[rID]).forEach(function(item) {
                                                                     %>
-                                                                    <%= item %> x<%= ovItemlist[rID][item] %><br>
+                                                                    <%= item %> x<%= ivItemlist[rID][item] %><br>
                                                                             <% }) %>
                                                                                 <% } %>
                                                                                     <% }) %>
@@ -309,27 +313,27 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
-                                            <th class="cell">Receiver ID</th>
+                                            <th class="cell">Supplier ID</th>
                                             <th class="cell">Items</th>
                                             <th class="cell">Approval</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% outvouchersData.forEach(function(request) { %>
+                                        <% invouchersData.forEach(function(request) { %>
                                             <% if (request.Approval==0) { %>
                                                 <tr>
                                                     <td class="cell">
                                                         <%= request.ID %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= request.ReceiverID %>
+                                                        <%= request.SupplierID %>
                                                     </td>
                                                     <td class="cell">
-                                                        <% Object.keys(ovItemlist).forEach(function(rID) { %>
+                                                        <% Object.keys(ivItemlist).forEach(function(rID) { %>
                                                             <% if (rID==request.ID) { %>
-                                                                <% Object.keys(ovItemlist[rID]).forEach(function(item) {
+                                                                <% Object.keys(ivItemlist[rID]).forEach(function(item) {
                                                                     %>
-                                                                    <%= item %> x<%= ovItemlist[rID][item] %><br>
+                                                                    <%= item %> x<%= ivItemlist[rID][item] %><br>
                                                                             <% }) %>
                                                                                 <% } %>
                                                                                     <% }) %>
@@ -346,6 +350,7 @@
                                                 </tr>
                                                 <% } %>
                                                     <% }); %>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -365,27 +370,27 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
-                                            <th class="cell">Receiver ID</th>
+                                            <th class="cell">SupplierID</th>
                                             <th class="cell">Items</th>
                                             <th class="cell">Approval</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% outvouchersData.forEach(function(request) { %>
+                                        <% invouchersData.forEach(function(request) { %>
                                             <% if (request.Approval==2) { %>
                                                 <tr>
                                                     <td class="cell">
                                                         <%= request.ID %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= request.ReceiverID %>
+                                                        <%= request.SupplierID %>
                                                     </td>
                                                     <td class="cell">
-                                                        <% Object.keys(ovItemlist).forEach(function(rID) { %>
+                                                        <% Object.keys(ivItemlist).forEach(function(rID) { %>
                                                             <% if (rID==request.ID) { %>
-                                                                <% Object.keys(ovItemlist[rID]).forEach(function(item) {
+                                                                <% Object.keys(ivItemlist[rID]).forEach(function(item) {
                                                                     %>
-                                                                    <%= item %> x<%= ovItemlist[rID][item] %><br>
+                                                                    <%= item %> x<%= ivItemlist[rID][item] %><br>
                                                                             <% }) %>
                                                                                 <% } %>
                                                                                     <% }) %>
@@ -403,6 +408,7 @@
                                                 <% } %>
                                                     <% }); %>
                                     </tbody>
+
                                 </table>
                             </div>
                             <!--//table-responsive-->

@@ -59,14 +59,14 @@
                                                             name="itemid">
                                                     </div> -->
                                                     <div class="mb-3">
-                                                        <label for="message-text" class="col-form-label">Category
-                                                            ID:</label>
+                                                        <label for="message-text" class="col-form-label">Category:
+                                                        </label>
                                                         <!-- <input class="form-control" list="datalistOptions"
                                                             id="category-id" name="categoryid"> -->
                                                         <select id="category-id" name="categoryid">
                                                             <% categs.forEach(function(categ) { %>
-                                                                <option value="<%= categ %>">
-                                                                    <%= categ %>
+                                                                <option value="<%= categ.ID %>">
+                                                                    <%= categ.Name %>
                                                                 </option>
                                                                 <% }); %>
                                                         </select>

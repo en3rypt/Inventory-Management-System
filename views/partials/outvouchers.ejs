@@ -213,7 +213,19 @@
 
                                                                             </tbody>
                                                                         </table>
-
+                                                                        <form
+                                                                            action="/outvouchers/action/<%=request.ID%>"
+                                                                            method="post" name="ratings">
+                                                                            <!-- <input type="hidden" name="Id"
+                                                                                value=""> -->
+                                                                            <input type="submit" name="action_type"
+                                                                                value="Accept"
+                                                                                class="btn btn-success text-white"></input>
+                                                                            <input type="submit" name="action_type"
+                                                                                value="Decline"
+                                                                                class="btn btn-danger text-white"
+                                                                                data-bs-dismiss="modal"></input>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -139,8 +139,8 @@
                                         <tr>
                                             <th class="cell">ID</th>
                                             <th class="cell">Receiver ID</th>
-                                            <th class="cell">Items</th>
                                             <th class="cell">Approval</th>
+                                            <th class="cell"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -151,6 +151,16 @@
                                                 </td>
                                                 <td class="cell">
                                                     <%= request.ReceiverID %>
+                                                </td>
+
+                                                <td class="cell">
+                                                    <% if (request.Approval==0 ) { %>
+                                                        <span class="badge badge bg-warning">Pending</span>
+                                                        <% } else if (request.Approval==1 ) { %>
+                                                            <span class="badge badge bg-success">Approved</span>
+                                                            <% } else if (request.Approval==2 ) { %>
+                                                                <span class="badge badge bg-danger">Declined</span>
+                                                                <% } %>
                                                 </td>
                                                 <td class="cell">
 
@@ -203,20 +213,12 @@
 
                                                                             </tbody>
                                                                         </table>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td class="cell">
-                                                    <% if (request.Approval==0 ) { %>
-                                                        <span class="badge badge bg-warning">Pending</span>
-                                                        <% } else if (request.Approval==1 ) { %>
-                                                            <span class="badge badge bg-success">Approved</span>
-                                                            <% } else if (request.Approval==2 ) { %>
-                                                                <span class="badge badge bg-danger">Declined</span>
-                                                                <% } %>
                                                 </td>
                                             </tr>
                                             <% }); %>
@@ -256,8 +258,8 @@
                                         <tr>
                                             <th class="cell">ID</th>
                                             <th class="cell">Receiver ID</th>
-                                            <th class="cell">Items</th>
                                             <th class="cell">Approval</th>
+                                            <th class="cell"></th>
                                         </tr>
                                     </thead>
                                     <tbody>

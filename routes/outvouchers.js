@@ -16,14 +16,28 @@ outvouchers.get('/', (req, res) => {
                 if (err) {
                     throw err;
                 }
-                let ovItemlist = {};
-                vItemResult.forEach(row => {
-                    if (!ovItemlist[row.vID])
-                        ovItemlist[row.vID] = {};
-                    ovItemlist[row.vID][row.Name] = row.vItemQty;
-                });
-                // console.log(itemRowResult);
-                res.render('pages/index', { option: "outvouchers", outvouchersData: result, itemRows: itemRowResult, ovItemlist: ovItemlist, error: null });
+                db.query(`select voucheritems.vID,items.Name,voucheritems.vItemQty,items.Quantity - voucheritems.vItemQty as balance from voucheritems inner JOIN items where voucheritems.vItemID = items.ID`, (err, vBalanceResult) => {
+                    if (err) {
+                        throw err;
+                    }
+                    let lessBalanceList = [];
+                    // console.log(vBalanceResult);
+                    vBalanceResult.forEach(vBalance => {
+                        if (vBalance.balance < 0) {
+                            lessBalanceList.push(vBalance);
+                        }
+                    });
+                    let ovItemlist = {};
+                    vItemResult.forEach(row => {
+                        if (!ovItemlist[row.vID])
+                            ovItemlist[row.vID] = {};
+                        ovItemlist[row.vID][row.Name] = row.vItemQty;
+                    });
+                    // console.log(lessBalanceList);
+                    // console.log(ovItemlist);
+                    // console.log(itemRowResult);
+                    res.render('pages/index', { option: "outvouchers", outvouchersData: result, itemRows: itemRowResult, ovItemlist: ovItemlist, lessBalanceList: lessBalanceList, error: null });
+                })
             });
         });
     });
@@ -40,6 +54,7 @@ outvouchers.post('/action/:Id', (req, res) => {
             console.log(vItemResult);
             let result = vItemResult.map(a => a.balance).some(v => v < 0);
             if (result) {
+                // This block will never execute. If it happens, well, we failed.
                 console.log("Not enough quantity");
             } else {
                 //loop result and update the quantity of the item in the inventory

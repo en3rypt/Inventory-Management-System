@@ -18,7 +18,6 @@ const checkUser = (req, res, next) => {
     const token = req.cookies.access_token;
     if (token) {
         jwt.verify(token, 'the-super-strong-secrect', (err, decodedToken) => {
-            console.log(decodedToken)
             if (err) {
                 res.locals.user = null;
                 res.locals.auth = null;

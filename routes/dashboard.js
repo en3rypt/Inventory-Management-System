@@ -19,6 +19,14 @@ dashboard.get('/', async (req, res) => {
                     if (err) {
                         throw err;
                     }
+
+                    //Handling the case where there is no data in the table.
+                    if (!mostExchangedResult.length) {
+                        mostExchangedResult.push({ Name: "NIL" });
+                    }
+                    if (!mostDemandResult.length) {
+                        mostDemandResult.push({ Name: "NIL" });
+                    }
                     res.render('pages/index', { option: 'dashboard', iPendCount: iResult[0].iPendCount, oPendCount: oResult[0].oPendCount, mostExchanged: mostExchangedResult[0], mostDemand: mostDemandResult[0] });
                 })
             })

@@ -9,6 +9,7 @@ const items = require('./routes/items');
 const outvouchers = require('./routes/outvouchers');
 const invouchers = require('./routes/invouchers');
 const categories = require('./routes/categories');
+const dashboard = require('./routes/dashboard');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
@@ -40,9 +41,7 @@ app.use('/items', requireAuth, items);
 app.use('/invouchers', requireAuth, invouchers);
 app.use('/outvouchers', requireAuth, outvouchers);
 app.use('/categories', requireAuth, categories);
-app.get('/', requireAuth, (req, res) => {
-    res.render('pages/index', { option: 'dashboard' });
-})
+app.use('/', requireAuth, dashboard);
 
 app.get('/Categories', (req, res) => {
     res.render('pages/Categories', { option: 'dashboard' });

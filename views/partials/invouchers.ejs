@@ -138,9 +138,9 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
-                                            <th class="cell">Supplier ID</th>
-                                            <th class="cell">Items</th>
+                                            <th class="cell">Receiver ID</th>
                                             <th class="cell">Approval</th>
+                                            <th class="cell"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -150,7 +150,17 @@
                                                     <%= request.ID %>
                                                 </td>
                                                 <td class="cell">
-                                                    <%= request.SupplierID %>
+                                                    <%= request.ReceiverID %>
+                                                </td>
+
+                                                <td class="cell">
+                                                    <% if (request.Approval==0 ) { %>
+                                                        <span class="badge badge bg-warning">Pending</span>
+                                                        <% } else if (request.Approval==1 ) { %>
+                                                            <span class="badge badge bg-success">Approved</span>
+                                                            <% } else if (request.Approval==2 ) { %>
+                                                                <span class="badge badge bg-danger">Declined</span>
+                                                                <% } %>
                                                 </td>
                                                 <td class="cell">
 
@@ -187,7 +197,6 @@
                                                                                         <% Object.keys(ivItemlist[rID]).forEach(function(item)
                                                                                             { %>
                                                                                             <tr>
-
                                                                                                 <td>
                                                                                                     <%= item %>
                                                                                                 </td>
@@ -199,24 +208,36 @@
                                                                                             <% }) %>
                                                                                                 <% } %>
                                                                                                     <% }) %>
-
-
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
+                                                                    <% if(auth==3){ %>
+                                                                        <div class="modal-footer">
+
+                                                                            <% if (request.Approval !=1 &&
+                                                                                request.Approval !=2) { %>
+                                                                                <form
+                                                                                    action="/invouchers/action/<%=request.ID%>"
+                                                                                    method="post" name="ratings">
+                                                                                    <!-- <input type="hidden" name="Id"
+                                                                                value=""> -->
+                                                                                    <button type="submit"
+                                                                                        name="action_type"
+                                                                                        value="Accept"
+                                                                                        class="btn btn-success text-white">Approve</button>
+                                                                                    <button type="submit"
+                                                                                        name="action_type"
+                                                                                        value="Decline"
+                                                                                        class="btn btn-danger text-white"
+                                                                                        data-bs-dismiss="modal">Decline</button>
+                                                                                </form>
+                                                                                <% } %>
+                                                                        </div>
+                                                                        <% } %>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td class="cell">
-                                                    <% if (request.Approval==0 ) { %>
-                                                        <span class="badge badge bg-warning">Pending</span>
-                                                        <% } else if (request.Approval==1 ) { %>
-                                                            <span class="badge badge bg-success">Approved</span>
-                                                            <% } else if (request.Approval==2 ) { %>
-                                                                <span class="badge badge bg-danger">Declined</span>
-                                                                <% } %>
                                                 </td>
                                             </tr>
                                             <% }); %>
@@ -255,34 +276,22 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
-                                            <th class="cell">Supplier ID</th>
-                                            <th class="cell">Items</th>
+                                            <th class="cell">Receiver ID</th>
                                             <th class="cell">Approval</th>
-                                            <!-- <th class="cell">ApprovedBy</th> -->
-                                            <!-- <th class="cell"></th> -->
-                                            <!-- <th class="cell"></th> -->
+                                            <th class="cell"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% invouchersData.forEach(function(request) { %>
-                                            <% if (request.Approval==1) { %>
+                                            <% if(request.Approval==1) { %>
                                                 <tr>
                                                     <td class="cell">
                                                         <%= request.ID %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= request.SupplierID %>
+                                                        <%= request.ReceiverID %>
                                                     </td>
-                                                    <td class="cell">
-                                                        <% Object.keys(ivItemlist).forEach(function(rID) { %>
-                                                            <% if (rID==request.ID) { %>
-                                                                <% Object.keys(ivItemlist[rID]).forEach(function(item) {
-                                                                    %>
-                                                                    <%= item %> x<%= ivItemlist[rID][item] %><br>
-                                                                            <% }) %>
-                                                                                <% } %>
-                                                                                    <% }) %>
-                                                    </td>
+
                                                     <td class="cell">
                                                         <% if (request.Approval==0 ) { %>
                                                             <span class="badge badge bg-warning">Pending</span>
@@ -291,6 +300,88 @@
                                                                 <% } else if (request.Approval==2 ) { %>
                                                                     <span class="badge badge bg-danger">Declined</span>
                                                                     <% } %>
+                                                    </td>
+                                                    <td class="cell">
+
+                                                        <div class="col-auto">
+                                                            <button type="button" class="btn app-btn-secondary"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#v<%=request.ID%>ap">View</button>
+                                                            <div class="modal fade" id="v<%=request.ID%>ap"
+                                                                tabindex="-1" aria-labelledby="v<%=request.ID%>Labelap"
+                                                                aria-hidden="true">
+                                                                <div
+                                                                    class="modal-dialog modal-xl modal-dialog-scrollable">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="viewRequewstLabel">
+                                                                                Requested Items List
+                                                                            </h5>
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <table class="table  table-hover">
+                                                                                <thead>
+                                                                                    <tr>
+
+                                                                                        <th scope="col">Item</th>
+                                                                                        <th scope="col">Quantity</th>
+
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <% Object.keys(ivItemlist).forEach(function(rID)
+                                                                                        { %>
+                                                                                        <% if (rID==request.ID) { %>
+                                                                                            <% Object.keys(ivItemlist[rID]).forEach(function(item)
+                                                                                                { %>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <%= item %>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <%= ivItemlist[rID][item]
+                                                                                                            %>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <% }) %>
+                                                                                                    <% } %>
+                                                                                                        <% }) %>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        <% if(auth==3){ %>
+                                                                            <div class="modal-footer">
+
+                                                                                <% if (request.Approval !=1 &&
+                                                                                    request.Approval !=2) { %>
+                                                                                    <form
+                                                                                        action="/invouchers/action/<%=request.ID%>"
+                                                                                        method="post" name="ratings">
+                                                                                        <!-- <input type="hidden" name="Id"
+                                                                                    value=""> -->
+
+                                                                                        <button type="submit"
+                                                                                            name="action_type"
+                                                                                            value="Accept"
+                                                                                            class="btn btn-success text-white">Approve</button>
+
+                                                                                        <button type="submit"
+                                                                                            name="action_type"
+                                                                                            value="Decline"
+                                                                                            class="btn btn-danger text-white"
+                                                                                            data-bs-dismiss="modal">Decline</button>
+                                                                                    </form>
+                                                                                    <% } %>
+                                                                            </div>
+                                                                            <% } %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 <% } %>
@@ -315,31 +406,22 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
-                                            <th class="cell">Supplier ID</th>
-                                            <th class="cell">Items</th>
+                                            <th class="cell">Receiver ID</th>
                                             <th class="cell">Approval</th>
+                                            <th class="cell"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% invouchersData.forEach(function(request) { %>
-                                            <% if (request.Approval==0) { %>
+                                            <% if(request.Approval==0) { %>
                                                 <tr>
                                                     <td class="cell">
                                                         <%= request.ID %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= request.SupplierID %>
+                                                        <%= request.ReceiverID %>
                                                     </td>
-                                                    <td class="cell">
-                                                        <% Object.keys(ivItemlist).forEach(function(rID) { %>
-                                                            <% if (rID==request.ID) { %>
-                                                                <% Object.keys(ivItemlist[rID]).forEach(function(item) {
-                                                                    %>
-                                                                    <%= item %> x<%= ivItemlist[rID][item] %><br>
-                                                                            <% }) %>
-                                                                                <% } %>
-                                                                                    <% }) %>
-                                                    </td>
+
                                                     <td class="cell">
                                                         <% if (request.Approval==0 ) { %>
                                                             <span class="badge badge bg-warning">Pending</span>
@@ -349,10 +431,91 @@
                                                                     <span class="badge badge bg-danger">Declined</span>
                                                                     <% } %>
                                                     </td>
+                                                    <td class="cell">
+
+                                                        <div class="col-auto">
+                                                            <button type="button" class="btn app-btn-secondary"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#v<%=request.ID%>p">View</button>
+                                                            <div class="modal fade" id="v<%=request.ID%>p" tabindex="-1"
+                                                                aria-labelledby="v<%=request.ID%>Labelp"
+                                                                aria-hidden="true">
+                                                                <div
+                                                                    class="modal-dialog modal-xl modal-dialog-scrollable">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="viewRequewstLabel">
+                                                                                Requested Items List
+                                                                            </h5>
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <table class="table  table-hover">
+                                                                                <thead>
+                                                                                    <tr>
+
+                                                                                        <th scope="col">Item</th>
+                                                                                        <th scope="col">Quantity</th>
+
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <% Object.keys(ivItemlist).forEach(function(rID)
+                                                                                        { %>
+                                                                                        <% if (rID==request.ID) { %>
+                                                                                            <% Object.keys(ivItemlist[rID]).forEach(function(item)
+                                                                                                { %>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <%= item %>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <%= ivItemlist[rID][item]
+                                                                                                            %>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <% }) %>
+                                                                                                    <% } %>
+                                                                                                        <% }) %>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        <% if(auth==3){ %>
+                                                                            <div class="modal-footer">
+
+                                                                                <% if (request.Approval !=1 &&
+                                                                                    request.Approval !=2) { %>
+                                                                                    <form
+                                                                                        action="/invouchers/action/<%=request.ID%>"
+                                                                                        method="post" name="ratings">
+                                                                                        <!-- <input type="hidden" name="Id"
+                                                                                    value=""> -->
+
+                                                                                        <button type="submit"
+                                                                                            name="action_type"
+                                                                                            value="Accept"
+                                                                                            class="btn btn-success text-white">Approve</button>
+
+                                                                                        <button type="submit"
+                                                                                            name="action_type"
+                                                                                            value="Decline"
+                                                                                            class="btn btn-danger text-white"
+                                                                                            data-bs-dismiss="modal">Decline</button>
+                                                                                    </form>
+                                                                                    <% } %>
+                                                                            </div>
+                                                                            <% } %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                                 <% } %>
                                                     <% }); %>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -372,31 +535,23 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
-                                            <th class="cell">SupplierID</th>
-                                            <th class="cell">Items</th>
+                                            <th class="cell">Receiver ID</th>
                                             <th class="cell">Approval</th>
+                                            <th class="cell"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% invouchersData.forEach(function(request) { %>
-                                            <% if (request.Approval==2) { %>
+                                            <% if(request.Approval==2) { %>
+
                                                 <tr>
                                                     <td class="cell">
                                                         <%= request.ID %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= request.SupplierID %>
+                                                        <%= request.ReceiverID %>
                                                     </td>
-                                                    <td class="cell">
-                                                        <% Object.keys(ivItemlist).forEach(function(rID) { %>
-                                                            <% if (rID==request.ID) { %>
-                                                                <% Object.keys(ivItemlist[rID]).forEach(function(item) {
-                                                                    %>
-                                                                    <%= item %> x<%= ivItemlist[rID][item] %><br>
-                                                                            <% }) %>
-                                                                                <% } %>
-                                                                                    <% }) %>
-                                                    </td>
+
                                                     <td class="cell">
                                                         <% if (request.Approval==0 ) { %>
                                                             <span class="badge badge bg-warning">Pending</span>
@@ -406,11 +561,91 @@
                                                                     <span class="badge badge bg-danger">Declined</span>
                                                                     <% } %>
                                                     </td>
+                                                    <td class="cell">
+
+                                                        <div class="col-auto">
+                                                            <button type="button" class="btn app-btn-secondary"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#v<%=request.ID%>d">View</button>
+                                                            <div class="modal fade" id="v<%=request.ID%>d" tabindex="-1"
+                                                                aria-labelledby="v<%=request.ID%>d" aria-hidden="true">
+                                                                <div
+                                                                    class="modal-dialog modal-xl modal-dialog-scrollable">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="viewRequewstLabel">
+                                                                                Requested Items List
+                                                                            </h5>
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <table class="table  table-hover">
+                                                                                <thead>
+                                                                                    <tr>
+
+                                                                                        <th scope="col">Item</th>
+                                                                                        <th scope="col">Quantity</th>
+
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <% Object.keys(ivItemlist).forEach(function(rID)
+                                                                                        { %>
+                                                                                        <% if (rID==request.ID) { %>
+                                                                                            <% Object.keys(ivItemlist[rID]).forEach(function(item)
+                                                                                                { %>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <%= item %>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <%= ivItemlist[rID][item]
+                                                                                                            %>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <% }) %>
+                                                                                                    <% } %>
+                                                                                                        <% }) %>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        <% if(auth==3){ %>
+                                                                            <div class="modal-footer">
+
+                                                                                <% if (request.Approval !=1 &&
+                                                                                    request.Approval !=2) { %>
+                                                                                    <form
+                                                                                        action="/invouchers/action/<%=request.ID%>"
+                                                                                        method="post" name="ratings">
+                                                                                        <!-- <input type="hidden" name="Id"
+                                                                                    value=""> -->
+
+                                                                                        <button type="submit"
+                                                                                            name="action_type"
+                                                                                            value="Accept"
+                                                                                            class="btn btn-success text-white">Approve</button>
+
+                                                                                        <button type="submit"
+                                                                                            name="action_type"
+                                                                                            value="Decline"
+                                                                                            class="btn btn-danger text-white"
+                                                                                            data-bs-dismiss="modal">Decline</button>
+                                                                                    </form>
+                                                                                    <% } %>
+                                                                            </div>
+                                                                            <% } %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                                 <% } %>
                                                     <% }); %>
                                     </tbody>
-
                                 </table>
                             </div>
                             <!--//table-responsive-->

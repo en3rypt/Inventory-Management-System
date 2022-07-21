@@ -238,35 +238,40 @@
                                                                                                                             %>
                                                                             </tbody>
                                                                         </table>
-                                                                        <% if (request.Approval !=1 && request.Approval
-                                                                            !=2) { %>
-                                                                            <form
-                                                                                action="/outvouchers/action/<%=request.ID%>"
-                                                                                method="post" name="ratings">
-                                                                                <!-- <input type="hidden" name="Id"
+                                                                    </div>
+                                                                    <% if(auth==3){ %>
+                                                                        <div class="modal-footer">
+
+                                                                            <% if (request.Approval !=1 &&
+                                                                                request.Approval !=2) { %>
+                                                                                <form
+                                                                                    action="/outvouchers/action/<%=request.ID%>"
+                                                                                    method="post" name="ratings">
+                                                                                    <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
-                                                                                <% if (lessBalanceList.map(el=>
-                                                                                    el.vID).includes(request.ID))
-                                                                                    { %>
-                                                                                    <button type="submit"
-                                                                                        name="action_type"
-                                                                                        value="Accept"
-                                                                                        class="btn btn-success text-white"
-                                                                                        disabled>Approve</button>
-                                                                                    <% } else { %>
+                                                                                    <% if (lessBalanceList.map(el=>
+                                                                                        el.vID).includes(request.ID))
+                                                                                        { %>
                                                                                         <button type="submit"
                                                                                             name="action_type"
                                                                                             value="Accept"
-                                                                                            class="btn btn-success text-white">Approve</button>
-                                                                                        <% } %>
+                                                                                            class="btn btn-success text-white"
+                                                                                            disabled>Approve</button>
+                                                                                        <% } else { %>
                                                                                             <button type="submit"
                                                                                                 name="action_type"
-                                                                                                value="Decline"
-                                                                                                class="btn btn-danger text-white"
-                                                                                                data-bs-dismiss="modal">Decline</button>
-                                                                            </form>
-                                                                            <% } %>
-                                                                    </div>
+                                                                                                value="Accept"
+                                                                                                class="btn btn-success text-white">Approve</button>
+                                                                                            <% } %>
+                                                                                                <button type="submit"
+                                                                                                    name="action_type"
+                                                                                                    value="Decline"
+                                                                                                    class="btn btn-danger text-white"
+                                                                                                    data-bs-dismiss="modal">Decline</button>
+                                                                                </form>
+                                                                                <% } %>
+                                                                        </div>
+                                                                        <% } %>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -339,9 +344,9 @@
                                                         <div class="col-auto">
                                                             <button type="button" class="btn app-btn-secondary"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=request.ID%>">View</button>
-                                                            <div class="modal fade" id="v<%=request.ID%>" tabindex="-1"
-                                                                aria-labelledby="v<%=request.ID%>Label"
+                                                                data-bs-target="#v<%=request.ID%>ap">View</button>
+                                                            <div class="modal fade" id="v<%=request.ID%>ap"
+                                                                tabindex="-1" aria-labelledby="v<%=request.ID%>Labelap"
                                                                 aria-hidden="true">
                                                                 <div
                                                                     class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -419,35 +424,41 @@
                                                                                                                                         %>
                                                                                 </tbody>
                                                                             </table>
-                                                                            <% if (request.Approval !=1 &&
-                                                                                request.Approval !=2) { %>
-                                                                                <form
-                                                                                    action="/outvouchers/action/<%=request.ID%>"
-                                                                                    method="post" name="ratings">
-                                                                                    <!-- <input type="hidden" name="Id"
+                                                                        </div>
+                                                                        <% if(auth==3){ %>
+                                                                            <div class="modal-footer">
+
+                                                                                <% if (request.Approval !=1 &&
+                                                                                    request.Approval !=2) { %>
+                                                                                    <form
+                                                                                        action="/outvouchers/action/<%=request.ID%>"
+                                                                                        method="post" name="ratings">
+                                                                                        <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
-                                                                                    <% if (lessBalanceList.map(el=>
-                                                                                        el.vID).includes(request.ID))
-                                                                                        { %>
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Accept"
-                                                                                            class="btn btn-success text-white"
-                                                                                            disabled>Approve</button>
-                                                                                        <% } else { %>
+                                                                                        <% if (lessBalanceList.map(el=>
+                                                                                            el.vID).includes(request.ID))
+                                                                                            { %>
                                                                                             <button type="submit"
                                                                                                 name="action_type"
                                                                                                 value="Accept"
-                                                                                                class="btn btn-success text-white">Approve</button>
-                                                                                            <% } %>
+                                                                                                class="btn btn-success text-white"
+                                                                                                disabled>Approve</button>
+                                                                                            <% } else { %>
                                                                                                 <button type="submit"
                                                                                                     name="action_type"
-                                                                                                    value="Decline"
-                                                                                                    class="btn btn-danger text-white"
-                                                                                                    data-bs-dismiss="modal">Decline</button>
-                                                                                </form>
-                                                                                <% } %>
-                                                                        </div>
+                                                                                                    value="Accept"
+                                                                                                    class="btn btn-success text-white">Approve</button>
+                                                                                                <% } %>
+                                                                                                    <button
+                                                                                                        type="submit"
+                                                                                                        name="action_type"
+                                                                                                        value="Decline"
+                                                                                                        class="btn btn-danger text-white"
+                                                                                                        data-bs-dismiss="modal">Decline</button>
+                                                                                    </form>
+                                                                                    <% } %>
+                                                                            </div>
+                                                                            <% } %>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -506,9 +517,9 @@
                                                         <div class="col-auto">
                                                             <button type="button" class="btn app-btn-secondary"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=request.ID%>">View</button>
-                                                            <div class="modal fade" id="v<%=request.ID%>" tabindex="-1"
-                                                                aria-labelledby="v<%=request.ID%>Label"
+                                                                data-bs-target="#v<%=request.ID%>p">View</button>
+                                                            <div class="modal fade" id="v<%=request.ID%>p" tabindex="-1"
+                                                                aria-labelledby="v<%=request.ID%>Labelp"
                                                                 aria-hidden="true">
                                                                 <div
                                                                     class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -586,35 +597,41 @@
                                                                                                                                         %>
                                                                                 </tbody>
                                                                             </table>
-                                                                            <% if (request.Approval !=1 &&
-                                                                                request.Approval !=2) { %>
-                                                                                <form
-                                                                                    action="/outvouchers/action/<%=request.ID%>"
-                                                                                    method="post" name="ratings">
-                                                                                    <!-- <input type="hidden" name="Id"
+                                                                        </div>
+                                                                        <% if(auth==3){ %>
+                                                                            <div class="modal-footer">
+
+                                                                                <% if (request.Approval !=1 &&
+                                                                                    request.Approval !=2) { %>
+                                                                                    <form
+                                                                                        action="/outvouchers/action/<%=request.ID%>"
+                                                                                        method="post" name="ratings">
+                                                                                        <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
-                                                                                    <% if (lessBalanceList.map(el=>
-                                                                                        el.vID).includes(request.ID))
-                                                                                        { %>
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Accept"
-                                                                                            class="btn btn-success text-white"
-                                                                                            disabled>Approve</button>
-                                                                                        <% } else { %>
+                                                                                        <% if (lessBalanceList.map(el=>
+                                                                                            el.vID).includes(request.ID))
+                                                                                            { %>
                                                                                             <button type="submit"
                                                                                                 name="action_type"
                                                                                                 value="Accept"
-                                                                                                class="btn btn-success text-white">Approve</button>
-                                                                                            <% } %>
+                                                                                                class="btn btn-success text-white"
+                                                                                                disabled>Approve</button>
+                                                                                            <% } else { %>
                                                                                                 <button type="submit"
                                                                                                     name="action_type"
-                                                                                                    value="Decline"
-                                                                                                    class="btn btn-danger text-white"
-                                                                                                    data-bs-dismiss="modal">Decline</button>
-                                                                                </form>
-                                                                                <% } %>
-                                                                        </div>
+                                                                                                    value="Accept"
+                                                                                                    class="btn btn-success text-white">Approve</button>
+                                                                                                <% } %>
+                                                                                                    <button
+                                                                                                        type="submit"
+                                                                                                        name="action_type"
+                                                                                                        value="Decline"
+                                                                                                        class="btn btn-danger text-white"
+                                                                                                        data-bs-dismiss="modal">Decline</button>
+                                                                                    </form>
+                                                                                    <% } %>
+                                                                            </div>
+                                                                            <% } %>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -673,9 +690,9 @@
                                                         <div class="col-auto">
                                                             <button type="button" class="btn app-btn-secondary"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=request.ID%>">View</button>
-                                                            <div class="modal fade" id="v<%=request.ID%>" tabindex="-1"
-                                                                aria-labelledby="v<%=request.ID%>Label"
+                                                                data-bs-target="#v<%=request.ID%>d">View</button>
+                                                            <div class="modal fade" id="v<%=request.ID%>d" tabindex="-1"
+                                                                aria-labelledby="v<%=request.ID%>Labeld"
                                                                 aria-hidden="true">
                                                                 <div
                                                                     class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -753,35 +770,41 @@
                                                                                                                                         %>
                                                                                 </tbody>
                                                                             </table>
-                                                                            <% if (request.Approval !=1 &&
-                                                                                request.Approval !=2) { %>
-                                                                                <form
-                                                                                    action="/outvouchers/action/<%=request.ID%>"
-                                                                                    method="post" name="ratings">
-                                                                                    <!-- <input type="hidden" name="Id"
+                                                                        </div>
+                                                                        <% if(auth==3){ %>
+                                                                            <div class="modal-footer">
+
+                                                                                <% if (request.Approval !=1 &&
+                                                                                    request.Approval !=2) { %>
+                                                                                    <form
+                                                                                        action="/outvouchers/action/<%=request.ID%>"
+                                                                                        method="post" name="ratings">
+                                                                                        <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
-                                                                                    <% if (lessBalanceList.map(el=>
-                                                                                        el.vID).includes(request.ID))
-                                                                                        { %>
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Accept"
-                                                                                            class="btn btn-success text-white"
-                                                                                            disabled>Approve</button>
-                                                                                        <% } else { %>
+                                                                                        <% if (lessBalanceList.map(el=>
+                                                                                            el.vID).includes(request.ID))
+                                                                                            { %>
                                                                                             <button type="submit"
                                                                                                 name="action_type"
                                                                                                 value="Accept"
-                                                                                                class="btn btn-success text-white">Approve</button>
-                                                                                            <% } %>
+                                                                                                class="btn btn-success text-white"
+                                                                                                disabled>Approve</button>
+                                                                                            <% } else { %>
                                                                                                 <button type="submit"
                                                                                                     name="action_type"
-                                                                                                    value="Decline"
-                                                                                                    class="btn btn-danger text-white"
-                                                                                                    data-bs-dismiss="modal">Decline</button>
-                                                                                </form>
-                                                                                <% } %>
-                                                                        </div>
+                                                                                                    value="Accept"
+                                                                                                    class="btn btn-success text-white">Approve</button>
+                                                                                                <% } %>
+                                                                                                    <button
+                                                                                                        type="submit"
+                                                                                                        name="action_type"
+                                                                                                        value="Decline"
+                                                                                                        class="btn btn-danger text-white"
+                                                                                                        data-bs-dismiss="modal">Decline</button>
+                                                                                    </form>
+                                                                                    <% } %>
+                                                                            </div>
+                                                                            <% } %>
                                                                     </div>
                                                                 </div>
                                                             </div>

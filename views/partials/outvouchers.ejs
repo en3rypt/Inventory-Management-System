@@ -197,50 +197,45 @@
                                                                                         <% Object.keys(ovItemlist[rID]).forEach(function(item)
                                                                                             { %>
                                                                                             <%
-                                                                                                lessBalanceList.forEach(entry=>
+                                                                                                if(lessBalanceList.map(e=>
+                                                                                                e.vID).includes(request.ID))
                                                                                                 { %>
                                                                                                 <% if
-                                                                                                    (entry.vID==request.ID)
+                                                                                                    (lessBalanceList.map(e=>
+                                                                                                    e.Name).includes(item))
                                                                                                     { %>
-                                                                                                    <% if
-                                                                                                        (entry.Name==item)
-                                                                                                        { %>
 
-                                                                                                        <tr
-                                                                                                            style="color:red;">
 
-                                                                                                            <td>
-                                                                                                                <%= item
-                                                                                                                    %>
-                                                                                                            </td>
-                                                                                                            <td>
-                                                                                                                <%= ovItemlist[rID][item]
-                                                                                                                    %>
-                                                                                                            </td>
-                                                                                                        </tr>
-                                                                                                        <% } %>
+                                                                                                    <tr
+                                                                                                        style="color:red;">
 
-                                                                                                            <% } else {
+                                                                                                        <td>
+                                                                                                            <%= item %>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%= ovItemlist[rID][item]
                                                                                                                 %>
-                                                                                                                <tr>
-                                                                                                                    <td>
-                                                                                                                        <%= item
-                                                                                                                            %>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <%= ovItemlist[rID][item]
-                                                                                                                            %>
-                                                                                                                    </td>
-                                                                                                                </tr>
-                                                                                                                <% } %>
-                                                                                                                    <% })
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <% } %>
+                                                                                                        <% } else { %>
+                                                                                                            <tr>
+                                                                                                                <td>
+                                                                                                                    <%= item
+                                                                                                                        %>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <%= ovItemlist[rID][item]
+                                                                                                                        %>
+                                                                                                                </td>
+                                                                                                            </tr>
+
+                                                                                                            <% } %>
+                                                                                                                <% }) %>
+                                                                                                                    <% }
                                                                                                                         %>
                                                                                                                         <% })
                                                                                                                             %>
-                                                                                                                            <% }
-                                                                                                                                %>
-                                                                                                                                <% })
-                                                                                                                                    %>
                                                                             </tbody>
                                                                         </table>
                                                                         <% if (request.Approval !=1 && request.Approval

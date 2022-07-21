@@ -33,8 +33,9 @@ outvouchers.get('/', (req, res) => {
                             ovItemlist[row.vID] = {};
                         ovItemlist[row.vID][row.Name] = row.vItemQty;
                     });
-                    // console.log(lessBalanceList);
-                    // console.log(ovItemlist);
+
+                    // console.log("OVITEMLIST", ovItemlist);
+                    // console.log("LESSBALANCELIST", lessBalanceList);
                     // console.log(itemRowResult);
                     res.render('pages/index', { option: "outvouchers", outvouchersData: result, itemRows: itemRowResult, ovItemlist: ovItemlist, lessBalanceList: lessBalanceList, error: null });
                 })

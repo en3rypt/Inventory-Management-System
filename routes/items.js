@@ -12,6 +12,7 @@ items.get('/', (req, res) => {
             if (err) {
                 throw err;
             }
+
             res.render('pages/index', { option: "items", itemsData: result, categs: categResult });
         });
     });

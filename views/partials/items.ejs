@@ -144,7 +144,8 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
-                                            <th class="cell">CategoryID</th>
+                                            <th class="cell">Category ID</th>
+                                            <th class="cell">Category Name</th>
                                             <th class="cell">Name</th>
                                             <th class="cell">Quantity</th>
                                         </tr>
@@ -157,6 +158,15 @@
                                                 </td>
                                                 <td class="cell">
                                                     <%= item.CategoryID %>
+                                                </td>
+                                                <td class="cell">
+
+                                                    <% for( var i=0; i < categs.length; i++){ %>
+                                                        <% if(categs[i].ID===item.CategoryID){ %>
+                                                            <%= categs[i].Name %>
+                                                                <% } %>
+                                                                    <% } %>
+
                                                 </td>
                                                 <td class="cell">
                                                     <%= item.Name %>

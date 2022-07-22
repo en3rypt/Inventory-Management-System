@@ -19,7 +19,7 @@
 
 </head>
 
-<body class="app app-login p-0">
+<body class="app app-login p-0" onunload="deleteAllCookies()">
     <div class="row g-0 app-auth-wrapper">
         <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
             <div class="d-flex flex-column align-content-end">
@@ -65,14 +65,14 @@
                                                 <input class="form-check-input" type="radio" name="AuthType"
                                                     id="flexRadioComm" value="1" required>
                                                 <label class="form-check-label" for="flexRadioComm">
-                                                    Comm
+                                                    Commissioner
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="AuthType"
                                                     id="flexRadioComm" value="2" required>
                                                 <label class="form-check-label" for="flexRadioComm">
-                                                    SI
+                                                    Sub-inspector
                                                 </label>
                                             </div>
                                             <div class="form-check">

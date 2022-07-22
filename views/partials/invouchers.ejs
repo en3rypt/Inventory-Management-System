@@ -82,6 +82,7 @@
                                                                     <% }) %>
                                                             </select>
                                                             <input class="form-control w-75 d-inline" id="item-quantity"
+                                                                type="number" min="0" step="1" placeholder="Quantity"
                                                                 required>
                                                             <button type="button" id="req-item-add"
                                                                 class="btn app-btn-secondary">Add</button>
@@ -218,7 +219,7 @@
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
-                                                                    <% if(auth==3){ %>
+                                                                    <% if(auth==2){ %>
                                                                         <div class="modal-footer">
 
                                                                             <% if (request.Approval !=1 &&
@@ -360,7 +361,7 @@
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                        <% if(auth==3){ %>
+                                                                        <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
                                                                                 <% if (request.Approval !=1 &&
@@ -490,7 +491,7 @@
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                        <% if(auth==3){ %>
+                                                                        <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
                                                                                 <% if (request.Approval !=1 &&
@@ -619,7 +620,7 @@
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                        <% if(auth==3){ %>
+                                                                        <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
                                                                                 <% if (request.Approval !=1 &&
@@ -685,12 +686,14 @@
     const submitBtn = document.getElementById('submit-btn-iv');
     reqAddBtn.addEventListener('click', (e) => {
         let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
-        let itemQty = document.getElementById('item-quantity').value;
-        document.querySelector('.added-items-ul').innerHTML += `<li>${itemName} x ${itemQty}</li>`;
-        if (itemName in addedItemsList) {
-            addedItemsList[itemName] += parseInt(itemQty);
-        } else {
-            addedItemsList[itemName] = parseInt(itemQty);
+        let itemQty = document.getElementById('item-quantity').value > 0 && document.getElementById('item-quantity').value;
+        if (itemQty) {
+            document.querySelector('.added-items-ul').innerHTML += `<li>${itemName} x ${itemQty}</li>`;
+            if (itemName in addedItemsList) {
+                addedItemsList[itemName] += parseInt(itemQty);
+            } else {
+                addedItemsList[itemName] = parseInt(itemQty);
+            }
         }
         document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList); //passing this to the backend with bodyparser and a d-none input.
         if (Object.keys(addedItemsList).length < 1) {

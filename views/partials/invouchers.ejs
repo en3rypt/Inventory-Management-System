@@ -53,13 +53,20 @@
                                                             <label for="recipient-name" class="col-form-label">Invoucher
                                                                 ID:</label>
                                                             <input type="text" class="form-control" id="req-supplierid"
-                                                                name="reqid">
+                                                                name="reqid" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="recipient-name" class="col-form-label">Supplier
                                                                 ID:</label>
                                                             <input type="text" class="form-control" id="req-supplierid"
-                                                                name="reqsupplierid">
+                                                                name="reqsupplierid" required>
+                                                        </div>
+                                                        <div id="message-validate" class="mb-3 d-none">
+                                                            <div class="alert alert-danger" role="alert">
+                                                                <strong>
+                                                                    Please add items to the list before submitting.
+                                                                </strong>
+                                                            </div>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="message-text" class="col-form-label">Add
@@ -74,8 +81,8 @@
                                                                     </option>
                                                                     <% }) %>
                                                             </select>
-                                                            <input class="form-control w-75 d-inline"
-                                                                id="item-quantity">
+                                                            <input class="form-control w-75 d-inline" id="item-quantity"
+                                                                required>
                                                             <button type="button" id="req-item-add"
                                                                 class="btn app-btn-secondary">Add</button>
                                                             <input type="text" id="added-JSON" name="addedJSON"
@@ -85,7 +92,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <input type="submit" class="btn btn-primary">
+                                                    <input type="submit" id="submit-btn-iv" class="btn btn-primary">
                                                 </div>
                                                 </form>
                                             </div>
@@ -675,11 +682,32 @@
 <script>
     addedItemsList = {};
     const reqAddBtn = document.getElementById('req-item-add');
+    const submitBtn = document.getElementById('submit-btn-iv');
     reqAddBtn.addEventListener('click', (e) => {
         let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
         let itemQty = document.getElementById('item-quantity').value;
         document.querySelector('.added-items-ul').innerHTML += `<li>${itemName} x ${itemQty}</li>`;
-        addedItemsList[itemName] = parseInt(itemQty);
+        if (itemName in addedItemsList) {
+            addedItemsList[itemName] += parseInt(itemQty);
+        } else {
+            addedItemsList[itemName] = parseInt(itemQty);
+        }
         document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList); //passing this to the backend with bodyparser and a d-none input.
+        if (Object.keys(addedItemsList).length < 1) {
+
+            document.querySelector('#message-validate').classList.remove('d-none');
+        }
+        else {
+            document.querySelector('#message-validate').classList.add('d-none');
+        }
+    });
+    submitBtn.addEventListener('click', (e) => {
+        if (Object.keys(addedItemsList).length < 1) {
+            e.preventDefault();
+            document.querySelector('#message-validate').classList.remove('d-none');
+        }
+        else {
+            document.querySelector('#message-validate').classList.add('d-none');
+        }
     });
 </script>

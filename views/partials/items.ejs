@@ -64,7 +64,7 @@
                                                             </label>
                                                             <!-- <input class="form-control" list="datalistOptions"
                                                             id="category-id" name="categoryid"> -->
-                                                            <select id="category-id" name="categoryid">
+                                                            <select id="category-id" name="categoryid" required>
                                                                 <% categs.forEach(function(categ) { %>
                                                                     <option value="<%= categ.ID %>">
                                                                         <%= categ.Name %>
@@ -77,13 +77,14 @@
                                                         <div class="mb-3">
                                                             <label for="message-text"
                                                                 class="col-form-label">Name:</label>
-                                                            <input class="form-control" id="item-name" name="itemname">
+                                                            <input class="form-control" id="item-name" name="itemname"
+                                                                required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="message-text"
                                                                 class="col-form-label">Quantity:</label>
                                                             <input class="form-control" id="item-quantity"
-                                                                name="itemquantity">
+                                                                name="itemquantity" required>
                                                         </div>
                                                 </div>
                                                 <div class="modal-footer">

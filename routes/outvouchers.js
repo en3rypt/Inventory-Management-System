@@ -150,6 +150,7 @@ outvouchers.post('/action/:Id', (req, res) => {
 
 outvouchers.post('/', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
+    // console.log(addedJSON);
     db.query(
         `INSERT INTO outvouchers (ID, ReceiverID) VALUES (${req.body.reqid},${req.body.reqreceiverid})`,
         (err, result) => {

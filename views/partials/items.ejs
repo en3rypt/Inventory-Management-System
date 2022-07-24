@@ -39,63 +39,12 @@
                                 <i class="fa-solid fa-plus"></i>
                                 New Entry
                             </a> -->
-                                    <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#newEntryModal">New Item</button>
-                                    <div class="modal fade" id="newEntryModal" tabindex="-1"
-                                        aria-labelledby="newEntryModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="newEntryModalLabel">Enter data for
-                                                        new item</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="/items" method="POST">
-                                                        <!-- <div class="mb-3">
-                                                        <label for="recipient-name"
-                                                            class="col-form-label">ID:</label>
-                                                        <input type="text" class="form-control" id="item-id"
-                                                            name="itemid">
-                                                    </div> -->
-                                                        <div class="mb-3">
-                                                            <label for="message-text" class="col-form-label">Category:
-                                                            </label>
-                                                            <!-- <input class="form-control" list="datalistOptions"
-                                                            id="category-id" name="categoryid"> -->
-                                                            <select id="category-id" name="categoryid" required>
-                                                                <% categs.forEach(function(categ) { %>
-                                                                    <option value="<%= categ.ID %>">
-                                                                        <%= categ.Name %>
-                                                                    </option>
-                                                                    <% }); %>
-                                                            </select>
-                                                            <!-- <input type="text" class="form-control" id="category-id"
-                                                            name="categoryid"> -->
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="message-text"
-                                                                class="col-form-label">Name:</label>
-                                                            <input class="form-control" id="item-name" name="itemname"
-                                                                required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="message-text"
-                                                                class="col-form-label">Quantity:</label>
-                                                            <input class="form-control" id="item-quantity" type="number"
-                                                                min="0" step="1" name="itemquantity" required>
-                                                        </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <input type="submit" class="btn btn-primary">
-                                                </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <a href="/items/new">
+
+                                        <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#newEntryModal">New Item</button>
+                                    </a>
+
                                 </div>
                                 <% } %>
                                     <div class="col-auto">

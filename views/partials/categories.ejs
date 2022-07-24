@@ -39,38 +39,12 @@
                                 <i class="fa-solid fa-plus"></i>
                                 New Entry
                             </a> -->
-                                    <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#newEntryModal">New category</button>
-                                    <div class="modal fade" id="newEntryModal" tabindex="-1"
-                                        aria-labelledby="newEntryModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="newEntryModalLabel">Enter
-                                                        new Category</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="/categories" method="POST">
+                                    <a href="/categories/new">
 
-                                                        <div class="mb-3">
-                                                            <label for="categ-name" class="col-form-label">Category
-                                                                Name:</label>
-                                                            <input class="form-control" id="categ-name" name="categname"
-                                                                required>
-                                                        </div>
+                                        <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#newEntryModal">New category</button>
+                                    </a>
 
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <input type="submit" class="btn btn-primary">
-                                                </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <% } %>
                                     <div class="col-auto">

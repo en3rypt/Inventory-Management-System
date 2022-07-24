@@ -3,6 +3,14 @@ const items = express.Router();
 const db = require('../dbConnection');
 
 
+items.get('/new', (req, res) => {
+    db.query(`SELECT * FROM categories`, (err, categResult) => {
+        if (err) {
+            throw err;
+        }
+        res.render('pages/index', { option: "newItem", categs: categResult });
+    });
+})
 items.get('/', (req, res) => {
     db.query(`SELECT * FROM items`, (err, result) => {
         if (err) {

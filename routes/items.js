@@ -3,17 +3,25 @@ const items = express.Router();
 const db = require('../dbConnection');
 
 
+items.get('/new', (req, res) => {
+    db.query(`SELECT * FROM categories`, (err, categResult) => {
+        if (err) {
+            throw err;
+        }
+        res.render('pages/index', { option: "newItem", categs: categResult });
+    });
+})
 items.get('/', (req, res) => {
     db.query(`SELECT * FROM items`, (err, result) => {
         if (err) {
             throw err;
         }
-        db.query(`SELECT ID FROM categories`, (err, categResult) => {
+        db.query(`SELECT * FROM categories`, (err, categResult) => {
             if (err) {
                 throw err;
             }
-            const categs = categResult.map(categ => categ.ID);
-            res.render('pages/index', { option: "items", itemsData: result, categs: categs });
+
+            res.render('pages/index', { option: "items", itemsData: result, categs: categResult });
         });
     });
 });

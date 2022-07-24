@@ -9,7 +9,19 @@ const jwt = require('jsonwebtoken');
 
 
 router.get('/', (req, res) => {
-    res.render('pages/login', { error: false });
+    const token = req.cookies.access_token;
+    if (token) {
+        jwt.verify(token, 'the-super-strong-secrect', (err, decodedToken) => {
+            if (err) {
+                res.redirect('/login')
+            } else {
+                res.redirect('/')
+            }
+        })
+    } else {
+        // res.redirect('/login')
+        res.render('pages/login', { error: false });
+    }
 })
 
 router.post('/', loginValidation, (req, res, next) => {
@@ -47,11 +59,11 @@ router.post('/', loginValidation, (req, res, next) => {
                             name: result[0]['Name'],
                             AuthType: result[0]['AuthType']
                         }
-                        const token = jwt.sign(payload, 'the-super-strong-secrect', { expiresIn: '1h' });
+                        const token = jwt.sign(payload, 'the-super-strong-secrect', { expiresIn: '1d' });
                         // console.log(token);
                         return res.cookie("access_token", token, {
                             httpOnly: true,
-                            maxAge: 360000,
+                            maxAge: 86400000,
                         }).status(200).redirect('/');
                     }
                     return res.status(401).send({

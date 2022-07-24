@@ -20,6 +20,7 @@ const checkUser = (req, res, next) => {
         jwt.verify(token, 'the-super-strong-secrect', (err, decodedToken) => {
             if (err) {
                 res.locals.user = null;
+                res.locals.auth = null;
                 next();
             } else {
                 res.locals.user = decodedToken.name;
@@ -29,6 +30,7 @@ const checkUser = (req, res, next) => {
         })
     } else {
         res.locals.user = null;
+        res.locals.auth = null;
         next();
     }
 }

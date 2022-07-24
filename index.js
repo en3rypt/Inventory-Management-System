@@ -6,7 +6,10 @@ const path = require('path');
 const login = require('./routes/login');
 const signup = require('./routes/signup');
 const items = require('./routes/items');
-const requests = require('./routes/requests');
+const outvouchers = require('./routes/outvouchers');
+const invouchers = require('./routes/invouchers');
+const categories = require('./routes/categories');
+const dashboard = require('./routes/dashboard');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
@@ -35,15 +38,18 @@ app.get('*', checkUser);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/items', requireAuth, items);
-app.use('/requests', requireAuth, requests);
-app.get('/', requireAuth, authRole(1), (req, res) => {
-    res.render('pages/index', { option: 'dashboard' });
+app.use('/invouchers', requireAuth, invouchers);
+app.use('/outvouchers', requireAuth, outvouchers);
+app.use('/categories', requireAuth, categories);
+app.use('/', requireAuth, dashboard);
+
+app.get('/Categories', (req, res) => {
+    res.render('pages/Categories', { option: 'dashboard' });
 })
-
-
 
 app.get('/logout', (req, res) => {
     res.clearCookie('access_token').redirect('/login');
 })
 //app listen
 app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT} .`));
+

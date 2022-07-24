@@ -33,80 +33,33 @@
 
                                 </select>
                             </div>
-                            <div class="col-auto">
-                                <!-- <a class="btn app-btn-secondary" href="#">
+                            <% if(auth==3){ %>
+                                <div class="col-auto">
+                                    <!-- <a class="btn app-btn-secondary" href="#">
                                 <i class="fa-solid fa-plus"></i>
                                 New Entry
                             </a> -->
-                                <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#newEntryModal">New Entry</button>
-                                <div class="modal fade" id="newEntryModal" tabindex="-1"
-                                    aria-labelledby="newEntryModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="newEntryModalLabel">Enter data for
-                                                    new item</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="/items" method="POST">
-                                                    <!-- <div class="mb-3">
-                                                        <label for="recipient-name"
-                                                            class="col-form-label">ID:</label>
-                                                        <input type="text" class="form-control" id="item-id"
-                                                            name="itemid">
-                                                    </div> -->
-                                                    <div class="mb-3">
-                                                        <label for="message-text" class="col-form-label">Category
-                                                            ID:</label>
-                                                        <!-- <input class="form-control" list="datalistOptions"
-                                                            id="category-id" name="categoryid"> -->
-                                                        <select id="category-id" name="categoryid">
-                                                            <% categs.forEach(function(categ) { %>
-                                                                <option value="<%= categ %>">
-                                                                    <%= categ %>
-                                                                </option>
-                                                                <% }); %>
-                                                        </select>
-                                                        <!-- <input type="text" class="form-control" id="category-id"
-                                                            name="categoryid"> -->
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="message-text" class="col-form-label">Name:</label>
-                                                        <input class="form-control" id="item-name" name="itemname">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="message-text"
-                                                            class="col-form-label">Quantity:</label>
-                                                        <input class="form-control" id="item-quantity"
-                                                            name="itemquantity">
-                                                    </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <input type="submit" class="btn btn-primary">
-                                            </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    <a href="/items/new">
 
-                            <div class="col-auto">
-                                <a class="btn app-btn-secondary" href="#">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
-                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                                        <path fill-rule="evenodd"
-                                            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                                    </svg>
-                                    Download CSV
-                                </a>
-                            </div>
+                                        <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#newEntryModal">New Item</button>
+                                    </a>
+
+                                </div>
+                                <% } %>
+                                    <div class="col-auto">
+                                        <a id="dwnld-btn" class="btn app-btn-secondary" href="#">
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABFElEQVRIid3Vq07EUBDG8d9yCeEN1iM2IbwIIBHreQkkJUEgMCRoNIJn2ASBR2DAcfEgwHBbREvo7p52p10wTNI0zcw3/+mZOefwH20D9xhOebK2gEjymSDf4kjMEAd/DWgMaQNoBGkLSEI6FeIq33hMykZ0C3VlRpPUQeeCCY+KBGtYxC3OWpUm3YMuXnCMbbxjNaALA+AQT7jESQNdOLCLj8LXi+qiPSA/o17xjM2EvyPR/OiYLuMaA7xhCyt4bFDgCGD8VzN8yqeoJ1+q/YAuvA9u0MdV8d3HUlA7YeFpiOiaNLmVpQAPxbvqQDv1s7SZycqnXkbruKsB1EFmvk6rbKeUfLfsmP8lwIV835xjr+z4AvIlgCqqAWC1AAAAAElFTkSuQmCC">
+
+                                        </a>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a id="print-btn" class="btn app-btn-secondary" href="#">
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMtJREFUSEvVlWENwjAQhb8pQALgABzgAAs4wAI4QMKk4GCTAA5wALmES8pl69orJWM/m977+q59t4bKX1NZnxjgmQkf1JoFYKqN6tTt4L8AF2APrDIvWLffgBY460JoX8SPTmFbJoCTLIaAB7AAtkDvBG2ADhAnawuIvoYBoM2JHvZDJ3QwO8BYF7/moBjgnUXJDn4GyB0Vow40B7a3qYCw7q7TICzevWO+NIRcgIgfgKsNmj15ai6Kx3Xq1HD/D6oBUoWj+6YusBjyAkqyMBlM3PP1AAAAAElFTkSuQmCC" />
+                                        </a>
+                                    </div>
                         </div>
                         <!--//row-->
                     </div>
@@ -136,16 +89,15 @@
                 <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
                     <div class="app-card app-card-orders-table shadow-sm mb-5">
                         <div class="app-card-body">
-                            <div class="table-responsive">
-                                <table class="table app-table-hover mb-0 text-center	">
+                            <div id="tbl_print" class="table-responsive">
+                                <table id="tbl_export" class="table app-table-hover mb-0 text-center">
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
-                                            <th class="cell">CategoryID</th>
+                                            <th class="cell">Category ID</th>
+                                            <th class="cell">Category Name</th>
                                             <th class="cell">Name</th>
                                             <th class="cell">Quantity</th>
-                                            <!-- <th class="cell"></th> -->
-                                            <!-- <th class="cell"></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -158,6 +110,15 @@
                                                     <%= item.CategoryID %>
                                                 </td>
                                                 <td class="cell">
+
+                                                    <% for( var i=0; i < categs.length; i++){ %>
+                                                        <% if(categs[i].ID===item.CategoryID){ %>
+                                                            <%= categs[i].Name %>
+                                                                <% } %>
+                                                                    <% } %>
+
+                                                </td>
+                                                <td class="cell">
                                                     <%= item.Name %>
                                                 </td>
                                                 <td class="cell">
@@ -165,104 +126,7 @@
                                                 </td>
                                             </tr>
                                             <% }); %>
-                                                <!-- <tr>
-                                            <td class="cell"></td>
-                                            <td class="cell"></td>
-                                            <td class="cell"></td>
-                                            <td class="cell"></td>
-                                            <td class="cell"></td>
-                                        </tr> -->
                                     </tbody>
-
-
-                                    <!-- <tbody>
-                                        <tr>
-                                            <td class="cell">#15346</td>
-                                            <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet
-                                                    eget
-                                                    volutpat erat</span></td>
-                                            <td class="cell">John Sanders</td>
-                                            <td class="cell"><span>17 Oct</span><span class="note">2:16
-                                                    PM</span>
-                                            </td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$259.35</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="cell">#15345</td>
-                                            <td class="cell"><span class="truncate">Consectetur adipiscing
-                                                    elit</span></td>
-                                            <td class="cell">Dylan Ambrose</td>
-                                            <td class="cell"><span class="cell-data">16 Oct</span><span
-                                                    class="note">03:16 AM</span></td>
-                                            <td class="cell"><span class="badge bg-warning">Pending</span></td>
-                                            <td class="cell">$96.20</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="cell">#15344</td>
-                                            <td class="cell"><span class="truncate">Pellentesque diam
-                                                    imperdiet</span></td>
-                                            <td class="cell">Teresa Holland</td>
-                                            <td class="cell"><span class="cell-data">16 Oct</span><span
-                                                    class="note">01:16 AM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$123.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="cell">#15343</td>
-                                            <td class="cell"><span class="truncate">Vestibulum a accumsan lectus
-                                                    sed
-                                                    mollis ipsum</span></td>
-                                            <td class="cell">Jayden Massey</td>
-                                            <td class="cell"><span class="cell-data">15 Oct</span><span
-                                                    class="note">8:07 PM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$199.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="cell">#15342</td>
-                                            <td class="cell"><span class="truncate">Justo feugiat neque</span>
-                                            </td>
-                                            <td class="cell">Reina Brooks</td>
-                                            <td class="cell"><span class="cell-data">12 Oct</span><span
-                                                    class="note">04:23 PM</span></td>
-                                            <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-                                            <td class="cell">$59.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="cell">#15341</td>
-                                            <td class="cell"><span class="truncate">Morbi vulputate lacinia
-                                                    neque et
-                                                    sollicitudin</span></td>
-                                            <td class="cell">Raymond Atkins</td>
-                                            <td class="cell"><span class="cell-data">11 Oct</span><span
-                                                    class="note">11:18 AM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$678.26</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                    href="#">View</a>
-                                            </td>
-                                        </tr>
-
-                                    </tbody> -->
                                 </table>
                             </div>
                             <!--//table-responsive-->
@@ -471,3 +335,34 @@
     <!--//app-footer-->
 
 </div>
+
+
+<script>
+    const dwnldBtn = document.getElementById('dwnld-btn');
+    const printBtn = document.getElementById('print-btn');
+
+
+    dwnldBtn.addEventListener('click', () => {
+        ExportToExcel('xlsx');
+    })
+
+    printBtn.addEventListener('click', () => {
+        printDiv('tbl_print');
+    })
+
+
+    function ExportToExcel(type, fn, dl) {
+        var elt = document.getElementById('tbl_export');
+        var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+        return dl ?
+            XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+            XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+    }
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>

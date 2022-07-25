@@ -4,7 +4,7 @@
         <div class="container-xl d-grid gap-5">
 
             <div class="col-auto">
-                <h1 class="app-page-title mb-0">New Outvoucher</h1>
+                <h1 class="app-page-title mb-0">New Issue Voucher</h1>
             </div>
             <div class="col-auto">
                 <form action="/outvouchers" method="POST">
@@ -13,13 +13,13 @@
                             <label for="voucher-id" class="col-form-label">Voucher ID:</label>
                                 <div class="row">
                                     <div class="col-sm-1">
-                                        <input type="text" class="form-control" name="IV" value="IV" readonly>
+                                        <input type="text" class="form-control text-center" name="IV" value="IV" readonly>
                                     </div>
                                     <div class="col-sm-3">
                                         <input type="text" name="IVno" class="form-control" id="req-receiverid" name="ivid" required>
                                     </div>
                                     <div class="col-sm-2">
-                                        <select id="item-name-drop" required>
+                                        <select id="item-name-drop" class="form-control" required>
                                             <option value="<year>">
                                                 <!-- Years drop-down list -->
                                             </option>
@@ -31,7 +31,7 @@
                             <div class="col-sm-4">
                                 <label for="station-id" class="col-form-label">Station ID:</label>
                                     <div class="row">
-                                        <select id="item-name-drop" required>
+                                        <select id="item-name-drop" class="form-control" required>
                                             <option value="<station-id>">
                                                 <!-- Station ID drop-down list -->
                                             </option>
@@ -43,7 +43,7 @@
                             <div class="col-sm-4">
                                 <label for="scheme-id" class="col-form-label">Scheme:</label>
                                     <div class="row">
-                                        <select id="item-name-drop" required>
+                                        <select id="item-name-drop" class="form-control" required>
                                             <option value="<scheme>">
                                                 <!-- Scheme drop-down list -->
                                             </option>
@@ -59,34 +59,35 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-5">
+                            <div class="col">
                                 <label for="scheme-id" class="col-form-label">Add Item:</label>
                                     <div class="row">
-                                        <div class="col-sm-4">
-                                            <ul class="added-items-ul">
+                                        <ul class="added-items-ul">
 
-                                            </ul>
-                                            <select id="item-name-drop" required>
-                                                <% itemRows.forEach(function(item) { %>
+                                        </ul>
+                                        <div class="col-sm-2">
+                                            <select id="item-name-drop" class="form-control" required>
+                                                <option>Grenade</option>
+                                                <!-- <% itemRows.forEach(function(item) { %>
                                                     <option value="<%= item.ID %>">
                                                         <%= item.Name %>
                                                     </option>
-                                                    <% }) %>
+                                                    <% }) %> -->
                                             </select>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-2">
                                             <input class="form-control w-75 d-inline" id="item-qty-required" type="number" min="0"
                                             step="1" placeholder="Required" required>                                       
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-2">
                                             <input class="form-control w-75 d-inline" id="item-qty-passed" type="number" min="0"
                                             step="1" placeholder="Passed" required>                             
                                         </div>
-                                        
+                                        <div class="col-sm-4">
+                                            <button type="button" id="req-item-add" class="btn app-btn-secondary">Add</button>
+                                            <input type="text" id="added-JSON" name="addedJSON" class="d-none">
+                                        </div>  
                                     </div>
-                                    <br/>
-                                    <button type="button" id="req-item-add" class="btn app-btn-secondary">Add</button>
-                                    <input type="text" id="added-JSON" name="addedJSON" class="d-none">
                             </div>
                         </div>
                         <div class="">

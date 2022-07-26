@@ -3,7 +3,13 @@ const invouchers = express.Router();
 const db = require('../dbConnection');
 
 invouchers.get('/new', (req, res) => {
-    res.render('pages/index', { option: 'newInvoucher' });
+    db.query(`SELECT * FROM items`, (err, itemRowResult) => {
+        if (err) {
+            throw err;
+        }
+        res.render('pages/index', { option: "newInvoucher", itemRows: itemRowResult });
+        // res.send('hi')
+    })
 })
 
 invouchers.get('/', (req, res) => {

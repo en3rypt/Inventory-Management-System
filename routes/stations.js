@@ -12,7 +12,7 @@ stations.get('/', (req, res) => {
         if (err) {
             throw err;
         }
-        res.render('pages/index', { option: "stations", categoriesData: result });
+        res.render('pages/index', { option: "stations", stationsData: result });
     });
 })
 

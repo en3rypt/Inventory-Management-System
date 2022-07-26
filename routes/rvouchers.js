@@ -21,18 +21,18 @@ rvouchers.get('/', (req, res) => {
             if (err) {
                 throw err;
             }
-            db.query(`SELECT * FROM receivedvouchers INNER JOIN rvitems ON receivedvouchers.ID = rvitems.vID INNER JOIN items ON rvitems.vItemID = items.ID WHERE rvitems.vType = 0;`, (err, vItemResult) => {
+            db.query(`SELECT * FROM receivedvouchers INNER JOIN rvitems ON receivedvouchers.ID = rvitems.rvID INNER JOIN items ON rvitems.rvItemID = items.ID;`, (err, vItemResult) => {
                 if (err) {
                     throw err;
                 }
-                let ivItemlist = {};
+                let rvItemlist = {};
                 vItemResult.forEach(row => {
-                    if (!ivItemlist[row.vID])
-                        ivItemlist[row.vID] = {};
-                    ivItemlist[row.vID][row.Name] = row.vItemQty;
+                    if (!rvItemlist[row.vID])
+                        rvItemlist[row.vID] = {};
+                    rvItemlist[row.vID][row.Name] = row.vItemQty;
                 });
                 // console.log(itemRowResult);
-                res.render('pages/index', { option: "receivedvouchers", receivedvouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist });
+                res.render('pages/index', { option: "receivedvouchers", receivedvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
             });
         });
     });

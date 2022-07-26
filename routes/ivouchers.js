@@ -21,11 +21,11 @@ ivouchers.get('/', (req, res) => {
             if (err) {
                 throw err;
             }
-            db.query(`SELECT * FROM issuedvouchers INNER JOIN ivitems ON issuedvouchers.ID = ivitems.vID INNER JOIN items ON ivitems.vItemID = items.ID WHERE ivitems.vType = 1;`, (err, vItemResult) => {
+            db.query(`SELECT * FROM issuedvouchers INNER JOIN ivitems ON issuedvouchers.ID = ivitems.ivID INNER JOIN items ON ivitems.ivItemID = items.ID;`, (err, vItemResult) => {
                 if (err) {
                     throw err;
                 }
-                db.query(`select ivitems.vID,items.Name,ivitems.vItemQty,items.Quantity - ivitems.vItemQty as balance from ivitems inner JOIN items where ivitems.vItemID = items.ID`, (err, vBalanceResult) => {
+                db.query(`SELECT ivitems.ivID,items.Name,ivitems.ivQtyReq,items.Quantity - ivitems.ivQtyReq as balance from ivitems inner JOIN items where ivitems.ivItemID = items.ID`, (err, vBalanceResult) => {
                     if (err) {
                         throw err;
                     }
@@ -36,17 +36,17 @@ ivouchers.get('/', (req, res) => {
                             lessBalanceList.push(vBalance);
                         }
                     });
-                    let ovItemlist = {};
+                    let ivItemlist = {};
                     vItemResult.forEach(row => {
-                        if (!ovItemlist[row.vID])
-                            ovItemlist[row.vID] = {};
-                        ovItemlist[row.vID][row.Name] = row.vItemQty;
+                        if (!ivItemlist[row.vID])
+                            ivItemlist[row.vID] = {};
+                        ivItemlist[row.vID][row.Name] = row.vItemQty;
                     });
 
-                    // console.log("OVITEMLIST", ovItemlist);
+                    // console.log("ivITEMLIST", ivItemlist);
                     // console.log("LESSBALANCELIST", lessBalanceList);
                     // console.log(itemRowResult);
-                    res.render('pages/index', { option: "issuedvouchers", issuedvouchersData: result, itemRows: itemRowResult, ovItemlist: ovItemlist, lessBalanceList: lessBalanceList, error: null });
+                    res.render('pages/index', { option: "issuedvouchers", issuedvouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist, lessBalanceList: lessBalanceList, error: null });
                 })
             });
         });
@@ -57,7 +57,7 @@ ivouchers.post('/action/:Id', (req, res) => {
     var inputValue = req.body.action_type;
     if (inputValue == "Accept") {
         //compare the quantity of the item in the voucher with the quantity in the inventory
-        db.query(`select items.ID,ivitems.vItemQty,items.Quantity - ivitems.vItemQty as balance from ivitems inner JOIN items where ivitems.vID =${req.params.Id} and ivitems.vItemID = items.ID`, (err, vItemResult) => {
+        db.query(`select items.ID,ivitems.ivReqQty,items.Quantity - ivitems.ivReqQty as balance from ivitems inner JOIN items where ivitems.ivID =${req.params.Id} and ivitems.ivItemID = items.ID`, (err, vItemResult) => {
             if (err) {
                 throw err;
             }

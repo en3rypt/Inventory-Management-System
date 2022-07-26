@@ -1,4 +1,5 @@
 import mysql.connector
+import pandas as pd
 
 db = mysql.connector.connect(
     host="localhost",
@@ -6,6 +7,7 @@ db = mysql.connector.connect(
     password="admin"
 )
 cur = db.cursor()
+
 
 cur.execute('DROP DATABASE IF EXISTS CBE_STOCKS')
 # database creation
@@ -26,7 +28,7 @@ s = ['''CREATE TABLE RECEIVEDVOUCHERS (
 	Approval INT NOT NULL,
 	ApprovedBy INT NOT NULL,
 	ApprovalDate DATETIME NOT NULL,
-	DateOfCreation DATETIME NOT NULL,
+	DateOfCreation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (ID)
 );''',
      '''
@@ -44,14 +46,14 @@ CREATE TABLE ITEMS (
 	CategoryID INT NOT NULL,
 	Name varchar(255) NOT NULL,
 	Quantity INT NOT NULL,
-	DateOfCreation DATETIME NOT NULL,
+	DateOfCreation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (ID)
 );''',
      '''
 CREATE TABLE CATEGORIES (
 	ID INT NOT NULL AUTO_INCREMENT,
 	Name varchar(255) NOT NULL,
-	DateOfCreation DATETIME NOT NULL,
+	DateOfCreation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (ID)
 );''',
      '''
@@ -61,7 +63,7 @@ CREATE TABLE USERS (
 	Email varchar(255) NOT NULL,
 	Password varchar(255) NOT NULL,
 	AuthType INT NOT NULL,
-	DateOfCreation DATETIME NOT NULL,
+	DateOfCreation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (ID)
 );''',
      '''
@@ -76,7 +78,7 @@ CREATE TABLE ISSUEDVOUCHERS (
 	Approval INT NOT NULL,
 	ApprovedBy INT NOT NULL,
 	ApprovalDate DATETIME NOT NULL,
-	DateOfCreation DATETIME NOT NULL,
+	DateOfCreation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (ID)
 );''',
      '''
@@ -92,14 +94,14 @@ CREATE TABLE RVITEMS (
 CREATE TABLE STATIONS (
 	ID INT NOT NULL AUTO_INCREMENT,
 	Name varchar(255) NOT NULL,
-	DateOfCreation DATETIME NOT NULL,
+	DateOfCreation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (ID)
 );''',
      '''
 CREATE TABLE SCHEMES (
 	ID INT NOT NULL AUTO_INCREMENT,
 	Name varchar(255) NOT NULL,
-	DateOfCreation DATETIME NOT NULL,
+	DateOfCreation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (ID)
 );''',
      '''
@@ -125,3 +127,5 @@ ALTER TABLE RVITEMS ADD FOREIGN KEY (rvItemID) REFERENCES ITEMS(ID);'''
 
 for i in s:
     cur.execute(i)
+
+

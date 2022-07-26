@@ -1,19 +1,19 @@
 const express = require('express');
-const invouchers = express.Router();
+const rvouchers = express.Router();
 const db = require('../dbConnection');
 
-invouchers.get('/new', (req, res) => {
+rvouchers.get('/new', (req, res) => {
     db.query(`SELECT * FROM items`, (err, itemRowResult) => {
         if (err) {
             throw err;
         }
-        res.render('pages/index', { option: "newInvoucher", itemRows: itemRowResult });
+        res.render('pages/index', { option: "newRV", itemRows: itemRowResult });
         // res.send('hi')
     })
 })
 
-invouchers.get('/', (req, res) => {
-    db.query(`SELECT * FROM invouchers`, (err, result) => {
+rvouchers.get('/', (req, res) => {
+    db.query(`SELECT * FROM receivedvouchers`, (err, result) => {
         if (err) {
             throw err;
         }
@@ -21,7 +21,7 @@ invouchers.get('/', (req, res) => {
             if (err) {
                 throw err;
             }
-            db.query(`SELECT * FROM invouchers INNER JOIN voucheritems ON invouchers.ID = voucheritems.vID INNER JOIN items ON voucheritems.vItemID = items.ID WHERE voucheritems.vType = 0;`, (err, vItemResult) => {
+            db.query(`SELECT * FROM receivedvouchers INNER JOIN rvitems ON receivedvouchers.ID = rvitems.vID INNER JOIN items ON rvitems.vItemID = items.ID WHERE rvitems.vType = 0;`, (err, vItemResult) => {
                 if (err) {
                     throw err;
                 }
@@ -32,7 +32,7 @@ invouchers.get('/', (req, res) => {
                     ivItemlist[row.vID][row.Name] = row.vItemQty;
                 });
                 // console.log(itemRowResult);
-                res.render('pages/index', { option: "invouchers", invouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist });
+                res.render('pages/index', { option: "receivedvouchers", receivedvouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist });
             });
         });
     });
@@ -40,10 +40,10 @@ invouchers.get('/', (req, res) => {
 
 
 
-invouchers.post('/', (req, res) => {
+rvouchers.post('/', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
     db.query(
-        `INSERT INTO invouchers (ID, SupplierID) VALUES (${req.body.reqid},${req.body.reqsupplierid})`,
+        `INSERT INTO receivedvouchers (ID, SupplierID) VALUES (${req.body.reqid},${req.body.reqsupplierid})`,
         (err, result) => {
             if (err) {
                 throw err;
@@ -53,24 +53,24 @@ invouchers.post('/', (req, res) => {
                     if (err) {
                         throw err;
                     }
-                    db.query(`INSERT INTO voucheritems (vID, vType, vItemID, vItemQty) VALUES (${req.body.reqid}, 0, ${itemNameIDResult[0].ID},${addedJSON[itemNameIDResult[0].Name]})`, (err, result) => {
+                    db.query(`INSERT INTO rvitems (vID, vType, vItemID, vItemQty) VALUES (${req.body.reqid}, 0, ${itemNameIDResult[0].ID},${addedJSON[itemNameIDResult[0].Name]})`, (err, result) => {
                         if (err) {
                             throw err;
                         }
                     })
                 })
             }
-            res.redirect('/invouchers');
+            res.redirect('/rvouchers');
         }
     );
 })
 
 
-invouchers.post('/action/:Id', (req, res) => {
+rvouchers.post('/action/:Id', (req, res) => {
     var inputValue = req.body.action_type;
     if (inputValue == "Accept") {
         //compare the quantity of the item in the voucher with the quantity in the inventory
-        db.query(`select items.ID,voucheritems.vItemQty from voucheritems inner JOIN items where voucheritems.vID =${req.params.Id} and voucheritems.vItemID = items.ID`, (err, vItemResult) => {
+        db.query(`select items.ID,rvitems.vItemQty from rvitems inner JOIN items where rvitems.vID =${req.params.Id} and rvitems.vItemID = items.ID`, (err, vItemResult) => {
             if (err) {
                 throw err;
             }
@@ -86,36 +86,36 @@ invouchers.post('/action/:Id', (req, res) => {
             }
             );
             //update the status of the voucher to accepted
-            db.query(`UPDATE invouchers SET Approval = 1 WHERE ID = ${req.params.Id}`, (err, result) => {
+            db.query(`UPDATE receivedvouchers SET Approval = 1 WHERE ID = ${req.params.Id}`, (err, result) => {
                 if (err) {
                     throw err;
                 }
             }
             );
-            res.redirect('/invouchers');
+            res.redirect('/rvouchers');
 
             // if (vItemResult.length > 0) {
             //     console.log("Error");
             // } else {
             //     //update stock in items
-            //     db.query(`UPDATE items SET Quantity = Quantity - voucheritems.vItemQty WHERE items.ID = voucheritems.vItemID;`, (err, result) => {
+            //     db.query(`UPDATE items SET Quantity = Quantity - rvitems.vItemQty WHERE items.ID = rvitems.vItemID;`, (err, result) => {
             //         if (err) {
             //             throw err;
             //         }
             //         //update the status of the voucher to accepted
-            //         db.query(`UPDATE invouchers SET status = 1 WHERE ID = ${req.params.Id};`, (err, result) => {
+            //         db.query(`UPDATE receivedvouchers SET status = 1 WHERE ID = ${req.params.Id};`, (err, result) => {
             //             if (err) {
             //                 throw err;
             //             }
-            //             res.redirect('/invouchers');
+            //             res.redirect('/receivedvouchers');
             //         }
             //         );
             //     }
             //     );
             // }
         })
-        //get all items from voucheritems table by id
-        // db.query(`SELECT * FROM voucheritems WHERE vID = ${req.params.Id}`, (err, result) => {
+        //get all items from rvitems table by id
+        // db.query(`SELECT * FROM rvitems WHERE vID = ${req.params.Id}`, (err, result) => {
         //     if (err) {
         //         throw err;
         //     }
@@ -144,7 +144,7 @@ invouchers.post('/action/:Id', (req, res) => {
         //             //     });
         //             // } else {
         //             //     //if item quantity is not enough, show error message
-        //             //     res.render('pages/index', { option: "invouchers", error: "Item quantity is not enough" });
+        //             //     res.render('pages/index', { option: "receivedvouchers", error: "Item quantity is not enough" });
         //             // }
         //         });
         //     });
@@ -153,11 +153,11 @@ invouchers.post('/action/:Id', (req, res) => {
 
     } else {
         //db query to set approval to 2
-        db.query(`UPDATE invouchers SET approval = 2 WHERE ID = ?`, [req.params.Id], (err, result) => {
+        db.query(`UPDATE receivedvouchers SET approval = 2 WHERE ID = ?`, [req.params.Id], (err, result) => {
             if (err) {
                 throw err;
             }
-            res.redirect('/invouchers');
+            res.redirect('/rvouchers');
         }
         );
 
@@ -166,4 +166,4 @@ invouchers.post('/action/:Id', (req, res) => {
 
 
 
-module.exports = invouchers;
+module.exports = rvouchers;

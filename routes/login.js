@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
 
 router.post('/', loginValidation, (req, res, next) => {
     db.query(
-        `SELECT * FROM users WHERE email = ${db.escape(req.body.email)};`,
+        `SELECT * FROM users WHERE Email = ${db.escape(req.body.email)};`,
         (err, result) => {
 
             // user does not exists
@@ -43,12 +43,12 @@ router.post('/', loginValidation, (req, res, next) => {
 
             bcrypt.compare(
                 req.body.password,
-                result[0]['password'],
+                result[0]['Password'],
                 (bErr, bResult) => {
                     // wrong password
                     // console.log(bResult);
                     if (bErr) {
-                        throw bErr;
+                        // throw bErr;
                         return res.status(401).send({
                             msg: 'Email or password is incorrect!'
                         });

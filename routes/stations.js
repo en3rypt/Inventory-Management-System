@@ -7,7 +7,7 @@ stations.get('/new', (req, res) => {
 })
 stations.get('/', (req, res) => {
 
-    db.query(`SELECT * FROM categories`, (err, result) => {
+    db.query(`SELECT * FROM stations`, (err, result) => {
         // console.log(result);
         if (err) {
             throw err;

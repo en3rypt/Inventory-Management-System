@@ -1,25 +1,51 @@
 <div class="app-wrapper">
 
     <div class="app-content pt-3 p-md-3 p-lg-4">
-        <div class="container-xl">
+        <div class="container-xl d-grid gap-5">
 
-            <div class="row g-3 mb-4 align-items-center justify-content-between">
-                <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Categories</h1>
-                </div>
-
-
-                <form action="/invouchers" method="POST">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Invoucher
-                                ID:</label>
-                            <input type="text" class="form-control" id="req-supplierid" name="reqid" required>
+            <div class="col-auto">
+                <h1 class="app-page-title mb-0">New Received Voucher</h1>
+            </div>
+            <div class="col-auto">
+                <form action="/outvouchers" method="POST">
+                    <div class="d-grid gap-5">
+                        <div class="row">
+                            <label for="voucher-id" class="col-form-label">Voucher ID:</label>
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <input type="text" class="form-control text-center" name="RV" value="RV" readonly>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" name="IVno" class="form-control" id="req-receiverid" required>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <select id="item-name-drop" class="form-control" required>
+                                            <option value="<year>">
+                                                <!-- Years drop-down list -->
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Supplier
-                                ID:</label>
-                            <input type="text" class="form-control" id="req-supplierid" name="reqsupplierid" required>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="station-id" class="col-form-label">Supplier:</label>
+                                    <div class="row">
+                                        <input type="text" name="supplier" class="form-control" id="req-supplierid" required>
+                                    </div>                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="scheme-id" class="col-form-label">Scheme:</label>
+                                    <div class="row">
+                                        <select id="item-name-drop" class="form-control" required>
+                                            <option value="<scheme>">
+                                                <!-- Scheme drop-down list -->
+                                            </option>
+                                        </select>
+                                    </div>                                
+                            </div>
                         </div>
                         <div id="message-validate" class="mb-3 d-none">
                             <div class="alert alert-danger" role="alert">
@@ -28,38 +54,44 @@
                                 </strong>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Add
-                                items:</label><br>
-                            <ul class="added-items-ul">
+                        <div class="row">
+                            <div class="col">
+                                <label for="scheme-id" class="col-form-label">Add Item:</label>
+                                    <div class="row">
+                                        <ul class="added-items-ul">
 
-                            </ul>
-                            <select id="item-name-drop">
-                                <% itemRows.forEach(function(item) { %>
-                                    <option value="<%= item.ID %>">
-                                        <%= item.Name %>
-                                    </option>
-                                    <% }) %>
-                            </select>
-                            <input class="form-control w-75 d-inline" id="item-quantity" type="number" min="0" step="1"
-                                placeholder="Quantity" required>
-                            <button type="button" id="req-item-add" class="btn app-btn-secondary">Add</button>
-                            <input type="text" id="added-JSON" name="addedJSON" class="d-none">
+                                        </ul>
+                                        <div class="col-sm-2">
+                                            <select id="item-name-drop" class="form-control" required>
+                                                <option>Grenade</option>
+                                                <!-- <% itemRows.forEach(function(item) { %>
+                                                    <option value="<%= item.ID %>">
+                                                        <%= item.Name %>
+                                                    </option>
+                                                    <% }) %> -->
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control w-75 d-inline" id="item-qty-required" placeholder="Reference Number" required>                                       
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input class="form-control w-75 d-inline" id="item-qty-passed" type="number" min="0"
+                                            step="1" placeholder="Quantity" required>                             
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <button type="button" id="req-item-add" class="btn app-btn-secondary">Add</button>
+                                            <input type="text" id="added-JSON" name="addedJSON" class="d-none">
+                                        </div>  
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" id="submit-btn-ov" class="btn btn-primary">
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" id="submit-btn-iv" class="btn btn-primary">
-                    </div>
                 </form>
-
-
-                <!--//col-auto-->
             </div>
-            <!--//tab-content-->
-
-
-
         </div>
         <!--//container-fluid-->
     </div>

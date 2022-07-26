@@ -35,10 +35,13 @@
                             </div> -->
                             <% if(auth==3){ %>
                                 <div class="col-auto">
-                                    <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#newEntryModal">New Outvoucher</button>
-                                    <div class="modal fade" id="newEntryModal" tabindex="-1"
-                                        aria-labelledby="newEntryModalLabel" aria-hidden="true">
+                                    <a href="/outvouchers/new">
+
+                                        <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#newEntryModal">New Outvoucher</button>
+                                    </a>
+                                    <!-- <div class="modal fade" id="newEntryModal" tabindex="-1"
+                                            aria-labelledby="newEntryModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-xl modal-dialog-scrollable">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -100,7 +103,7 @@
                                                 </form>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <% } %>
                                     <!-- <div class="col-auto">

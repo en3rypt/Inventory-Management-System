@@ -2,6 +2,9 @@ const express = require('express');
 const invouchers = express.Router();
 const db = require('../dbConnection');
 
+invouchers.get('/new', (req, res) => {
+    res.render('pages/index', { option: 'newInvoucher' });
+})
 
 invouchers.get('/', (req, res) => {
     db.query(`SELECT * FROM invouchers`, (err, result) => {

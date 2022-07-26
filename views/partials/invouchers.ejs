@@ -35,70 +35,12 @@
                             </div> -->
                             <% if(auth==3){ %>
                                 <div class="col-auto">
-                                    <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#newEntryModal">New Invoucher</button>
-                                    <div class="modal fade" id="newEntryModal" tabindex="-1"
-                                        aria-labelledby="newEntryModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="newEntryModalLabel">Enter data for
-                                                        new In-voucher</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="/invouchers" method="POST">
-                                                        <div class="mb-3">
-                                                            <label for="recipient-name" class="col-form-label">Invoucher
-                                                                ID:</label>
-                                                            <input type="text" class="form-control" id="req-supplierid"
-                                                                name="reqid" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="recipient-name" class="col-form-label">Supplier
-                                                                ID:</label>
-                                                            <input type="text" class="form-control" id="req-supplierid"
-                                                                name="reqsupplierid" required>
-                                                        </div>
-                                                        <div id="message-validate" class="mb-3 d-none">
-                                                            <div class="alert alert-danger" role="alert">
-                                                                <strong>
-                                                                    Please add items to the list before submitting.
-                                                                </strong>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="message-text" class="col-form-label">Add
-                                                                items:</label><br>
-                                                            <ul class="added-items-ul">
+                                    <a href="invouchers/new">
 
-                                                            </ul>
-                                                            <select id="item-name-drop">
-                                                                <% itemRows.forEach(function(item) { %>
-                                                                    <option value="<%= item.ID %>">
-                                                                        <%= item.Name %>
-                                                                    </option>
-                                                                    <% }) %>
-                                                            </select>
-                                                            <input class="form-control w-75 d-inline" id="item-quantity"
-                                                                type="number" min="0" step="1" placeholder="Quantity"
-                                                                required>
-                                                            <button type="button" id="req-item-add"
-                                                                class="btn app-btn-secondary">Add</button>
-                                                            <input type="text" id="added-JSON" name="addedJSON"
-                                                                class="d-none">
-                                                        </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <input type="submit" id="submit-btn-iv" class="btn btn-primary">
-                                                </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#newEntryModal">New Invoucher</button>
+                                    </a>
+
                                 </div>
                                 <% } %>
                                     <!-- <div class="col-auto">

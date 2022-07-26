@@ -3,6 +3,15 @@ const outvouchers = express.Router();
 const db = require('../dbConnection');
 
 
+outvouchers.get('/new', (req, res) => {
+    db.query(`SELECT * FROM items`, (err, itemRowResult) => {
+        if (err) {
+            throw err;
+        }
+        res.render('pages/index', { option: "newOutvoucher", itemRows: itemRowResult });
+        // res.send('hi')
+    })
+})
 outvouchers.get('/', (req, res) => {
     db.query(`SELECT * FROM outvouchers`, (err, result) => {
         if (err) {

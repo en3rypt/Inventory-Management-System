@@ -1,0 +1,45 @@
+<div class="app-wrapper">
+
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+        <div class="container-xl">
+
+            <div class="row g-3 mb-4 align-items-center justify-content-between">
+                <div class="col-auto">
+                    <h1 class="app-page-title mb-0">Stations</h1>
+                </div>
+
+
+                <form action="/stations" method="POST">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="station-name" class="col-form-label">Station
+                                Name:</label>
+                            <input class="form-control mt-2" id="station-name" name="stationname" required>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer d-inline-block mt-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 15px;">Close</button>
+                        <input type="submit" class="btn btn-primary">
+                    </div>
+                </form>
+
+
+                <!--//col-auto-->
+            </div>
+            <!--//tab-content-->
+
+
+
+        </div>
+        <!--//container-fluid-->
+    </div>
+    <!--//app-content-->
+
+    <footer class="app-footer">
+
+    </footer>
+    <!--//app-footer-->
+
+</div>

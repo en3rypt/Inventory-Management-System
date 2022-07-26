@@ -35,62 +35,12 @@
                             </div> -->
                             <% if(auth==3){ %>
                                 <div class="col-auto">
-                                    <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#newEntryModal">New Invoucher</button>
-                                    <div class="modal fade" id="newEntryModal" tabindex="-1"
-                                        aria-labelledby="newEntryModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="newEntryModalLabel">Enter data for
-                                                        new In-voucher</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="/invouchers" method="POST">
-                                                        <div class="mb-3">
-                                                            <label for="recipient-name" class="col-form-label">Invoucher
-                                                                ID:</label>
-                                                            <input type="text" class="form-control" id="req-supplierid"
-                                                                name="reqid">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="recipient-name" class="col-form-label">Supplier
-                                                                ID:</label>
-                                                            <input type="text" class="form-control" id="req-supplierid"
-                                                                name="reqsupplierid">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="message-text" class="col-form-label">Add
-                                                                items:</label><br>
-                                                            <ul class="added-items-ul">
+                                    <a href="invouchers/new">
 
-                                                            </ul>
-                                                            <select id="item-name-drop">
-                                                                <% itemRows.forEach(function(item) { %>
-                                                                    <option value="<%= item.ID %>">
-                                                                        <%= item.Name %>
-                                                                    </option>
-                                                                    <% }) %>
-                                                            </select>
-                                                            <input class="form-control w-75 d-inline"
-                                                                id="item-quantity">
-                                                            <button type="button" id="req-item-add"
-                                                                class="btn app-btn-secondary">Add</button>
-                                                            <input type="text" id="added-JSON" name="addedJSON"
-                                                                class="d-none">
-                                                        </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <input type="submit" class="btn btn-primary">
-                                                </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#newEntryModal">New Invoucher</button>
+                                    </a>
+
                                 </div>
                                 <% } %>
                                     <!-- <div class="col-auto">
@@ -211,7 +161,7 @@
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
-                                                                    <% if(auth==3){ %>
+                                                                    <% if(auth==2){ %>
                                                                         <div class="modal-footer">
 
                                                                             <% if (request.Approval !=1 &&
@@ -353,7 +303,7 @@
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                        <% if(auth==3){ %>
+                                                                        <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
                                                                                 <% if (request.Approval !=1 &&
@@ -483,7 +433,7 @@
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                        <% if(auth==3){ %>
+                                                                        <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
                                                                                 <% if (request.Approval !=1 &&
@@ -612,7 +562,7 @@
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                        <% if(auth==3){ %>
+                                                                        <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
                                                                                 <% if (request.Approval !=1 &&
@@ -675,11 +625,34 @@
 <script>
     addedItemsList = {};
     const reqAddBtn = document.getElementById('req-item-add');
+    const submitBtn = document.getElementById('submit-btn-iv');
     reqAddBtn.addEventListener('click', (e) => {
         let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
-        let itemQty = document.getElementById('item-quantity').value;
-        document.querySelector('.added-items-ul').innerHTML += `<li>${itemName} x ${itemQty}</li>`;
-        addedItemsList[itemName] = parseInt(itemQty);
+        let itemQty = document.getElementById('item-quantity').value > 0 && document.getElementById('item-quantity').value;
+        if (itemQty) {
+            document.querySelector('.added-items-ul').innerHTML += `<li>${itemName} x ${itemQty}</li>`;
+            if (itemName in addedItemsList) {
+                addedItemsList[itemName] += parseInt(itemQty);
+            } else {
+                addedItemsList[itemName] = parseInt(itemQty);
+            }
+        }
         document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList); //passing this to the backend with bodyparser and a d-none input.
+        if (Object.keys(addedItemsList).length < 1) {
+
+            document.querySelector('#message-validate').classList.remove('d-none');
+        }
+        else {
+            document.querySelector('#message-validate').classList.add('d-none');
+        }
+    });
+    submitBtn.addEventListener('click', (e) => {
+        if (Object.keys(addedItemsList).length < 1) {
+            e.preventDefault();
+            document.querySelector('#message-validate').classList.remove('d-none');
+        }
+        else {
+            document.querySelector('#message-validate').classList.add('d-none');
+        }
     });
 </script>

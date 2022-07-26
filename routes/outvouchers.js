@@ -3,6 +3,15 @@ const outvouchers = express.Router();
 const db = require('../dbConnection');
 
 
+outvouchers.get('/new', (req, res) => {
+    db.query(`SELECT * FROM items`, (err, itemRowResult) => {
+        if (err) {
+            throw err;
+        }
+        res.render('pages/index', { option: "newOutvoucher", itemRows: itemRowResult });
+        // res.send('hi')
+    })
+})
 outvouchers.get('/', (req, res) => {
     db.query(`SELECT * FROM outvouchers`, (err, result) => {
         if (err) {
@@ -150,6 +159,7 @@ outvouchers.post('/action/:Id', (req, res) => {
 
 outvouchers.post('/', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
+    // console.log(addedJSON);
     db.query(
         `INSERT INTO outvouchers (ID, ReceiverID) VALUES (${req.body.reqid},${req.body.reqreceiverid})`,
         (err, result) => {

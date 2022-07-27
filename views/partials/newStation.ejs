@@ -9,18 +9,20 @@
                 </div>
 
 
-                <form action="/stations" method="POST">
+                <form action="/stations/new" method="POST">
                     <div class="modal-body">
 
                         <div class="mb-3">
                             <label for="station-name" class="col-form-label">Station
                                 Name:</label>
-                            <input class="form-control mt-2" id="station-name" name="stationname" required>
+                            <input class="form-control mt-2" id="station-name" name="stationname" autocomplete="off"
+                                required>
                         </div>
 
                     </div>
                     <div class="modal-footer d-inline-block mt-3">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 15px;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            style="margin-right: 15px;">Close</button>
                         <input type="submit" class="btn btn-primary">
                     </div>
                 </form>

@@ -16,15 +16,15 @@ stations.get('/', (req, res) => {
     });
 })
 
-// categories.post('/', (req, res) => {
-//     db.query(
-//         `INSERT INTO categories (Name) VALUES ('${req.body.categname}')`,
-//         (err, result) => {
-//             if (err) {
-//                 throw err;
-//             }
-//             res.redirect('/categories');
-//         }
-//     );
-// })
+stations.post('/new', (req, res) => {
+    db.query(
+        `INSERT INTO stations (Name) VALUES ('${req.body.stationname}')`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            }
+            res.redirect('/stations');
+        }
+    );
+})
 module.exports = stations;

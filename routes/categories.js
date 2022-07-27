@@ -16,7 +16,7 @@ categories.get('/', (req, res) => {
     });
 })
 
-categories.post('/', (req, res) => {
+categories.post('/new', (req, res) => {
     db.query(
         `INSERT INTO categories (Name) VALUES ('${req.body.categname}')`,
         (err, result) => {

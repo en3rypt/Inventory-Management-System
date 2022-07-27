@@ -13,6 +13,7 @@ const connection = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
 });
+// {multipleStatements: true}
 connection.connect(function (err) {
     if (err) throw err;
     console.log("DB connection successful!");

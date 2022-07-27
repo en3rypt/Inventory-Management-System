@@ -4,50 +4,67 @@
         <div class="container-xl d-grid gap-5">
 
             <div class="col-auto">
-                <h1 class="app-page-title mb-0">New Received Voucher</h1>
+                <h1 class="app-page-title mb-0">New Received-Voucher</h1>
             </div>
             <div class="col-auto">
-                <form action="/outvouchers" method="POST">
+                <form action="/ivouchers/new" method="POST">
                     <div class="d-grid gap-5">
                         <div class="row">
                             <label for="voucher-id" class="col-form-label">Voucher ID:</label>
-                                <div class="row">
-                                    <div class="col-sm-1">
-                                        <input type="text" class="form-control text-center" name="RV" value="RV" readonly>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input type="text" name="IVno" class="form-control" id="req-receiverid" required>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <select id="item-name-drop" class="form-select" required>
-                                            <option value="<year>">
-                                                <!-- Years drop-down list -->
-                                            </option>
-                                        </select>
-                                    </div>
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <input type="text" class="form-control text-center" name="RV" value="RV" readonly>
                                 </div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="req-supplierid" name="rvid" required>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select id="rv-year" class="form-select" name="rvyear" required>
+                                        <option value="<%=new Date().getFullYear() - 1%>">
+                                            <!-- Years drop-down list -->
+                                            <%=new Date().getFullYear() - 1%>
+                                        </option>
+                                        <option value="<%=new Date().getFullYear()%>" selected>
+                                            <!-- Years drop-down list -->
+                                            <%=new Date().getFullYear()%>
+                                        </option>
+                                        <option value="<%=new Date().getFullYear() + 1%>">
+                                            <!-- Years drop-down list -->
+                                            <%=new Date().getFullYear() + 1%>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
                                 <label for="station-id" class="col-form-label">Supplier:</label>
-                                    <div class="row">
-                                        <input type="text" name="supplier" class="form-control" id="req-supplierid" required>
-                                    </div>                                
+                                <div class="row">
+                                    <select id="station-id" name="stationid" class="form-select" required>
+                                        <% stationRows.forEach(function(station) { %>
+                                            <option value="<%= station.ID %>">
+                                                <%= station.Name %>
+                                            </option>
+                                            <% }); %>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
                                 <label for="scheme-id" class="col-form-label">Scheme:</label>
-                                    <div class="row">
-                                        <select id="item-name-drop" class="form-control" required>
-                                            <option value="<scheme>">
-                                                <!-- Scheme drop-down list -->
+                                <div class="row">
+                                    <select id="scheme-id" name="schemeid" class="form-select" required>
+                                        <% schemeRows.forEach(function(scheme) { %>
+                                            <option value="<%= scheme.ID %>">
+                                                <%= scheme.Name %>
                                             </option>
-                                        </select>
-                                    </div>                                
+                                            <% }); %>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div id="message-validate" class="mb-3 d-none">
+                        <div id="message-validate" class="d-none">
                             <div class="alert alert-danger" role="alert">
                                 <strong>
                                     Please add items to the list before submitting.
@@ -57,32 +74,33 @@
                         <div class="row">
                             <div class="col">
                                 <label for="scheme-id" class="col-form-label">Add Item:</label>
-                                    <div class="row">
-                                        <ul class="added-items-ul">
+                                <div class="row">
+                                    <ul class="added-items-ul">
 
-                                        </ul>
-                                        <div class="col-sm-2">
-                                            <select id="item-name-drop" class="form-select" required>
-                                                <option>Grenade</option>
-                                                <!-- <% itemRows.forEach(function(item) { %>
-                                                    <option value="<%= item.ID %>">
-                                                        <%= item.Name %>
-                                                    </option>
-                                                    <% }) %> -->
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <input type="text" class="form-control w-75 d-inline" id="item-qty-required" placeholder="Reference Number" required>                                       
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <input class="form-control w-75 d-inline" id="item-qty-passed" type="number" min="0"
-                                            step="1" placeholder="Quantity" required>                             
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <button type="button" id="req-item-add" class="btn app-btn-secondary">Add</button>
-                                            <input type="text" id="added-JSON" name="addedJSON" class="d-none">
-                                        </div>  
+                                    </ul>
+                                    <div class="col-sm-2">
+                                        <select id="item-name-drop" name="itemid" class="form-select" required>
+                                            <% itemRows.forEach(function(item) { %>
+                                                <option value="<%= item.ID %>">
+                                                    <%= item.Name %>
+                                                </option>
+                                                <% }); %>
+                                        </select>
                                     </div>
+                                    <div class="col-sm-2">
+                                        <input class="form-control w-75 d-inline" id="item-qty-required" type="number"
+                                            min="0" step="1" name="ReqQty" placeholder="Required" required>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input class="form-control w-75 d-inline" id="item-qty-passed" type="number"
+                                            min="0" step="1" name="PassedQty" placeholder="Passed" required>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button type="button" id="req-item-add"
+                                            class="btn app-btn-secondary">Add</button>
+                                        <input type="text" id="added-JSON" name="addedJSON" class="d-none">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="">
@@ -103,3 +121,46 @@
     <!--//app-footer-->
 
 </div>
+
+
+
+<script>
+    addedItemsList = {};
+    const reqAddBtn = document.getElementById('req-item-add');
+    const submitBtn = document.getElementById('submit-btn-ov');
+    reqAddBtn.addEventListener('click', (e) => {
+        let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
+        let itemReqQty = document.getElementById('item-qty-required').value > 0 && document.getElementById('item-qty-required').value;
+        let itemPassedQty = document.getElementById('item-qty-passed').value > 0 && document.getElementById('item-qty-passed').value;
+        if (itemReqQty && itemPassedQty) {
+            document.querySelector('.added-items-ul').innerHTML += `<li>${itemName} | ${itemReqQty} | ${itemPassedQty}</li>`;
+            if (itemName in addedItemsList) {
+                alert("Item already added.");
+                // addedItemsList[itemName]['reqQty'] += itemReqQty;
+                // addedItemsList[itemName]['passedQty'] += itemPassedQty;
+            } else {
+                addedItemsList[itemName] = {
+                    'reqQty': itemReqQty,
+                    'passedQty': itemPassedQty
+                };
+            }
+        }
+        document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList); //passing this to the backend with bodyparser and a d-none input.
+        if (Object.keys(addedItemsList).length < 1) {
+
+            document.querySelector('#message-validate').classList.remove('d-none');
+        }
+        else {
+            document.querySelector('#message-validate').classList.add('d-none');
+        }
+    });
+    submitBtn.addEventListener('click', (e) => {
+        if (Object.keys(addedItemsList).length < 1) {
+            e.preventDefault();
+            document.querySelector('#message-validate').classList.remove('d-none');
+        }
+        else {
+            document.querySelector('#message-validate').classList.add('d-none');
+        }
+    });
+</script>

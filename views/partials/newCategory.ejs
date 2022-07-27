@@ -9,18 +9,19 @@
                 </div>
 
 
-                <form action="/categories" method="POST">
+                <form action="/categories/new" method="POST">
                     <div class="modal-body">
 
                         <div class="mb-3">
                             <label for="categ-name" class="col-form-label">Category
                                 Name:</label>
-                            <input class="form-control" id="categ-name" name="categname" required>
+                            <input class="form-control" id="categ-name" name="categname" autocomplete="off" required>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 20px;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            style="margin-right: 20px;">Close</button>
                         <input type="submit" class="btn btn-primary">
                     </div>
                 </form>

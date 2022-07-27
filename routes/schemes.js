@@ -16,15 +16,15 @@ schemes.get('/', (req, res) => {
     });
 })
 
-// categories.post('/', (req, res) => {
-//     db.query(
-//         `INSERT INTO categories (Name) VALUES ('${req.body.categname}')`,
-//         (err, result) => {
-//             if (err) {
-//                 throw err;
-//             }
-//             res.redirect('/categories');
-//         }
-//     );
-// })
+schemes.post('/new', (req, res) => {
+    db.query(
+        `INSERT INTO schemes (Name) VALUES ('${req.body.schemename}')`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            }
+            res.redirect('/schemes');
+        }
+    );
+})
 module.exports = schemes;

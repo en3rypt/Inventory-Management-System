@@ -7,8 +7,18 @@ rvouchers.get('/new', (req, res) => {
         if (err) {
             throw err;
         }
-        res.render('pages/index', { option: "newRV", itemRows: itemRowResult });
-        // res.send('hi')
+        db.query(`SELECT * FROM schemes`, (err, schemesResult) => {
+            if (err) {
+                throw err;
+            }
+            db.query(`SELECT * FROM stations`, (err, stationsResult) => {
+                if (err) {
+                    throw err;
+                }
+                res.render('pages/index', { option: "newRV", itemRows: itemRowResult, schemeRows: schemesResult, stationRows: stationsResult });
+                // res.send('hi')
+            })
+        })
     })
 })
 
@@ -27,12 +37,12 @@ rvouchers.get('/', (req, res) => {
                 }
                 let rvItemlist = {};
                 vItemResult.forEach(row => {
-                    if (!rvItemlist[row.vID])
-                        rvItemlist[row.vID] = {};
-                    rvItemlist[row.vID][row.Name] = row.vItemQty;
+                    if (!rvItemlist[row.rvID])
+                        rvItemlist[row.rvID] = {};
+                    rvItemlist[row.rvID][row.Name] = row.rvItemQty;
                 });
                 // console.log(itemRowResult);
-                res.render('pages/index', { option: "receivedvouchers", receivedvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
+                res.render('pages/index', { option: "rvouchers", rvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
             });
         });
     });

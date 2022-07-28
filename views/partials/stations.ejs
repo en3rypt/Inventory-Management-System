@@ -5,7 +5,7 @@
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Categories</h1>
+                    <h1 class="app-page-title mb-0">Stations</h1>
                 </div>
                 <div class="col-auto">
                     <div class="page-utilities">
@@ -39,10 +39,10 @@
                                 <i class="fa-solid fa-plus"></i>
                                 New Entry
                             </a> -->
-                                    <a href="/categories/new">
+                                    <a href="/stations/new">
 
                                         <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#newEntryModal">New category</button>
+                                            data-bs-target="#newEntryModal">New Station</button>
                                     </a>
 
                                 </div>
@@ -92,20 +92,20 @@
                                     <thead>
                                         <tr>
 
-                                            <th class="cell">CategoryID</th>
+                                            <th class="cell">StationID</th>
                                             <th class="cell">Name</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% categoriesData.forEach(function(category) { %>
+                                        <% stationsData.forEach(function(station) { %>
                                             <tr>
                                                 <td class="cell">
-                                                    <%= category.ID %>
+                                                    <%= station.ID %>
                                                 </td>
                                                 <td class="cell">
 
-                                                    <%= category.Name %>
+                                                    <%= station.Name %>
 
                                                 </td>
                                             </tr>
@@ -119,7 +119,7 @@
                         <!--//app-card-body-->
                     </div>
                     <!--//app-card-->
-                    <nav class="app-pagination">
+                    <!-- <nav class="app-pagination">
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -131,7 +131,7 @@
                                 <a class="page-link" href="#">Next</a>
                             </li>
                         </ul>
-                    </nav>
+                    </nav> -->
                     <!--//app-pagination-->
 
                 </div>

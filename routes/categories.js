@@ -2,6 +2,9 @@ const express = require('express');
 const categories = express.Router();
 const db = require('../dbConnection');
 
+categories.get('/new', (req, res) => {
+    res.render('pages/index', { option: 'newCategory' });
+})
 categories.get('/', (req, res) => {
 
     db.query(`SELECT * FROM categories`, (err, result) => {
@@ -13,7 +16,7 @@ categories.get('/', (req, res) => {
     });
 })
 
-categories.post('/', (req, res) => {
+categories.post('/new', (req, res) => {
     db.query(
         `INSERT INTO categories (Name) VALUES ('${req.body.categname}')`,
         (err, result) => {

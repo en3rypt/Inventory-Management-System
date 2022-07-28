@@ -87,7 +87,7 @@
                                     <ul class="added-items-ul">
 
                                     </ul>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-2 w-25">
                                         <select id="item-name-drop" name="itemid" class="form-select" required>
                                             <% itemRows.forEach(function(item) { %>
                                                 <option value="<%= item.ID %>">
@@ -97,17 +97,17 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-2">
-                                        <input class="form-control w-75 d-inline" id="item-qty-required" type="number"
+                                        <input class="form-control w-75 ms-4" id="item-qty-required" type="number"
                                             min="0" step="1" name="ReqQty" placeholder="Required" required>
                                     </div>
                                     <div class="col-sm-2">
-                                        <input class="form-control w-75 d-inline" id="item-qty-passed" type="number"
-                                            min="0" step="1" name="PassedQty" placeholder="Passed" required>
+                                        <input class="form-control w-75 " id="item-qty-passed" type="number"
+                                            min="0" step="1" name="PassedQty" placeholder="Passed" required >
                                     </div>
                                     <div class="col-sm-4">
                                         <button type="button" id="req-item-add"
-                                            class="btn app-btn-secondary">Add</button>
-                                        <input type="text" id="added-JSON" name="addedJSON" class="d-none">
+                                            class="btn app-btn-secondary ">Add</button>
+                                        <input type="text" id="added-JSON" name="addedJSON" class="d-none me-3" s>
                                     </div>
                                 </div>
                             </div>

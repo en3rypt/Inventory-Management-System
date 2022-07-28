@@ -94,6 +94,7 @@
 
                                             <th class="cell">SchemeID</th>
                                             <th class="cell">Name</th>
+                                            <th>Option</th>
 
                                         </tr>
                                     </thead>
@@ -107,6 +108,13 @@
 
                                                     <%= scheme.Name %>
 
+                                                </td>
+                                                <td>
+                                                    <a href="/schemes/edit/<%=scheme.ID%>">
+                                                        <button type="button" class="btn app-btn-secondary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#v<%=scheme.ID%>">Edit</button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <% }) %>

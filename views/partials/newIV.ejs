@@ -39,7 +39,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="station-id" class="col-form-label">Supplier ID:</label>
-                                <div class="row">
+                                
                                     <select id="station-id" name="stationid" class="form-select" required>
                                         <% stationRows.forEach(function(station) { %>
                                             <option value="<%= station.ID %>">
@@ -47,11 +47,11 @@
                                             </option>
                                             <% }); %>
                                     </select>
-                                </div>
+                                
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 ">
                                 <label for="scheme-id" class="col-form-label">Scheme:</label>
-                                <div class="row">
+                                
                                     <select id="scheme-id" name="schemeid" class="form-select" required>
                                         <% schemeRows.forEach(function(scheme) { %>
                                             <option value="<%= scheme.ID %>">
@@ -59,7 +59,7 @@
                                             </option>
                                             <% }); %>
                                     </select>
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="row">
@@ -98,8 +98,10 @@
                                     </table>
                                     <!-- <ul class="added-items-ul">
 
+
                                     </ul> -->
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-2 w-25">
+
                                         <select id="item-name-drop" name="itemid" class="form-select" required>
                                             <% itemRows.forEach(function(item) { %>
                                                 <option value="<%= item.ID %>">
@@ -109,22 +111,23 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-2">
-                                        <input class="form-control w-75 d-inline" id="item-qty-required" type="number"
+                                        <input class="form-control w-75 ms-4" id="item-qty-required" type="number"
                                             min="0" step="1" name="ReqQty" placeholder="Required" required>
                                     </div>
                                     <div class="col-sm-2">
-                                        <input class="form-control w-75 d-inline" id="item-qty-passed" type="number"
-                                            min="0" step="1" name="PassedQty" placeholder="Passed" required>
+                                        <input class="form-control w-75 " id="item-qty-passed" type="number"
+                                            min="0" step="1" name="PassedQty" placeholder="Passed" required >
                                     </div>
                                     <div class="col-sm-4">
                                         <button type="button" id="req-item-add"
-                                            class="btn app-btn-secondary">Add</button>
-                                        <input type="text" id="added-JSON" name="addedJSON" class="d-none">
+                                            class="btn app-btn-secondary ">Add</button>
+                                        <input type="text" id="added-JSON" name="addedJSON" class="d-none me-3" s>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="">
+
                             <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
                             <input type="submit" id="submit-btn-ov" class="btn btn-primary text-white">
                         </div>

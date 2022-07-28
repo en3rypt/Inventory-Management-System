@@ -84,10 +84,24 @@
                             <div class="col">
                                 <label for="scheme-id" class="col-form-label">Add Item:</label>
                                 <div class="row">
-                                    <ul class="added-items-ul">
+                                    <table id='added-items-table' class="table app-table-hover mb-0 text-center d-none"
+                                        style="font-size:0.8em;">
+                                        <thead>
+                                            <tr>
+                                                <th class="cell">Item Name</th>
+                                                <th class="cell">Required</th>
+                                                <th class="cell">Passed</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="added-items-tbody">
+                                        </tbody>
+                                    </table>
+                                    <!-- <ul class="added-items-ul">
 
-                                    </ul>
+
+                                    </ul> -->
                                     <div class="col-sm-2 w-25">
+
                                         <select id="item-name-drop" name="itemid" class="form-select" required>
                                             <% itemRows.forEach(function(item) { %>
                                                 <option value="<%= item.ID %>">
@@ -113,8 +127,9 @@
                             </div>
                         </div>
                         <div class="">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                            <input type="submit" id="submit-btn-ov" class="btn btn-primary ms-2 text-white">
+
+                            <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
+                            <input type="submit" id="submit-btn-ov" class="btn btn-primary text-white">
                         </div>
                     </div>
                 </form>
@@ -142,7 +157,11 @@
         let itemReqQty = document.getElementById('item-qty-required').value > 0 && document.getElementById('item-qty-required').value;
         let itemPassedQty = document.getElementById('item-qty-passed').value > 0 && document.getElementById('item-qty-passed').value;
         if (itemReqQty && itemPassedQty) {
-            document.querySelector('.added-items-ul').innerHTML += `<li>${itemName} | ${itemReqQty} | ${itemPassedQty}</li>`;
+            document.querySelector('#added-items-tbody').innerHTML += `<tr>
+                                                <td class="cell">${itemName}</td>
+                                                <td class="cell">${itemReqQty}</td>
+                                                <td class="cell">${itemPassedQty}</td>
+                                                </tr>`;
             if (itemName in addedItemsList) {
                 alert("Item already added.");
                 // addedItemsList[itemName]['reqQty'] += itemReqQty;
@@ -158,18 +177,22 @@
         if (Object.keys(addedItemsList).length < 1) {
 
             document.querySelector('#message-validate').classList.remove('d-none');
+            document.querySelector('#added-items-table').classList.add('d-none');
         }
         else {
             document.querySelector('#message-validate').classList.add('d-none');
+            document.querySelector('#added-items-table').classList.remove('d-none');
         }
     });
     submitBtn.addEventListener('click', (e) => {
         if (Object.keys(addedItemsList).length < 1) {
             e.preventDefault();
             document.querySelector('#message-validate').classList.remove('d-none');
+            document.querySelector('#added-items-table').classList.add('d-none');
         }
         else {
             document.querySelector('#message-validate').classList.add('d-none');
+            document.querySelector('#added-items-table').classList.remove('d-none');
         }
     });
 </script>

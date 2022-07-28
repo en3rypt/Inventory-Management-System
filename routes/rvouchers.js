@@ -57,7 +57,7 @@ rvouchers.get('/', (req, res) => {
 rvouchers.post('/new', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
     db.query(
-        `INSERT INTO receivedvouchers (RVNo, RVYear, Supplier, Scheme, SNo, DateOfReceival) VALUES (${req.body.rvid}, ${req.body.rvyear}, ${req.body.stationid}, ${req.body.schemeid}, ${req.body.sno}, '${new Date(req.body.dor).toISOString().slice(0, 10)}')`,
+        `INSERT INTO receivedvouchers (RVNo, RVYear, Supplier, Scheme, SNo, DateOfReceival) VALUES (${req.body.rvid}, ${req.body.rvyear}, '${req.body.stationid}', ${req.body.schemeid}, ${req.body.sno}, '${new Date(req.body.dor).toISOString().slice(0, 10)}')`,
         (err, result) => {
             if (err) {
                 throw err;

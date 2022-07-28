@@ -19,16 +19,19 @@ const checkUser = (req, res, next) => {
     if (token) {
         jwt.verify(token, 'the-super-strong-secrect', (err, decodedToken) => {
             if (err) {
+                res.locals.id = null;
                 res.locals.user = null;
                 res.locals.auth = null;
                 next();
             } else {
+                res.locals.id = decodedToken.id;
                 res.locals.user = decodedToken.name;
                 res.locals.auth = decodedToken.AuthType;
                 next()
             }
         })
     } else {
+        res.locals.id = null;
         res.locals.user = null;
         res.locals.auth = null;
         next();

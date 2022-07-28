@@ -6,10 +6,12 @@ const path = require('path');
 const login = require('./routes/login');
 const signup = require('./routes/signup');
 const items = require('./routes/items');
-const outvouchers = require('./routes/outvouchers');
-const invouchers = require('./routes/invouchers');
+const ivouchers = require('./routes/ivouchers');
+const rvouchers = require('./routes/rvouchers');
 const categories = require('./routes/categories');
 const dashboard = require('./routes/dashboard');
+const stations = require('./routes/stations');
+const schemes = require('./routes/schemes');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
@@ -38,9 +40,11 @@ app.get('*', checkUser);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/items', requireAuth, items);
-app.use('/invouchers', requireAuth, invouchers);
-app.use('/outvouchers', requireAuth, outvouchers);
+app.use('/rvouchers', requireAuth, rvouchers);
+app.use('/ivouchers', requireAuth, ivouchers);
 app.use('/categories', requireAuth, categories);
+app.use('/stations', requireAuth, stations);
+app.use('/schemes', requireAuth, schemes);
 app.use('/', requireAuth, dashboard);
 
 app.get('/Categories', (req, res) => {

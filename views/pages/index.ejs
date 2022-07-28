@@ -29,41 +29,56 @@
 
         <% switch (option) { case 'dashboard' : %>
             <%- include('../partials/dashboard'); %>
-                <% break; case 'outvouchers' : %>
-                    <%- include('../partials/outvouchers'); %>
-                        <% break; case 'invouchers' : %>
-                            <%- include('../partials/invouchers'); %>
+                <% break; case 'ivouchers' : %>
+                    <%- include('../partials/ivouchers'); %>
+                        <% break; case 'rvouchers' : %>
+                            <%- include('../partials/rvouchers'); %>
                                 <% break; case 'items' : %>
                                     <%- include('../partials/items'); %>
                                         <% break; case 'categories' : %>
                                             <%- include('../partials/categories'); %>
-                                                <% break;case 'newOutvoucher' : %>
-                                                    <%- include('../partials/newOutvoucher'); %>
-                                                        <% break;case 'newItem' : %>
-                                                            <%- include('../partials/newItem'); %>
-                                                                <% break;case 'newCategory' : %>
-                                                                    <%- include('../partials/newCategory'); %>
-                                                                        <% break;case 'newInvoucher' : %>
-                                                                            <%- include('../partials/newInvoucher'); %>
-                                                                                <% break; } %>
-                                                                                    <!--//app-wrapper-->
+                                                <% break;case 'newIV' : %>
+                                                    <%- include('../partials/newIV'); %>
+                                                        <% break;case 'stations' : %>
+                                                            <%- include('../partials/stations'); %>
+                                                                <% break;case 'newStation' : %>
+                                                                    <%- include('../partials/newStation'); %>
+                                                                        <% break;case 'schemes' : %>
+                                                                            <%- include('../partials/schemes'); %>
+                                                                                <% break;case 'newScheme' : %>
+                                                                                    <%- include('../partials/newScheme');
+                                                                                        %>
+                                                                                        <% break;case 'newItem' : %>
+                                                                                            <%- include('../partials/newItem');
+                                                                                                %>
+                                                                                                <% break;case 'newCategory'
+                                                                                                    : %>
+                                                                                                    <%- include('../partials/newCategory');
+                                                                                                        %>
+                                                                                                        <% break;case 'newRV'
+                                                                                                            : %>
+                                                                                                            <%- include('../partials/newRV');
+                                                                                                                %>
+                                                                                                                <% break;
+                                                                                                                    } %>
+                                                                                                                    <!--//app-wrapper-->
 
 
-                                                                                    <!-- Javascript -->
-                                                                                    <script
-                                                                                        src="/assets/js/plugins/popper.min.js"></script>
-                                                                                    <script
-                                                                                        src="/assets/js/plugins/bootstrap/js/bootstrap.min.js"></script>
+                                                                                                                    <!-- Javascript -->
+                                                                                                                    <script
+                                                                                                                        src="/assets/js/plugins/popper.min.js"></script>
+                                                                                                                    <script
+                                                                                                                        src="/assets/js/plugins/bootstrap/js/bootstrap.min.js"></script>
 
-                                                                                    <!-- Charts JS -->
-                                                                                    <script
-                                                                                        src="/assets/js/plugins/chart.js/chart.min.js"></script>
-                                                                                    <script
-                                                                                        src="/assets/js/index-charts.js"></script>
+                                                                                                                    <!-- Charts JS -->
+                                                                                                                    <script
+                                                                                                                        src="/assets/js/plugins/chart.js/chart.min.js"></script>
+                                                                                                                    <script
+                                                                                                                        src="/assets/js/index-charts.js"></script>
 
-                                                                                    <!-- Page Specific JS -->
-                                                                                    <script
-                                                                                        src="/assets/js/app.js"></script>
+                                                                                                                    <!-- Page Specific JS -->
+                                                                                                                    <script
+                                                                                                                        src="/assets/js/app.js"></script>
 
 
 </body>

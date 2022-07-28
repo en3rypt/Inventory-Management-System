@@ -4,11 +4,11 @@
         <div class="container-xl">
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
-                <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Categories</h1>
+                <div class="col-auto mt-100">
+                    <h1 class="app-page-title mb-100">New Item</h1>
                 </div>
-                <div class="col-auto">
-                    <form action="/items" method="POST">
+                <div class="row-auto">
+                    <form action="/items/new" method="POST">
 
                         <!-- <div class="mb-3">
                                                                     <label for="recipient-name"
@@ -17,7 +17,7 @@
                                                                         name="itemid">
                                                                 </div> -->
                         <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Category:
+                            <label for="message-text" class="row-form-label mt-3">Category:
                             </label>
                             <!-- <input class="form-control" list="datalistOptions"
                                                                         id="category-id" name="categoryid"> -->
@@ -31,19 +31,26 @@
                             <!-- <input type="text" class="form-control" id="category-id"
                                                                         name="categoryid"> -->
                         </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Name:</label>
-                            <input class="form-control" id="item-name" name="itemname" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Quantity:</label>
-                            <input class="form-control" id="item-quantity" type="number" min="0" step="1"
-                                name="itemquantity" required>
+                        <div class="row" style="margin-top: 30px;">
+                            <div class="mb-3 col-lg-4">
+                                <label for="message-text" class="col-form-label">Name:</label>
+                                <input class="form-control" id="item-name" name="itemname" required>
+                            </div>
+                            <div class="mb-3 col-lg-4">
+                                <label for="message-text" class="col-form-label">Quantity:</label>
+                                <input class="form-control" id="item-quantity" type="number" min="0" step="1"
+                                    name="itemquantity" required>
+                            </div>
+                            <div class="mb-3 col-lg-4">
+                                <label for="message-text" class="col-form-label">Item Life:</label>
+                                <input class="form-control" id="item-life" type="number" min="0" step="1"
+                                    name="itemlife" required>
+                            </div>
                         </div>
 
-
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary">
+                        <button type="button" class="btn btn-secondary" style="margin-top: 20px;"
+                            data-bs-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" style="margin-top: 20px;">
 
                     </form>
                 </div>

@@ -5,8 +5,9 @@
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">In-vouchers</h1>
+                    <h1 class="app-page-title mb-0">Issue Vouchers</h1>
                 </div>
+
                 <div class="col-auto">
                     <div class="page-utilities">
                         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
@@ -22,7 +23,6 @@
                                 </form>
 
                             </div>
-                            
                             <div class="col-auto">
 
                                 <select class="form-select w-auto">
@@ -35,12 +35,75 @@
                             </div> -->
                             <% if(auth==3){ %>
                                 <div class="col-auto">
-                                    <a href="invouchers/new">
+                                    <a href="/ivouchers/new">
 
                                         <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#newEntryModal">New Invoucher</button>
+                                            data-bs-target="#newEntryModal">New Issued-Voucher</button>
                                     </a>
+                                    <!-- <div class="modal fade" id="newEntryModal" tabindex="-1"
+                                            aria-labelledby="newEntryModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="newEntryModalLabel">Enter data
+                                                        for
+                                                        new i-voucher</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/ivouchers" method="POST">
+                                                        <div class="mb-3">
+                                                            <label for="recipient-name"
+                                                                class="col-form-label">ivoucher
+                                                                ID:</label>
+                                                            <input type="text" class="form-control" id="req-receiverid"
+                                                                name="reqid" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="recipient-name" class="col-form-label">Receiver
+                                                                ID:</label>
+                                                            <input type="text" class="form-control" id="req-receiverid"
+                                                                name="reqreceiverid" required>
+                                                        </div>
+                                                        <div id="message-validate" class="mb-3 d-none">
+                                                            <div class="alert alert-danger" role="alert">
+                                                                <strong>
+                                                                    Please add items to the list before submitting.
+                                                                </strong>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="message-text" class="col-form-label">Add
+                                                                items:</label><br>
+                                                            <ul class="added-items-ul">
 
+                                                            </ul>
+                                                            <select id="item-name-drop" required>
+                                                                <% itemRows.forEach(function(item) { %>
+                                                                    <option value="<%= item.ID %>">
+                                                                        <%= item.Name %>
+                                                                    </option>
+                                                                    <% }) %>
+                                                            </select>
+                                                            <input class="form-control w-75 d-inline" id="item-quantity"
+                                                                type="number" min="0" step="1" placeholder="Quantity"
+                                                                required>
+                                                            <button type="button" id="req-item-add"
+                                                                class="btn app-btn-secondary">Add</button>
+                                                            <input type="text" id="added-JSON" name="addedJSON"
+                                                                class="d-none">
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <input type="submit" id="submit-btn-ov" class="btn btn-primary">
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div> -->
                                 </div>
                                 <% } %>
                                     <!-- <div class="col-auto">
@@ -87,29 +150,56 @@
                                 <table class="table app-table-hover mb-0 text-center	">
                                     <thead>
                                         <tr>
-                                            <th class="cell">ID</th>
-                                            <th class="cell">Receiver ID</th>
+                                            <th class="cell">IV No.</th>
+                                            <th class="cell">Station</th>
+                                            <th class="cell">S. No.</th>
+                                            <th class="cell">Scheme</th>
+                                            <th class="cell">DateOfReceival</th>
                                             <th class="cell">Approval</th>
+                                            <th class="cell">ActionBy</th>
+                                            <th class="cell">ActionDate</th>
                                             <th class="cell"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% invouchersData.forEach(function(request) { %>
+                                        <% ivouchersData.forEach(function(issue) { %>
                                             <tr>
                                                 <td class="cell">
-                                                    <%= request.ID %>
+                                                    IV/<%= issue.IVNo %>/<%= issue.IVYear %>
                                                 </td>
                                                 <td class="cell">
-                                                    <%= request.ReceiverID %>
+                                                    <%= issue.Receiver %>
                                                 </td>
-
                                                 <td class="cell">
-                                                    <% if (request.Approval==0 ) { %>
+                                                    <%= issue.SNo %>
+                                                </td>
+                                                <td class="cell">
+                                                    <%= issue.Scheme %>
+                                                </td>
+                                                <td class="cell">
+                                                    <%= issue.DateOfReceival %>
+                                                </td>
+                                                <td class="cell">
+                                                    <% if (issue.Approval==0 ) { %>
                                                         <span class="badge badge bg-warning">Pending</span>
-                                                        <% } else if (request.Approval==1 ) { %>
+                                                        <% } else if (issue.Approval==1 ) { %>
                                                             <span class="badge badge bg-success">Approved</span>
-                                                            <% } else if (request.Approval==2 ) { %>
+                                                            <% } else if (issue.Approval==2 ) { %>
                                                                 <span class="badge badge bg-danger">Declined</span>
+                                                                <% } %>
+                                                </td>
+                                                <td class="cell">
+                                                    <% if (issue.Approval!=0 ) { %>
+                                                        <%=issue.ApprovedBy %>
+                                                            <% } else { %>
+                                                                -
+                                                                <% } %>
+                                                </td>
+                                                <td class="cell">
+                                                    <% if (issue.Approval!=0 ) { %>
+                                                        <%=issue.ApprovalDate %>
+                                                            <% } else { %>
+                                                                -
                                                                 <% } %>
                                                 </td>
                                                 <td class="cell">
@@ -117,14 +207,14 @@
                                                     <div class="col-auto">
                                                         <button type="button" class="btn app-btn-secondary"
                                                             data-bs-toggle="modal"
-                                                            data-bs-target="#v<%=request.ID%>">View</button>
-                                                        <div class="modal fade" id="v<%=request.ID%>" tabindex="-1"
-                                                            aria-labelledby="v<%=request.ID%>Label" aria-hidden="true">
+                                                            data-bs-target="#v<%=issue.ID%>">View</button>
+                                                        <div class="modal fade" id="v<%=issue.ID%>" tabindex="-1"
+                                                            aria-labelledby="v<%=issue.ID%>Label" aria-hidden="true">
                                                             <div class="modal-dialog modal-xl modal-dialog-scrollable">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title" id="viewRequewstLabel">
-                                                                            Requested Items List
+                                                                            Issued Items List
                                                                         </h5>
                                                                         <button type="button" class="btn-close"
                                                                             data-bs-dismiss="modal"
@@ -134,27 +224,32 @@
                                                                         <table class="table  table-hover">
                                                                             <thead>
                                                                                 <tr>
-
                                                                                     <th scope="col">Item</th>
-                                                                                    <th scope="col">Quantity</th>
-
+                                                                                    <th scope="col">Requested</th>
+                                                                                    <th scope="col">Passed</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
                                                                                 <% Object.keys(ivItemlist).forEach(function(rID)
                                                                                     { %>
-                                                                                    <% if (rID==request.ID) { %>
+                                                                                    <% if (rID==issue.ID) { %>
                                                                                         <% Object.keys(ivItemlist[rID]).forEach(function(item)
                                                                                             { %>
+
                                                                                             <tr>
                                                                                                 <td>
                                                                                                     <%= item %>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <%= ivItemlist[rID][item]
+                                                                                                    <%= ivItemlist[rID][item].req
+                                                                                                        %>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <%= ivItemlist[rID][item].passed
                                                                                                         %>
                                                                                                 </td>
                                                                                             </tr>
+
                                                                                             <% }) %>
                                                                                                 <% } %>
                                                                                                     <% }) %>
@@ -167,7 +262,7 @@
                                                                             <% if (request.Approval !=1 &&
                                                                                 request.Approval !=2) { %>
                                                                                 <form
-                                                                                    action="/invouchers/action/<%=request.ID%>"
+                                                                                    action="/ivouchers/action/<%=request.ID%>"
                                                                                     method="post" name="ratings">
                                                                                     <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
@@ -225,30 +320,57 @@
                                 <table class="table app-table-hover mb-0 text-center	">
                                     <thead>
                                         <tr>
-                                            <th class="cell">ID</th>
-                                            <th class="cell">Receiver ID</th>
+                                            <th class="cell">IV No.</th>
+                                            <th class="cell">Station</th>
+                                            <th class="cell">S. No.</th>
+                                            <th class="cell">Scheme</th>
+                                            <th class="cell">DateOfReceival</th>
                                             <th class="cell">Approval</th>
+                                            <th class="cell">ActionBy</th>
+                                            <th class="cell">ActionDate</th>
                                             <th class="cell"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% invouchersData.forEach(function(request) { %>
-                                            <% if(request.Approval==1) { %>
+                                        <% ivouchersData.forEach(function(issue) { %>
+                                            <% if (issue.Approval==1 ) { %>
                                                 <tr>
                                                     <td class="cell">
-                                                        <%= request.ID %>
+                                                        IV/<%= issue.IVNo %>/<%= issue.IVYear %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= request.ReceiverID %>
+                                                        <%= issue.Receiver %>
                                                     </td>
-
                                                     <td class="cell">
-                                                        <% if (request.Approval==0 ) { %>
+                                                        <%= issue.SNo %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <%= issue.Scheme %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <%= issue.DateOfReceival %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <% if (issue.Approval==0 ) { %>
                                                             <span class="badge badge bg-warning">Pending</span>
-                                                            <% } else if (request.Approval==1 ) { %>
+                                                            <% } else if (issue.Approval==1 ) { %>
                                                                 <span class="badge badge bg-success">Approved</span>
-                                                                <% } else if (request.Approval==2 ) { %>
+                                                                <% } else if (issue.Approval==2 ) { %>
                                                                     <span class="badge badge bg-danger">Declined</span>
+                                                                    <% } %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <% if (issue.Approval!=0 ) { %>
+                                                            <%=issue.ApprovedBy %>
+                                                                <% } else { %>
+                                                                    -
+                                                                    <% } %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <% if (issue.Approval!=0 ) { %>
+                                                            <%=issue.ApprovalDate %>
+                                                                <% } else { %>
+                                                                    -
                                                                     <% } %>
                                                     </td>
                                                     <td class="cell">
@@ -256,9 +378,9 @@
                                                         <div class="col-auto">
                                                             <button type="button" class="btn app-btn-secondary"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=request.ID%>ap">View</button>
-                                                            <div class="modal fade" id="v<%=request.ID%>ap"
-                                                                tabindex="-1" aria-labelledby="v<%=request.ID%>Labelap"
+                                                                data-bs-target="#v<%=issue.ID%>">View</button>
+                                                            <div class="modal fade" id="v<%=issue.ID%>" tabindex="-1"
+                                                                aria-labelledby="v<%=issue.ID%>Label"
                                                                 aria-hidden="true">
                                                                 <div
                                                                     class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -266,7 +388,7 @@
                                                                         <div class="modal-header">
                                                                             <h5 class="modal-title"
                                                                                 id="viewRequewstLabel">
-                                                                                Requested Items List
+                                                                                Issued Items List
                                                                             </h5>
                                                                             <button type="button" class="btn-close"
                                                                                 data-bs-dismiss="modal"
@@ -276,27 +398,32 @@
                                                                             <table class="table  table-hover">
                                                                                 <thead>
                                                                                     <tr>
-
                                                                                         <th scope="col">Item</th>
-                                                                                        <th scope="col">Quantity</th>
-
+                                                                                        <th scope="col">Requested</th>
+                                                                                        <th scope="col">Passed</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <% Object.keys(ivItemlist).forEach(function(rID)
                                                                                         { %>
-                                                                                        <% if (rID==request.ID) { %>
+                                                                                        <% if (rID==issue.ID) { %>
                                                                                             <% Object.keys(ivItemlist[rID]).forEach(function(item)
                                                                                                 { %>
+
                                                                                                 <tr>
                                                                                                     <td>
                                                                                                         <%= item %>
                                                                                                     </td>
                                                                                                     <td>
-                                                                                                        <%= ivItemlist[rID][item]
+                                                                                                        <%= ivItemlist[rID][item].req
+                                                                                                            %>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <%= ivItemlist[rID][item].passed
                                                                                                             %>
                                                                                                     </td>
                                                                                                 </tr>
+
                                                                                                 <% }) %>
                                                                                                     <% } %>
                                                                                                         <% }) %>
@@ -309,16 +436,14 @@
                                                                                 <% if (request.Approval !=1 &&
                                                                                     request.Approval !=2) { %>
                                                                                     <form
-                                                                                        action="/invouchers/action/<%=request.ID%>"
+                                                                                        action="/ivouchers/action/<%=request.ID%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
-                                                                                    value=""> -->
-
+                                                                                value=""> -->
                                                                                         <button type="submit"
                                                                                             name="action_type"
                                                                                             value="Accept"
                                                                                             class="btn btn-success text-white">Approve</button>
-
                                                                                         <button type="submit"
                                                                                             name="action_type"
                                                                                             value="Decline"
@@ -355,30 +480,57 @@
                                 <table class="table app-table-hover mb-0 text-center	">
                                     <thead>
                                         <tr>
-                                            <th class="cell">ID</th>
-                                            <th class="cell">Receiver ID</th>
+                                            <th class="cell">IV No.</th>
+                                            <th class="cell">Station</th>
+                                            <th class="cell">S. No.</th>
+                                            <th class="cell">Scheme</th>
+                                            <th class="cell">DateOfReceival</th>
                                             <th class="cell">Approval</th>
+                                            <th class="cell">ActionBy</th>
+                                            <th class="cell">ActionDate</th>
                                             <th class="cell"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% invouchersData.forEach(function(request) { %>
-                                            <% if(request.Approval==0) { %>
+                                        <% ivouchersData.forEach(function(issue) { %>
+                                            <% if (issue.Approval==0 ) { %>
                                                 <tr>
                                                     <td class="cell">
-                                                        <%= request.ID %>
+                                                        IV/<%= issue.IVNo %>/<%= issue.IVYear %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= request.ReceiverID %>
+                                                        <%= issue.Receiver %>
                                                     </td>
-
                                                     <td class="cell">
-                                                        <% if (request.Approval==0 ) { %>
+                                                        <%= issue.SNo %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <%= issue.Scheme %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <%= issue.DateOfReceival %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <% if (issue.Approval==0 ) { %>
                                                             <span class="badge badge bg-warning">Pending</span>
-                                                            <% } else if (request.Approval==1 ) { %>
+                                                            <% } else if (issue.Approval==1 ) { %>
                                                                 <span class="badge badge bg-success">Approved</span>
-                                                                <% } else if (request.Approval==2 ) { %>
+                                                                <% } else if (issue.Approval==2 ) { %>
                                                                     <span class="badge badge bg-danger">Declined</span>
+                                                                    <% } %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <% if (issue.Approval!=0 ) { %>
+                                                            <%=issue.ApprovedBy %>
+                                                                <% } else { %>
+                                                                    -
+                                                                    <% } %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <% if (issue.Approval!=0 ) { %>
+                                                            <%=issue.ApprovalDate %>
+                                                                <% } else { %>
+                                                                    -
                                                                     <% } %>
                                                     </td>
                                                     <td class="cell">
@@ -386,9 +538,9 @@
                                                         <div class="col-auto">
                                                             <button type="button" class="btn app-btn-secondary"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=request.ID%>p">View</button>
-                                                            <div class="modal fade" id="v<%=request.ID%>p" tabindex="-1"
-                                                                aria-labelledby="v<%=request.ID%>Labelp"
+                                                                data-bs-target="#v<%=issue.ID%>">View</button>
+                                                            <div class="modal fade" id="v<%=issue.ID%>" tabindex="-1"
+                                                                aria-labelledby="v<%=issue.ID%>Label"
                                                                 aria-hidden="true">
                                                                 <div
                                                                     class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -396,7 +548,7 @@
                                                                         <div class="modal-header">
                                                                             <h5 class="modal-title"
                                                                                 id="viewRequewstLabel">
-                                                                                Requested Items List
+                                                                                Issued Items List
                                                                             </h5>
                                                                             <button type="button" class="btn-close"
                                                                                 data-bs-dismiss="modal"
@@ -406,27 +558,32 @@
                                                                             <table class="table  table-hover">
                                                                                 <thead>
                                                                                     <tr>
-
                                                                                         <th scope="col">Item</th>
-                                                                                        <th scope="col">Quantity</th>
-
+                                                                                        <th scope="col">Requested</th>
+                                                                                        <th scope="col">Passed</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <% Object.keys(ivItemlist).forEach(function(rID)
                                                                                         { %>
-                                                                                        <% if (rID==request.ID) { %>
+                                                                                        <% if (rID==issue.ID) { %>
                                                                                             <% Object.keys(ivItemlist[rID]).forEach(function(item)
                                                                                                 { %>
+
                                                                                                 <tr>
                                                                                                     <td>
                                                                                                         <%= item %>
                                                                                                     </td>
                                                                                                     <td>
-                                                                                                        <%= ivItemlist[rID][item]
+                                                                                                        <%= ivItemlist[rID][item].req
+                                                                                                            %>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <%= ivItemlist[rID][item].passed
                                                                                                             %>
                                                                                                     </td>
                                                                                                 </tr>
+
                                                                                                 <% }) %>
                                                                                                     <% } %>
                                                                                                         <% }) %>
@@ -439,16 +596,14 @@
                                                                                 <% if (request.Approval !=1 &&
                                                                                     request.Approval !=2) { %>
                                                                                     <form
-                                                                                        action="/invouchers/action/<%=request.ID%>"
+                                                                                        action="/ivouchers/action/<%=request.ID%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
-                                                                                    value=""> -->
-
+                                                                                value=""> -->
                                                                                         <button type="submit"
                                                                                             name="action_type"
                                                                                             value="Accept"
                                                                                             class="btn btn-success text-white">Approve</button>
-
                                                                                         <button type="submit"
                                                                                             name="action_type"
                                                                                             value="Decline"
@@ -464,7 +619,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <% } %>
+                                                <% }%>
                                                     <% }); %>
                                     </tbody>
                                 </table>
@@ -484,31 +639,57 @@
                                 <table class="table app-table-hover mb-0 text-center	">
                                     <thead>
                                         <tr>
-                                            <th class="cell">ID</th>
-                                            <th class="cell">Receiver ID</th>
+                                            <th class="cell">IV No.</th>
+                                            <th class="cell">Station</th>
+                                            <th class="cell">S. No.</th>
+                                            <th class="cell">Scheme</th>
+                                            <th class="cell">DateOfReceival</th>
                                             <th class="cell">Approval</th>
+                                            <th class="cell">ActionBy</th>
+                                            <th class="cell">ActionDate</th>
                                             <th class="cell"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% invouchersData.forEach(function(request) { %>
-                                            <% if(request.Approval==2) { %>
-
+                                        <% ivouchersData.forEach(function(issue) { %>
+                                            <% if (issue.Approval==2 ) { %>
                                                 <tr>
                                                     <td class="cell">
-                                                        <%= request.ID %>
+                                                        IV/<%= issue.IVNo %>/<%= issue.IVYear %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= request.ReceiverID %>
+                                                        <%= issue.Receiver %>
                                                     </td>
-
                                                     <td class="cell">
-                                                        <% if (request.Approval==0 ) { %>
+                                                        <%= issue.SNo %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <%= issue.Scheme %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <%= issue.DateOfReceival %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <% if (issue.Approval==0 ) { %>
                                                             <span class="badge badge bg-warning">Pending</span>
-                                                            <% } else if (request.Approval==1 ) { %>
+                                                            <% } else if (issue.Approval==1 ) { %>
                                                                 <span class="badge badge bg-success">Approved</span>
-                                                                <% } else if (request.Approval==2 ) { %>
+                                                                <% } else if (issue.Approval==2 ) { %>
                                                                     <span class="badge badge bg-danger">Declined</span>
+                                                                    <% } %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <% if (issue.Approval!=0 ) { %>
+                                                            <%=issue.ApprovedBy %>
+                                                                <% } else { %>
+                                                                    -
+                                                                    <% } %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <% if (issue.Approval!=0 ) { %>
+                                                            <%=issue.ApprovalDate %>
+                                                                <% } else { %>
+                                                                    -
                                                                     <% } %>
                                                     </td>
                                                     <td class="cell">
@@ -516,16 +697,17 @@
                                                         <div class="col-auto">
                                                             <button type="button" class="btn app-btn-secondary"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=request.ID%>d">View</button>
-                                                            <div class="modal fade" id="v<%=request.ID%>d" tabindex="-1"
-                                                                aria-labelledby="v<%=request.ID%>d" aria-hidden="true">
+                                                                data-bs-target="#v<%=issue.ID%>">View</button>
+                                                            <div class="modal fade" id="v<%=issue.ID%>" tabindex="-1"
+                                                                aria-labelledby="v<%=issue.ID%>Label"
+                                                                aria-hidden="true">
                                                                 <div
                                                                     class="modal-dialog modal-xl modal-dialog-scrollable">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
                                                                             <h5 class="modal-title"
                                                                                 id="viewRequewstLabel">
-                                                                                Requested Items List
+                                                                                Issued Items List
                                                                             </h5>
                                                                             <button type="button" class="btn-close"
                                                                                 data-bs-dismiss="modal"
@@ -535,27 +717,32 @@
                                                                             <table class="table  table-hover">
                                                                                 <thead>
                                                                                     <tr>
-
                                                                                         <th scope="col">Item</th>
-                                                                                        <th scope="col">Quantity</th>
-
+                                                                                        <th scope="col">Requested</th>
+                                                                                        <th scope="col">Passed</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <% Object.keys(ivItemlist).forEach(function(rID)
                                                                                         { %>
-                                                                                        <% if (rID==request.ID) { %>
+                                                                                        <% if (rID==issue.ID) { %>
                                                                                             <% Object.keys(ivItemlist[rID]).forEach(function(item)
                                                                                                 { %>
+
                                                                                                 <tr>
                                                                                                     <td>
                                                                                                         <%= item %>
                                                                                                     </td>
                                                                                                     <td>
-                                                                                                        <%= ivItemlist[rID][item]
+                                                                                                        <%= ivItemlist[rID][item].req
+                                                                                                            %>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <%= ivItemlist[rID][item].passed
                                                                                                             %>
                                                                                                     </td>
                                                                                                 </tr>
+
                                                                                                 <% }) %>
                                                                                                     <% } %>
                                                                                                         <% }) %>
@@ -568,16 +755,14 @@
                                                                                 <% if (request.Approval !=1 &&
                                                                                     request.Approval !=2) { %>
                                                                                     <form
-                                                                                        action="/invouchers/action/<%=request.ID%>"
+                                                                                        action="/ivouchers/action/<%=request.ID%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
-                                                                                    value=""> -->
-
+                                                                                value=""> -->
                                                                                         <button type="submit"
                                                                                             name="action_type"
                                                                                             value="Accept"
                                                                                             class="btn btn-success text-white">Approve</button>
-
                                                                                         <button type="submit"
                                                                                             name="action_type"
                                                                                             value="Decline"
@@ -625,7 +810,7 @@
 <script>
     addedItemsList = {};
     const reqAddBtn = document.getElementById('req-item-add');
-    const submitBtn = document.getElementById('submit-btn-iv');
+    const submitBtn = document.getElementById('submit-btn-ov');
     reqAddBtn.addEventListener('click', (e) => {
         let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
         let itemQty = document.getElementById('item-quantity').value > 0 && document.getElementById('item-quantity').value;

@@ -53,97 +53,35 @@ ivouchers.get('/', (req, res) => {
     });
 });
 
-ivouchers.post('/action/:Id', (req, res) => {
+ivouchers.post('/action/:Id/:user', (req, res) => {
     var inputValue = req.body.action_type;
     if (inputValue == "Accept") {
         //compare the quantity of the item in the voucher with the quantity in the inventory
-        db.query(`select items.ID,ivitems.ivReqQty,items.Quantity - ivitems.ivReqQty as balance from ivitems inner JOIN items where ivitems.ivID =${req.params.Id} and ivitems.ivItemID = items.ID`, (err, vItemResult) => {
+        db.query(`SELECT * FROM ivitems INNER JOIN items where ivitems.ivID =${req.params.Id} and ivitems.ivItemID = items.ID`, (err, vItemResult) => {
             if (err) {
                 throw err;
             }
-            console.log(vItemResult);
-            let result = vItemResult.map(a => a.balance).some(v => v < 0);
-            if (result) {
-                // This block will never execute. If it happens, well, we failed.
-                console.log("Not enough quantity");
-            } else {
-                //loop result and update the quantity of the item in the inventory
-                vItemResult.forEach(row => {
-                    db.query(`UPDATE items SET Quantity = Quantity - ${row.vItemQty} WHERE ID = ${row.ID}`, (err, result) => {
-                        if (err) {
-                            throw err;
-                        }
-                    }
-                    );
-                }
-                );
-                //update the status of the voucher to accepted
-                db.query(`UPDATE issuedvouchers SET Approval = 1 WHERE ID = ${req.params.Id}`, (err, result) => {
+            //loop result and update the quantity of the item in the inventory
+            vItemResult.forEach(row => {
+                db.query(`UPDATE items SET Quantity = Quantity - ${row.ivQtyPassed} WHERE ID = ${row.ID}`, (err, stockUpdateResult) => {
                     if (err) {
                         throw err;
                     }
-                }
-                );
-                res.redirect('/ivouchers');
+                });
             }
-            // if (vItemResult.length > 0) {
-            //     console.log("Error");
-            // } else {
-            //     //update stock in items
-            //     db.query(`UPDATE items SET Quantity = Quantity - ivitems.vItemQty WHERE items.ID = ivitems.vItemID;`, (err, result) => {
-            //         if (err) {
-            //             throw err;
-            //         }
-            //         //update the status of the voucher to accepted
-            //         db.query(`UPDATE issuedvouchers SET status = 1 WHERE ID = ${req.params.Id};`, (err, result) => {
-            //             if (err) {
-            //                 throw err;
-            //             }
-            //             res.redirect('/issuedvouchers');
-            //         }
-            //         );
-            //     }
-            //     );
-            // }
+            );
+            //update the status of the voucher to accepted
+            db.query(`UPDATE issuedvouchers SET Approval = 1, ApprovedBy = ${req.params.user}, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ${req.params.Id}`, (err, result) => {
+                if (err) {
+                    throw err;
+                }
+            }
+            );
+            res.redirect('/ivouchers');
         })
-        //get all items from ivitems table by id
-        // db.query(`SELECT * FROM ivitems WHERE vID = ${req.params.Id}`, (err, result) => {
-        //     if (err) {
-        //         throw err;
-        //     }
-        //     // console.log(result);
-        //     flag = true;
-        //     result.forEach(row => {
-        //         //get item quantity from items table by id
-        //         db.query(`SELECT * FROM items WHERE ID = ${row.vItemID}`, (err, itemResult) => {
-        //             if (err) {
-        //                 throw err;
-        //             }
-
-        //             if (itemResult[0].Quantity >= row.vItemQty) {
-
-        //             } else {
-        //                 flag = false;
-        //             }
-        //             // row.vItemQty.filter(n => !itemResult.includes(n))
-        //             //check if item quantity is enough
-        //             // if (itemResult[0].Quantity >= row.vItemQty) {
-        //             //     //update item quantity
-        //             //     db.query(`UPDATE items SET Quantity = Quantity - ${row.vItemQty} WHERE ID = ${row.vItemID}`, (err, result) => {
-        //             //         if (err) {
-        //             //             throw err;
-        //             //         }
-        //             //     });
-        //             // } else {
-        //             //     //if item quantity is not enough, show error message
-        //             //     res.render('pages/index', { option: "issuedvouchers", error: "Item quantity is not enough" });
-        //             // }
-        //         });
-        //     });
-        // });
     } else {
         //db query to set approval to 2
-        db.query(`UPDATE issuedvouchers SET approval = 2 WHERE ID = ?`, [req.params.Id], (err, result) => {
+        db.query(`UPDATE issuedvouchers SET Approval = 2, ApprovedBy = ${req.params.user}, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ?`, [req.params.Id], (err, result) => {
             if (err) {
                 throw err;
             }

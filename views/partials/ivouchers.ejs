@@ -197,7 +197,9 @@
                                                 </td>
                                                 <td class="cell">
                                                     <% if (issue.Approval!=0 ) { %>
-                                                        <%=issue.ApprovalDate %>
+                                                        <%= new Date(issue.ApprovalDate).toISOString().slice(0, 10)
+                                                            + " " + new Date(issue.ApprovalDate).toISOString().slice(11,
+                                                            19) %>
                                                             <% } else { %>
                                                                 -
                                                                 <% } %>
@@ -262,7 +264,7 @@
                                                                             <% if (issue.Approval !=1 && issue.Approval
                                                                                 !=2) { %>
                                                                                 <form
-                                                                                    action="/ivouchers/action/<%=issue.ID%>"
+                                                                                    action="/ivouchers/action/<%=issue.ID%>/<%=id%>"
                                                                                     method="post" name="ratings">
                                                                                     <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
@@ -368,7 +370,9 @@
                                                     </td>
                                                     <td class="cell">
                                                         <% if (issue.Approval!=0 ) { %>
-                                                            <%=issue.ApprovalDate %>
+                                                            <%= new Date(issue.ApprovalDate).toISOString().slice(0, 10)
+                                                                + " " + new
+                                                                Date(issue.ApprovalDate).toISOString().slice(11, 19) %>
                                                                 <% } else { %>
                                                                     -
                                                                     <% } %>
@@ -436,7 +440,7 @@
                                                                                 <% if (issue.Approval !=1 &&
                                                                                     issue.Approval !=2) { %>
                                                                                     <form
-                                                                                        action="/ivouchers/action/<%=issue.ID%>"
+                                                                                        action="/ivouchers/action/<%=issue.ID%>/<%=id%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
@@ -528,7 +532,9 @@
                                                     </td>
                                                     <td class="cell">
                                                         <% if (issue.Approval!=0 ) { %>
-                                                            <%=issue.ApprovalDate %>
+                                                            <%= new Date(issue.ApprovalDate).toISOString().slice(0, 10)
+                                                                + " " + new
+                                                                Date(issue.ApprovalDate).toISOString().slice(11, 19) %>
                                                                 <% } else { %>
                                                                     -
                                                                     <% } %>
@@ -596,7 +602,7 @@
                                                                                 <% if (issue.Approval !=1 &&
                                                                                     issue.Approval !=2) { %>
                                                                                     <form
-                                                                                        action="/ivouchers/action/<%=issue.ID%>"
+                                                                                        action="/ivouchers/action/<%=issue.ID%>/<%=id%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
@@ -687,7 +693,9 @@
                                                     </td>
                                                     <td class="cell">
                                                         <% if (issue.Approval!=0 ) { %>
-                                                            <%=issue.ApprovalDate %>
+                                                            <%= new Date(issue.ApprovalDate).toISOString().slice(0, 10)
+                                                                + " " + new
+                                                                Date(issue.ApprovalDate).toISOString().slice(11, 19) %>
                                                                 <% } else { %>
                                                                     -
                                                                     <% } %>
@@ -755,7 +763,7 @@
                                                                                 <% if (issue.Approval !=1 &&
                                                                                     issue.Approval !=2) { %>
                                                                                     <form
-                                                                                        action="/ivouchers/action/<%=issue.ID%>"
+                                                                                        action="/ivouchers/action/<%=issue.ID%>/<%=id%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->

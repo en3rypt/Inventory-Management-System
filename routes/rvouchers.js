@@ -7,8 +7,18 @@ rvouchers.get('/new', (req, res) => {
         if (err) {
             throw err;
         }
-        res.render('pages/index', { option: "newRV", itemRows: itemRowResult });
-        // res.send('hi')
+        db.query(`SELECT * FROM schemes`, (err, schemesResult) => {
+            if (err) {
+                throw err;
+            }
+            db.query(`SELECT * FROM stations`, (err, stationsResult) => {
+                if (err) {
+                    throw err;
+                }
+                res.render('pages/index', { option: "newRV", itemRows: itemRowResult, schemeRows: schemesResult, stationRows: stationsResult });
+                // res.send('hi')
+            })
+        })
     })
 })
 
@@ -27,23 +37,27 @@ rvouchers.get('/', (req, res) => {
                 }
                 let rvItemlist = {};
                 vItemResult.forEach(row => {
-                    if (!rvItemlist[row.vID])
-                        rvItemlist[row.vID] = {};
-                    rvItemlist[row.vID][row.Name] = row.vItemQty;
+                    if (!rvItemlist[row.rvID])
+                        rvItemlist[row.rvID] = {};
+                    rvItemlist[row.rvID][row.Name] = {
+                        'req': row.rvItemQty,
+                        'refno': row.rvItemRefNo,
+                        'refdate': new Date(row.rvItemRefDate).toISOString().slice(0, 10)
+
+                    }
                 });
+                // console.log(rvItemlist);
                 // console.log(itemRowResult);
-                res.render('pages/index', { option: "receivedvouchers", receivedvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
+                res.render('pages/index', { option: "rvouchers", rvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
             });
         });
     });
 });
 
-
-
-rvouchers.post('/', (req, res) => {
+rvouchers.post('/new', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
     db.query(
-        `INSERT INTO receivedvouchers (ID, SupplierID) VALUES (${req.body.reqid},${req.body.reqsupplierid})`,
+        `INSERT INTO receivedvouchers (RVNo, RVYear, Supplier, Scheme, SNo, DateOfReceival) VALUES (${req.body.rvid}, ${req.body.rvyear}, ${req.body.stationid}, ${req.body.schemeid}, ${req.body.sno}, '${new Date(req.body.dor).toISOString().slice(0, 10)}')`,
         (err, result) => {
             if (err) {
                 throw err;
@@ -53,10 +67,18 @@ rvouchers.post('/', (req, res) => {
                     if (err) {
                         throw err;
                     }
-                    db.query(`INSERT INTO rvitems (vID, vType, vItemID, vItemQty) VALUES (${req.body.reqid}, 0, ${itemNameIDResult[0].ID},${addedJSON[itemNameIDResult[0].Name]})`, (err, result) => {
+                    // console.log(addedJSON);
+                    // console.log(itemNameIDResult);
+                    db.query(`SELECT LAST_INSERT_ID() as lastID FROM receivedvouchers`, (err, lastVoucherResult) => {
                         if (err) {
                             throw err;
                         }
+                        // console.log(lastVoucherResult);
+                        db.query(`INSERT INTO rvitems (rvID, rvItemID, rvItemQty, rvItemRefNo, rvItemRefDate) VALUES (${lastVoucherResult[0].lastID}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, ${addedJSON[itemNameIDResult[0].Name].refNo}, '${new Date(addedJSON[itemNameIDResult[0].Name].refDate).toISOString().slice(0, 10)}')`, (err, result) => {
+                            if (err) {
+                                throw err;
+                            }
+                        })
                     })
                 })
             }
@@ -64,7 +86,6 @@ rvouchers.post('/', (req, res) => {
         }
     );
 })
-
 
 rvouchers.post('/action/:Id', (req, res) => {
     var inputValue = req.body.action_type;

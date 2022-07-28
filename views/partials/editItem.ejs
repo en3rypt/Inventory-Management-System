@@ -8,7 +8,7 @@
                     <h1 class="app-page-title mb-100">New Item</h1>
                 </div>
                 <div class="row-auto">
-                    <form action="/items/new" method="POST">
+                    <form action="/items/edit/<%=id%>" method="POST">
 
                         <!-- <div class="mb-3">
                                                                     <label for="recipient-name"
@@ -23,10 +23,16 @@
                                                                         id="category-id" name="categoryid"> -->
                             <select id="category-id" name="categoryid" required>
                                 <% categs.forEach(function(categ) { %>
-                                    <option value="<%= categ.ID %>">
-                                        <%= categ.Name %>
-                                    </option>
-                                    <% }); %>
+                                    <% if(categ.ID==result.CategoryID){%>
+                                        <option value="<%= categ.ID %>" selected>
+                                            <%= categ.Name %>
+                                        </option>
+                                        <% } else { %>
+                                            <option value="<%= categ.ID %>">
+                                                <%= categ.Name %>
+                                            </option>
+                                            <% } %>
+                                                <% }); %>
                             </select>
                             <!-- <input type="text" class="form-control" id="category-id"
                                                                         name="categoryid"> -->
@@ -34,23 +40,27 @@
                         <div class="row" style="margin-top: 30px;">
                             <div class="mb-3 col-lg-4">
                                 <label for="message-text" class="col-form-label">Name:</label>
-                                <input class="form-control" id="item-name" name="itemname" required>
-                            </div>
-                            <div class="mb-3 col-lg-4">
-                                <label for="message-text" class="col-form-label">Quantity:</label>
-                                <input class="form-control" id="item-quantity" type="number" min="0" step="1"
-                                    name="itemquantity" required>
+                                <input class="form-control" id="item-name" name="itemname" required
+                                    value="<%-result.Name%>" onClick="this.select();">
                             </div>
                             <div class="mb-3 col-lg-4">
                                 <label for="message-text" class="col-form-label">Item Life:</label>
                                 <input class="form-control" id="item-life" type="number" min="0" step="1"
-                                    name="itemlife" required>
+                                    name="itemlife" required value="<%-result.Life%>" onClick="this.select();">
                             </div>
                         </div>
 
-                        <button type="button" class="btn btn-secondary" style="margin-top: 20px;"
-                            data-bs-dismiss="modal">Back</button>
-                        <input type="submit" class="btn btn-primary" style="margin-top: 20px;">
+                        <div class="modal-footer d-inline-block mt-3">
+
+                            <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
+
+                            <input type="submit" name="option" value="Submit" class="btn btn-primary">
+                            <input type="submit" name="option" value="Delete" class="btn btn-danger">
+                            <!-- <a href="/schemes/delete/<%=id%>">
+                                <button type="button" class="btn btn-danger" id="#v<%=id%>">Delete
+                                    Scheme</button>
+                            </a> -->
+                        </div>
 
                     </form>
                 </div>

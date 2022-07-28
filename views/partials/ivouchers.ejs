@@ -259,10 +259,10 @@
                                                                     <% if(auth==2){ %>
                                                                         <div class="modal-footer">
 
-                                                                            <% if (request.Approval !=1 &&
-                                                                                request.Approval !=2) { %>
+                                                                            <% if (issue.Approval !=1 && issue.Approval
+                                                                                !=2) { %>
                                                                                 <form
-                                                                                    action="/ivouchers/action/<%=request.ID%>"
+                                                                                    action="/ivouchers/action/<%=issue.ID%>"
                                                                                     method="post" name="ratings">
                                                                                     <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
@@ -295,7 +295,7 @@
                         <!--//app-card-body-->
                     </div>
                     <!--//app-card-->
-                    <nav class="app-pagination">
+                    <!-- <nav class="app-pagination">
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -307,7 +307,7 @@
                                 <a class="page-link" href="#">Next</a>
                             </li>
                         </ul>
-                    </nav>
+                    </nav> -->
                     <!--//app-pagination-->
 
                 </div>
@@ -433,10 +433,10 @@
                                                                         <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
-                                                                                <% if (request.Approval !=1 &&
-                                                                                    request.Approval !=2) { %>
+                                                                                <% if (issue.Approval !=1 &&
+                                                                                    issue.Approval !=2) { %>
                                                                                     <form
-                                                                                        action="/ivouchers/action/<%=request.ID%>"
+                                                                                        action="/ivouchers/action/<%=issue.ID%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
@@ -593,10 +593,10 @@
                                                                         <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
-                                                                                <% if (request.Approval !=1 &&
-                                                                                    request.Approval !=2) { %>
+                                                                                <% if (issue.Approval !=1 &&
+                                                                                    issue.Approval !=2) { %>
                                                                                     <form
-                                                                                        action="/ivouchers/action/<%=request.ID%>"
+                                                                                        action="/ivouchers/action/<%=issue.ID%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
@@ -752,10 +752,10 @@
                                                                         <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
-                                                                                <% if (request.Approval !=1 &&
-                                                                                    request.Approval !=2) { %>
+                                                                                <% if (issue.Approval !=1 &&
+                                                                                    issue.Approval !=2) { %>
                                                                                     <form
-                                                                                        action="/ivouchers/action/<%=request.ID%>"
+                                                                                        action="/ivouchers/action/<%=issue.ID%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->

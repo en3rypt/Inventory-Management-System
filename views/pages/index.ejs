@@ -59,26 +59,46 @@
                                                                                                             : %>
                                                                                                             <%- include('../partials/newRV');
                                                                                                                 %>
-                                                                                                                <% break;
-                                                                                                                    } %>
-                                                                                                                    <!--//app-wrapper-->
+                                                                                                                <% break;case 'editScheme'
+                                                                                                                    : %>
+                                                                                                                    <%- include('../partials/editScheme');
+                                                                                                                        %>
+                                                                                                                        <% break;case 'editStation'
+                                                                                                                            :
+                                                                                                                            %>
+                                                                                                                            <%- include('../partials/editStation');
+                                                                                                                                %>
+                                                                                                                                <% break;case 'editCategory'
+                                                                                                                                    :
+                                                                                                                                    %>
+                                                                                                                                    <%- include('../partials/editCategory');
+                                                                                                                                        %>
+                                                                                                                                        <% break;case 'editItem'
+                                                                                                                                            :
+                                                                                                                                            %>
+                                                                                                                                            <%- include('../partials/edititem');
+                                                                                                                                                %>
+                                                                                                                                                <% break;
+                                                                                                                                                    }
+                                                                                                                                                    %>
+                                                                                                                                                    <!--//app-wrapper-->
 
 
-                                                                                                                    <!-- Javascript -->
-                                                                                                                    <script
-                                                                                                                        src="/assets/js/plugins/popper.min.js"></script>
-                                                                                                                    <script
-                                                                                                                        src="/assets/js/plugins/bootstrap/js/bootstrap.min.js"></script>
+                                                                                                                                                    <!-- Javascript -->
+                                                                                                                                                    <script
+                                                                                                                                                        src="/assets/js/plugins/popper.min.js"></script>
+                                                                                                                                                    <script
+                                                                                                                                                        src="/assets/js/plugins/bootstrap/js/bootstrap.min.js"></script>
 
-                                                                                                                    <!-- Charts JS -->
-                                                                                                                    <script
-                                                                                                                        src="/assets/js/plugins/chart.js/chart.min.js"></script>
-                                                                                                                    <script
-                                                                                                                        src="/assets/js/index-charts.js"></script>
+                                                                                                                                                    <!-- Charts JS -->
+                                                                                                                                                    <script
+                                                                                                                                                        src="/assets/js/plugins/chart.js/chart.min.js"></script>
+                                                                                                                                                    <script
+                                                                                                                                                        src="/assets/js/index-charts.js"></script>
 
-                                                                                                                    <!-- Page Specific JS -->
-                                                                                                                    <script
-                                                                                                                        src="/assets/js/app.js"></script>
+                                                                                                                                                    <!-- Page Specific JS -->
+                                                                                                                                                    <script
+                                                                                                                                                        src="/assets/js/app.js"></script>
 
 
 </body>

@@ -39,7 +39,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="station-id" class="col-form-label">Supplier:</label>
-                                <div class="row">
+                                
                                     <select id="station-id" name="stationid" class="form-select" required>
                                         <% stationRows.forEach(function(station) { %>
                                             <option value="<%= station.ID %>">
@@ -47,11 +47,11 @@
                                             </option>
                                             <% }); %>
                                     </select>
-                                </div>
+                                
                             </div>
                             <div class="col-sm-6">
                                 <label for="scheme-id" class="col-form-label">Scheme:</label>
-                                <div class="row">
+                                
                                     <select id="scheme-id" name="schemeid" class="form-select" required>
                                         <% schemeRows.forEach(function(scheme) { %>
                                             <option value="<%= scheme.ID %>">
@@ -59,7 +59,7 @@
                                             </option>
                                             <% }); %>
                                     </select>
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="row">
@@ -117,7 +117,7 @@
                         </div>
                         <div class="">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                            <input type="submit" id="submit-btn-ov" class="btn btn-primary">
+                            <input type="submit" id="submit-btn-ov" class="btn btn-primary ms-2 text-white">
                         </div>
                     </div>
                 </form>

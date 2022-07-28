@@ -53,7 +53,7 @@ ivouchers.get('/', (req, res) => {
     });
 });
 
-ivouchers.post('/action/:Id', (req, res) => {
+ivouchers.post('/action/:Id/:user', (req, res) => {
     var inputValue = req.body.action_type;
     if (inputValue == "Accept") {
         //compare the quantity of the item in the voucher with the quantity in the inventory
@@ -71,7 +71,7 @@ ivouchers.post('/action/:Id', (req, res) => {
             }
             );
             //update the status of the voucher to accepted
-            db.query(`UPDATE issuedvouchers SET Approval = 1, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ${req.params.Id}`, (err, result) => {
+            db.query(`UPDATE issuedvouchers SET Approval = 1, ApprovedBy = ${req.params.user}, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ${req.params.Id}`, (err, result) => {
                 if (err) {
                     throw err;
                 }
@@ -81,7 +81,7 @@ ivouchers.post('/action/:Id', (req, res) => {
         })
     } else {
         //db query to set approval to 2
-        db.query(`UPDATE issuedvouchers SET Approval = 2, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ?`, [req.params.Id], (err, result) => {
+        db.query(`UPDATE issuedvouchers SET Approval = 2, ApprovedBy = ${req.params.user}, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ?`, [req.params.Id], (err, result) => {
             if (err) {
                 throw err;
             }

@@ -56,6 +56,7 @@ router.post('/', loginValidation, (req, res, next) => {
                     if (bResult) {
                         // console.log(result[0]['AuthType']);
                         var payload = {
+                            id: result[0]['ID'],
                             name: result[0]['Name'],
                             AuthType: result[0]['AuthType']
                         }

@@ -40,13 +40,8 @@
                             <div class="col-sm-6">
                                 <label for="station-id" class="col-form-label">Supplier:</label>
                                 <div class="row">
-                                    <select id="station-id" name="stationid" class="form-select" required>
-                                        <% stationRows.forEach(function(station) { %>
-                                            <option value="<%= station.ID %>">
-                                                <%= station.Name %>
-                                            </option>
-                                            <% }); %>
-                                    </select>
+                                    <input class="form-control d-inline" id="supplier" type="text" name="stationid"
+                                        required>
                                 </div>
                             </div>
                             <div class="col-sm-6">

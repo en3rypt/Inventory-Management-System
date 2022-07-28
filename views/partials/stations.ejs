@@ -94,6 +94,7 @@
 
                                             <th class="cell">StationID</th>
                                             <th class="cell">Name</th>
+                                            <th>Option</th>
 
                                         </tr>
                                     </thead>
@@ -107,6 +108,12 @@
 
                                                     <%= station.Name %>
 
+                                                </td>
+                                                <td>
+                                                    <a href="/stations/edit/<%=station.ID%>">
+                                                        <button type="button"
+                                                            class="btn app-btn-secondary">Edit</button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <% }) %>

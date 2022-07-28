@@ -94,6 +94,7 @@
 
                                             <th class="cell">CategoryID</th>
                                             <th class="cell">Name</th>
+                                            <th class="cell"> Edit</th>
 
                                         </tr>
                                     </thead>
@@ -107,6 +108,12 @@
 
                                                     <%= category.Name %>
 
+                                                </td>
+                                                <td>
+                                                    <a href="/categories/edit/<%=category.ID%>">
+                                                        <button type="button"
+                                                            class="btn app-btn-secondary">Edit</button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <% }) %>

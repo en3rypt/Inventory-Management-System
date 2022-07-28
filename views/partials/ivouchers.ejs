@@ -197,7 +197,9 @@
                                                 </td>
                                                 <td class="cell">
                                                     <% if (issue.Approval!=0 ) { %>
-                                                        <%=issue.ApprovalDate %>
+                                                        <%= new Date(issue.ApprovalDate).toISOString().slice(0, 10)
+                                                            + " " + new Date(issue.ApprovalDate).toISOString().slice(11,
+                                                            19) %>
                                                             <% } else { %>
                                                                 -
                                                                 <% } %>
@@ -368,7 +370,9 @@
                                                     </td>
                                                     <td class="cell">
                                                         <% if (issue.Approval!=0 ) { %>
-                                                            <%=issue.ApprovalDate %>
+                                                            <%= new Date(issue.ApprovalDate).toISOString().slice(0, 10)
+                                                                + " " + new
+                                                                Date(issue.ApprovalDate).toISOString().slice(11, 19) %>
                                                                 <% } else { %>
                                                                     -
                                                                     <% } %>
@@ -528,7 +532,9 @@
                                                     </td>
                                                     <td class="cell">
                                                         <% if (issue.Approval!=0 ) { %>
-                                                            <%=issue.ApprovalDate %>
+                                                            <%= new Date(issue.ApprovalDate).toISOString().slice(0, 10)
+                                                                + " " + new
+                                                                Date(issue.ApprovalDate).toISOString().slice(11, 19) %>
                                                                 <% } else { %>
                                                                     -
                                                                     <% } %>
@@ -687,7 +693,9 @@
                                                     </td>
                                                     <td class="cell">
                                                         <% if (issue.Approval!=0 ) { %>
-                                                            <%=issue.ApprovalDate %>
+                                                            <%= new Date(issue.ApprovalDate).toISOString().slice(0, 10)
+                                                                + " " + new
+                                                                Date(issue.ApprovalDate).toISOString().slice(11, 19) %>
                                                                 <% } else { %>
                                                                     -
                                                                     <% } %>

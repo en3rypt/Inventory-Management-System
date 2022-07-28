@@ -47,7 +47,6 @@ items.get('/edit/:id', (req, res) => {
         if (err) throw err;
         db.query(`SELECT * FROM categories`, (err, categResult) => {
             if (err) throw err;
-            console.log(categResult);
             res.render('pages/index', { option: 'editItem', result: result[0], categs: categResult, id: req.params.id });
         }
         )

@@ -27,4 +27,30 @@ stations.post('/new', (req, res) => {
         }
     );
 })
+
+stations.get('/edit/:id', (req, res) => {
+    db.query(`SELECT * FROM stations WHERE id = ${req.params.id}`, (err, result) => {
+        if (err) throw err;
+        res.render('pages/index', { option: 'editStation', inputVal: result[0].Name, id: req.params.id });
+    }
+    )
+})
+stations.post('/edit/:id', (req, res) => {
+    var option = req.body.option;
+    if (option == "Submit") {
+        db.query(`UPDATE stations SET Name = '${req.body.stationname}' WHERE id = ${req.params.id}`, (err, result) => {
+            if (err) throw err;
+            res.redirect('/stations');
+        }
+        )
+    }
+    else if (option == "Delete") {
+        db.query(`DELETE FROM stations WHERE id = ${req.params.id}`, (err, result) => {
+            if (err) throw err;
+            res.redirect('/stations');
+        }
+        )
+    }
+
+})
 module.exports = stations;

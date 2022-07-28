@@ -1,0 +1,83 @@
+<div class="app-wrapper">
+
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+        <div class="container-xl">
+
+            <div class="row g-3 mb-4 align-items-center justify-content-between">
+                <div class="col-auto mt-100">
+                    <h1 class="app-page-title mb-100">New Item</h1>
+                </div>
+                <div class="row-auto">
+                    <form action="/items/edit/<%=id%>" method="POST">
+
+                        <!-- <div class="mb-3">
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">ID:</label>
+                                                                    <input type="text" class="form-control" id="item-id"
+                                                                        name="itemid">
+                                                                </div> -->
+                        <div class="mb-3">
+                            <label for="message-text" class="row-form-label mt-3">Category:
+                            </label>
+                            <!-- <input class="form-control" list="datalistOptions"
+                                                                        id="category-id" name="categoryid"> -->
+                            <select id="category-id" name="categoryid" required>
+                                <% categs.forEach(function(categ) { %>
+                                    <% if(categ.ID==result.CategoryID){%>
+                                        <option value="<%= categ.ID %>" selected>
+                                            <%= categ.Name %>
+                                        </option>
+                                        <% } else { %>
+                                            <option value="<%= categ.ID %>">
+                                                <%= categ.Name %>
+                                            </option>
+                                            <% } %>
+                                                <% }); %>
+                            </select>
+                            <!-- <input type="text" class="form-control" id="category-id"
+                                                                        name="categoryid"> -->
+                        </div>
+                        <div class="row" style="margin-top: 30px;">
+                            <div class="mb-3 col-lg-4">
+                                <label for="message-text" class="col-form-label">Name:</label>
+                                <input class="form-control" id="item-name" name="itemname" required
+                                    value="<%-result.Name%>" onClick="this.select();">
+                            </div>
+                            <div class="mb-3 col-lg-4">
+                                <label for="message-text" class="col-form-label">Item Life:</label>
+                                <input class="form-control" id="item-life" type="number" min="0" step="1"
+                                    name="itemlife" required value="<%-result.Life%>" onClick="this.select();">
+                            </div>
+                        </div>
+
+                        <div class="modal-footer d-inline-block mt-3">
+
+                            <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
+
+                            <input type="submit" name="option" value="Submit" class="btn btn-primary">
+                            <input type="submit" name="option" value="Delete" class="btn btn-danger">
+                            <!-- <a href="/schemes/delete/<%=id%>">
+                                <button type="button" class="btn btn-danger" id="#v<%=id%>">Delete
+                                    Scheme</button>
+                            </a> -->
+                        </div>
+
+                    </form>
+                </div>
+                <!--//col-auto-->
+            </div>
+            <!--//tab-content-->
+
+
+
+        </div>
+        <!--//container-fluid-->
+    </div>
+    <!--//app-content-->
+
+    <footer class="app-footer">
+
+    </footer>
+    <!--//app-footer-->
+
+</div>

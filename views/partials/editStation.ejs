@@ -1,0 +1,53 @@
+<div class="app-wrapper">
+
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+        <div class="container-xl">
+
+            <div class="row g-3 mb-4 align-items-center justify-content-between">
+                <div class="col-auto">
+                    <h1 class="app-page-title mb-0">Edit Station</h1>
+                </div>
+
+
+                <form action="/stations/edit/<%=id%>" method="POST">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="station-name" class="col-form-label">Station
+                                Name:</label>
+                            <input class="form-control mt-2" id="station-name" name="stationname" autocomplete="off"
+                                required value="<%-inputVal%>" onClick="this.select();">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer d-inline-block mt-3">
+
+                        <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
+
+                        <input type="submit" name="option" value="Submit" class="btn btn-primary">
+                        <input type="submit" name="option" value="Delete" class="btn btn-danger">
+                        <!-- <a href="/schemes/delete/<%=id%>">
+                            <button type="button" class="btn btn-danger" id="#v<%=id%>">Delete
+                                Scheme</button>
+                        </a> -->
+                    </div>
+                </form>
+
+
+                <!--//col-auto-->
+            </div>
+            <!--//tab-content-->
+
+
+
+        </div>
+        <!--//container-fluid-->
+    </div>
+    <!--//app-content-->
+
+    <footer class="app-footer">
+
+    </footer>
+    <!--//app-footer-->
+
+</div>

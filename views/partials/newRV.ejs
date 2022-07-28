@@ -7,7 +7,7 @@
                 <h1 class="app-page-title mb-0">New Received-Voucher</h1>
             </div>
             <div class="col-auto">
-                <form action="/ivouchers/new" method="POST">
+                <form action="/rvouchers/new" method="POST">
                     <div class="d-grid gap-5">
                         <div class="row">
                             <label for="voucher-id" class="col-form-label">Voucher ID:</label>
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <label for="station-id" class="col-form-label">Supplier:</label>
                                 <div class="row">
                                     <select id="station-id" name="stationid" class="form-select" required>
@@ -49,9 +49,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <label for="scheme-id" class="col-form-label">Scheme:</label>
                                 <div class="row">
                                     <select id="scheme-id" name="schemeid" class="form-select" required>
@@ -62,6 +60,17 @@
                                             <% }); %>
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="date-of-rcv" class="col-form-label">Date of Receival:</label>
+                                <input class="form-control d-inline" id="date-of-rcv" type="date" name="dor" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="v-s-no" class="col-form-label">Serial No.:</label>
+                                <input class="form-control d-inline" id="v-s-no" type="number" min="0" step="1"
+                                    name="sno" placeholder="S. No." required>
                             </div>
                         </div>
                         <div id="message-validate" class="d-none">
@@ -78,7 +87,7 @@
                                     <ul class="added-items-ul">
 
                                     </ul>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-4">
                                         <select id="item-name-drop" name="itemid" class="form-select" required>
                                             <% itemRows.forEach(function(item) { %>
                                                 <option value="<%= item.ID %>">
@@ -88,14 +97,17 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-2">
-                                        <input class="form-control w-75 d-inline" id="item-qty-required" type="number"
-                                            min="0" step="1" name="ReqQty" placeholder="Required" required>
+                                        <input class="form-control d-inline" id="item-qty-required" type="number"
+                                            min="0" step="1" name="ReqQty" placeholder="Qty. required" required>
                                     </div>
+                                    <div class="col-sm-4 d-flex">
+                                        <input class="form-control w-50" id="item-ref-no" type="number" min="0" step="1"
+                                            name="RefNo" placeholder="Ref. No." required>
+                                        <input class="form-control w-50" type="date" id="item-ref-date" name="RefDate"
+                                            value="">
+                                    </div>
+
                                     <div class="col-sm-2">
-                                        <input class="form-control w-75 d-inline" id="item-qty-passed" type="number"
-                                            min="0" step="1" name="PassedQty" placeholder="Passed" required>
-                                    </div>
-                                    <div class="col-sm-4">
                                         <button type="button" id="req-item-add"
                                             class="btn app-btn-secondary">Add</button>
                                         <input type="text" id="added-JSON" name="addedJSON" class="d-none">
@@ -131,9 +143,10 @@
     reqAddBtn.addEventListener('click', (e) => {
         let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
         let itemReqQty = document.getElementById('item-qty-required').value > 0 && document.getElementById('item-qty-required').value;
-        let itemPassedQty = document.getElementById('item-qty-passed').value > 0 && document.getElementById('item-qty-passed').value;
-        if (itemReqQty && itemPassedQty) {
-            document.querySelector('.added-items-ul').innerHTML += `<li>${itemName} | ${itemReqQty} | ${itemPassedQty}</li>`;
+        let itemRefNo = document.getElementById('item-ref-no').value > 0 && document.getElementById('item-ref-no').value;
+        let itemRefDate = document.getElementById('item-ref-date').valueAsNumber > 0 && document.getElementById('item-ref-date').value;
+        if (itemReqQty && itemRefNo && itemRefDate) {
+            document.querySelector('.added-items-ul').innerHTML += `<li>${itemName} || ${itemReqQty} || ${itemRefNo}/${itemRefDate}</li>`;
             if (itemName in addedItemsList) {
                 alert("Item already added.");
                 // addedItemsList[itemName]['reqQty'] += itemReqQty;
@@ -141,7 +154,8 @@
             } else {
                 addedItemsList[itemName] = {
                     'reqQty': itemReqQty,
-                    'passedQty': itemPassedQty
+                    'refNo': itemRefNo,
+                    'refDate': itemRefDate
                 };
             }
         }

@@ -159,7 +159,7 @@ ivouchers.post('/new', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
     // console.log(addedJSON);
     db.query(
-        `INSERT INTO issuedvouchers (IVNo, IVYear, Receiver, Scheme) VALUES (${req.body.ivid}, ${req.body.ivyear}, ${req.body.stationid}, ${req.body.schemeid})`,
+        `INSERT INTO issuedvouchers (IVNo, IVYear, Receiver, SNo, Scheme, DateOfReceival ) VALUES (${req.body.ivid}, ${req.body.ivyear}, ${req.body.stationid}, ${req.body.sno}, ${req.body.schemeid}, '${new Date(req.body.dor).toISOString().slice(0, 10)}')`,
         (err, result) => {
             if (err) {
                 throw err;

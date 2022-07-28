@@ -177,7 +177,7 @@
                                                     <%= issue.Scheme %>
                                                 </td>
                                                 <td class="cell">
-                                                    <%= issue.DateOfReceival %>
+                                                    <%= new Date(issue.DateOfReceival).toISOString().slice(0, 10) %>
                                                 </td>
                                                 <td class="cell">
                                                     <% if (issue.Approval==0 ) { %>
@@ -348,7 +348,7 @@
                                                         <%= issue.Scheme %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= issue.DateOfReceival %>
+                                                        <%= new Date(issue.DateOfReceival).toISOString().slice(0, 10) %>
                                                     </td>
                                                     <td class="cell">
                                                         <% if (issue.Approval==0 ) { %>
@@ -508,7 +508,7 @@
                                                         <%= issue.Scheme %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= issue.DateOfReceival %>
+                                                        <%= new Date(issue.DateOfReceival).toISOString().slice(0, 10) %>
                                                     </td>
                                                     <td class="cell">
                                                         <% if (issue.Approval==0 ) { %>
@@ -667,7 +667,7 @@
                                                         <%= issue.Scheme %>
                                                     </td>
                                                     <td class="cell">
-                                                        <%= issue.DateOfReceival %>
+                                                        <%= new Date(issue.DateOfReceival).toISOString().slice(0, 10) %>
                                                     </td>
                                                     <td class="cell">
                                                         <% if (issue.Approval==0 ) { %>
@@ -806,38 +806,3 @@
     </footer>
     <!--//app-footer-->
 </div>
-
-<script>
-    addedItemsList = {};
-    const reqAddBtn = document.getElementById('req-item-add');
-    const submitBtn = document.getElementById('submit-btn-ov');
-    reqAddBtn.addEventListener('click', (e) => {
-        let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
-        let itemQty = document.getElementById('item-quantity').value > 0 && document.getElementById('item-quantity').value;
-        if (itemQty) {
-            document.querySelector('.added-items-ul').innerHTML += `<li>${itemName} x ${itemQty}</li>`;
-            if (itemName in addedItemsList) {
-                addedItemsList[itemName] += parseInt(itemQty);
-            } else {
-                addedItemsList[itemName] = parseInt(itemQty);
-            }
-        }
-        document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList); //passing this to the backend with bodyparser and a d-none input.
-        if (Object.keys(addedItemsList).length < 1) {
-
-            document.querySelector('#message-validate').classList.remove('d-none');
-        }
-        else {
-            document.querySelector('#message-validate').classList.add('d-none');
-        }
-    });
-    submitBtn.addEventListener('click', (e) => {
-        if (Object.keys(addedItemsList).length < 1) {
-            e.preventDefault();
-            document.querySelector('#message-validate').classList.remove('d-none');
-        }
-        else {
-            document.querySelector('#message-validate').classList.add('d-none');
-        }
-    });
-</script>

@@ -37,8 +37,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-4">
-                                <label for="station-id" class="col-form-label">Station ID:</label>
+                            <div class="col-sm-6">
+                                <label for="station-id" class="col-form-label">Supplier ID:</label>
                                 <div class="row">
                                     <select id="station-id" name="stationid" class="form-select" required>
                                         <% stationRows.forEach(function(station) { %>
@@ -49,9 +49,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <label for="scheme-id" class="col-form-label">Scheme:</label>
                                 <div class="row">
                                     <select id="scheme-id" name="schemeid" class="form-select" required>
@@ -62,6 +60,17 @@
                                             <% }); %>
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="date-of-rcv" class="col-form-label">Date of Receival:</label>
+                                <input class="form-control d-inline" id="date-of-rcv" type="date" name="dor" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="v-s-no" class="col-form-label">Serial No.:</label>
+                                <input class="form-control d-inline" id="v-s-no" type="number" min="0" step="1"
+                                    name="sno" placeholder="S. No." required>
                             </div>
                         </div>
                         <div id="message-validate" class="d-none">

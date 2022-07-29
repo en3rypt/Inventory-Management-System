@@ -65,18 +65,7 @@
             <!--//row-->
 
 
-            <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-                <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab"
-                    href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-                <a class="flex-sm-fill text-sm-center nav-link" id="orders-approved-tab" data-bs-toggle="tab"
-                    href="#orders-approved" role="tab" aria-controls="orders-approved"
-                    aria-selected="false">Approved</a>
-                <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab"
-                    href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
-                <a class="flex-sm-fill text-sm-center nav-link" id="orders-declined-tab" data-bs-toggle="tab"
-                    href="#orders-declined" role="tab" aria-controls="orders-declined"
-                    aria-selected="false">Declined</a>
-            </nav>
+
 
 
             <div class="tab-content" id="orders-table-tab-content">
@@ -84,7 +73,7 @@
                     <div class="app-card app-card-orders-table shadow-sm mb-5">
                         <div class="app-card-body">
                             <div class="table-responsive">
-                                <table class="table app-table-hover mb-0 text-center	">
+                                <table id="rvTable" class="table  app-table-hover mb-0" cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
                                             <th class="cell">RV No.</th>

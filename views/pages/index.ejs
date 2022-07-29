@@ -152,7 +152,7 @@
                                                                                                                                                         $(document).ready(function () {
                                                                                                                                                             $.fn.dataTable.moment('HH:mm MMM D, YY');
                                                                                                                                                             $.fn.dataTable.moment('ddd, MMMM Do, YYYY');
-                                                                                                                                                            $('#dtBasicExample').DataTable({
+                                                                                                                                                            $('#itemsTable').DataTable({
                                                                                                                                                                 dom: 'Bfrtip',
                                                                                                                                                                 lengthMenu: [
                                                                                                                                                                     [10, 25, 50, -1],
@@ -189,6 +189,221 @@
                                                                                                                                                                         extend: 'excelHtml5',
                                                                                                                                                                         exportOptions: {
                                                                                                                                                                             columns: [0, 1, 2, 3, 4]
+                                                                                                                                                                        }
+                                                                                                                                                                    }
+
+                                                                                                                                                                ]
+
+                                                                                                                                                            });
+                                                                                                                                                            $('#stationTable').DataTable({
+                                                                                                                                                                dom: 'Bfrtip',
+                                                                                                                                                                lengthMenu: [
+                                                                                                                                                                    [10, 25, 50, -1],
+                                                                                                                                                                    ['10 rows', '25 rows', '50 rows', 'Show all']
+                                                                                                                                                                ],
+                                                                                                                                                                buttons: [
+                                                                                                                                                                    'searchPanes',
+                                                                                                                                                                    'searchBuilder',
+                                                                                                                                                                    'pageLength', 'colvis', {
+                                                                                                                                                                        extend: 'print',
+                                                                                                                                                                        exportOptions: {
+
+                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                        },
+                                                                                                                                                                        customize: function (win) {
+                                                                                                                                                                            $(win.document.body)
+                                                                                                                                                                                .css('font-size', '10pt')
+                                                                                                                                                                                .prepend(
+                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/300px-TamilNadu_Logo.svg.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                );
+
+                                                                                                                                                                            $(win.document.body).find('table')
+                                                                                                                                                                                .addClass('compact')
+                                                                                                                                                                                .css('font-size', 'inherit');
+                                                                                                                                                                        }
+                                                                                                                                                                    },
+                                                                                                                                                                    {
+                                                                                                                                                                        extend: 'pdfHtml5',
+                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                        }
+
+                                                                                                                                                                    }, {
+                                                                                                                                                                        extend: 'excelHtml5',
+                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                        }
+                                                                                                                                                                    }
+
+                                                                                                                                                                ]
+
+                                                                                                                                                            });
+                                                                                                                                                            $('#schemeTable').DataTable({
+                                                                                                                                                                dom: 'Bfrtip',
+                                                                                                                                                                lengthMenu: [
+                                                                                                                                                                    [10, 25, 50, -1],
+                                                                                                                                                                    ['10 rows', '25 rows', '50 rows', 'Show all']
+                                                                                                                                                                ],
+                                                                                                                                                                buttons: [
+                                                                                                                                                                    'searchPanes',
+                                                                                                                                                                    'searchBuilder',
+                                                                                                                                                                    'pageLength', 'colvis', {
+                                                                                                                                                                        extend: 'print',
+                                                                                                                                                                        exportOptions: {
+
+                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                        },
+                                                                                                                                                                        customize: function (win) {
+                                                                                                                                                                            $(win.document.body)
+                                                                                                                                                                                .css('font-size', '10pt')
+                                                                                                                                                                                .prepend(
+                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/300px-TamilNadu_Logo.svg.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                );
+
+                                                                                                                                                                            $(win.document.body).find('table')
+                                                                                                                                                                                .addClass('compact')
+                                                                                                                                                                                .css('font-size', 'inherit');
+                                                                                                                                                                        }
+                                                                                                                                                                    },
+                                                                                                                                                                    {
+                                                                                                                                                                        extend: 'pdfHtml5',
+                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                        }
+
+                                                                                                                                                                    }, {
+                                                                                                                                                                        extend: 'excelHtml5',
+                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                        }
+                                                                                                                                                                    }
+
+                                                                                                                                                                ]
+
+                                                                                                                                                            });
+                                                                                                                                                            $('#categoryTable').DataTable({
+                                                                                                                                                                dom: 'Bfrtip',
+                                                                                                                                                                lengthMenu: [
+                                                                                                                                                                    [10, 25, 50, -1],
+                                                                                                                                                                    ['10 rows', '25 rows', '50 rows', 'Show all']
+                                                                                                                                                                ],
+                                                                                                                                                                buttons: [
+                                                                                                                                                                    'searchPanes',
+                                                                                                                                                                    'searchBuilder',
+                                                                                                                                                                    'pageLength', 'colvis', {
+                                                                                                                                                                        extend: 'print',
+                                                                                                                                                                        exportOptions: {
+
+                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                        },
+                                                                                                                                                                        customize: function (win) {
+                                                                                                                                                                            $(win.document.body)
+                                                                                                                                                                                .css('font-size', '10pt')
+                                                                                                                                                                                .prepend(
+                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/300px-TamilNadu_Logo.svg.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                );
+
+                                                                                                                                                                            $(win.document.body).find('table')
+                                                                                                                                                                                .addClass('compact')
+                                                                                                                                                                                .css('font-size', 'inherit');
+                                                                                                                                                                        }
+                                                                                                                                                                    },
+                                                                                                                                                                    {
+                                                                                                                                                                        extend: 'pdfHtml5',
+                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                        }
+
+                                                                                                                                                                    }, {
+                                                                                                                                                                        extend: 'excelHtml5',
+                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                        }
+                                                                                                                                                                    }
+
+                                                                                                                                                                ]
+
+                                                                                                                                                            });
+                                                                                                                                                            $('#ivTable').DataTable({
+                                                                                                                                                                dom: 'Bfrtip',
+                                                                                                                                                                lengthMenu: [
+                                                                                                                                                                    [10, 25, 50, -1],
+                                                                                                                                                                    ['10 rows', '25 rows', '50 rows', 'Show all']
+                                                                                                                                                                ],
+                                                                                                                                                                buttons: [
+                                                                                                                                                                    'searchPanes',
+                                                                                                                                                                    'searchBuilder',
+                                                                                                                                                                    'pageLength', 'colvis', {
+                                                                                                                                                                        extend: 'print',
+                                                                                                                                                                        exportOptions: {
+
+                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                                                                                                                                                                        },
+                                                                                                                                                                        customize: function (win) {
+                                                                                                                                                                            $(win.document.body)
+                                                                                                                                                                                .css('font-size', '10pt')
+                                                                                                                                                                                .prepend(
+                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/300px-TamilNadu_Logo.svg.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                );
+
+                                                                                                                                                                            $(win.document.body).find('table')
+                                                                                                                                                                                .addClass('compact')
+                                                                                                                                                                                .css('font-size', 'inherit');
+                                                                                                                                                                        }
+                                                                                                                                                                    },
+                                                                                                                                                                    {
+                                                                                                                                                                        extend: 'pdfHtml5',
+                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                                                                                                                                                                        }
+
+                                                                                                                                                                    }, {
+                                                                                                                                                                        extend: 'excelHtml5',
+                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                                                                                                                                                                        }
+                                                                                                                                                                    }
+
+                                                                                                                                                                ]
+
+                                                                                                                                                            });
+                                                                                                                                                            $('#rvTable').DataTable({
+                                                                                                                                                                dom: 'Bfrtip',
+                                                                                                                                                                lengthMenu: [
+                                                                                                                                                                    [10, 25, 50, -1],
+                                                                                                                                                                    ['10 rows', '25 rows', '50 rows', 'Show all']
+                                                                                                                                                                ],
+                                                                                                                                                                buttons: [
+                                                                                                                                                                    'searchPanes',
+                                                                                                                                                                    'searchBuilder',
+                                                                                                                                                                    'pageLength', 'colvis', {
+                                                                                                                                                                        extend: 'print',
+                                                                                                                                                                        exportOptions: {
+
+                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                                                                                                                                                                        },
+                                                                                                                                                                        customize: function (win) {
+                                                                                                                                                                            $(win.document.body)
+                                                                                                                                                                                .css('font-size', '10pt')
+                                                                                                                                                                                .prepend(
+                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/300px-TamilNadu_Logo.svg.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                );
+
+                                                                                                                                                                            $(win.document.body).find('table')
+                                                                                                                                                                                .addClass('compact')
+                                                                                                                                                                                .css('font-size', 'inherit');
+                                                                                                                                                                        }
+                                                                                                                                                                    },
+                                                                                                                                                                    {
+                                                                                                                                                                        extend: 'pdfHtml5',
+                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                                                                                                                                                                        }
+
+                                                                                                                                                                    }, {
+                                                                                                                                                                        extend: 'excelHtml5',
+                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
                                                                                                                                                                         }
                                                                                                                                                                     }
 

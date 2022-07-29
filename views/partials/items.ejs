@@ -10,18 +10,7 @@
                 <div class="col-auto">
                     <div class="page-utilities">
                         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-                            <div class="col-auto">
-                                <form class="table-search-form row gx-1 align-items-center">
-                                    <div class="col-auto">
-                                        <input type="text" id="search-orders" name="searchorders"
-                                            class="form-control search-orders h-100" placeholder="Search">
-                                    </div>
-                                    <div class="col-auto">
-                                        <button type="submit" class="btn app-btn-secondary ms-1">Search</button>
-                                    </div>
-                                </form>
 
-                            </div>
                             <!--//col-->
                             <!-- <div class="col-auto">
 
@@ -47,19 +36,7 @@
 
                                 </div>
                                 <% } %>
-                                    <div class="col-auto">
-                                        <a id="dwnld-btn" class="btn app-btn-secondary" href="#">
-                                            <img
-                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABFElEQVRIid3Vq07EUBDG8d9yCeEN1iM2IbwIIBHreQkkJUEgMCRoNIJn2ASBR2DAcfEgwHBbREvo7p52p10wTNI0zcw3/+mZOefwH20D9xhOebK2gEjymSDf4kjMEAd/DWgMaQNoBGkLSEI6FeIq33hMykZ0C3VlRpPUQeeCCY+KBGtYxC3OWpUm3YMuXnCMbbxjNaALA+AQT7jESQNdOLCLj8LXi+qiPSA/o17xjM2EvyPR/OiYLuMaA7xhCyt4bFDgCGD8VzN8yqeoJ1+q/YAuvA9u0MdV8d3HUlA7YeFpiOiaNLmVpQAPxbvqQDv1s7SZycqnXkbruKsB1EFmvk6rbKeUfLfsmP8lwIV835xjr+z4AvIlgCqqAWC1AAAAAElFTkSuQmCC">
 
-                                        </a>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a id="print-btn" class="btn app-btn-secondary" href="#">
-                                            <img
-                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMtJREFUSEvVlWENwjAQhb8pQALgABzgAAs4wAI4QMKk4GCTAA5wALmES8pl69orJWM/m977+q59t4bKX1NZnxjgmQkf1JoFYKqN6tTt4L8AF2APrDIvWLffgBY460JoX8SPTmFbJoCTLIaAB7AAtkDvBG2ADhAnawuIvoYBoM2JHvZDJ3QwO8BYF7/moBjgnUXJDn4GyB0Vow40B7a3qYCw7q7TICzevWO+NIRcgIgfgKsNmj15ai6Kx3Xq1HD/D6oBUoWj+6YusBjyAkqyMBlM3PP1AAAAAElFTkSuQmCC" />
-                                        </a>
-                                    </div>
                         </div>
                         <!--//row-->
                     </div>
@@ -90,7 +67,7 @@
                     <div class="app-card app-card-orders-table shadow-sm mb-5">
                         <div class="app-card-body">
                             <div id="tbl_print" class="table-responsive">
-                                <table id="tbl_export" class="table app-table-hover mb-0 text-center">
+                                <table id="itemsTable" class="table  app-table-hover mb-0" cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
@@ -135,6 +112,74 @@
                                             <% }); %>
                                     </tbody>
                                 </table>
+                                <!-- <table id="dtBasicExample" class="table table-striped table-bordered table-sm"
+                                    cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="th-sm">Name
+
+                                            </th>
+                                            <th class="th-sm">Position
+
+                                            </th>
+                                            <th class="th-sm">Office
+
+                                            </th>
+                                            <th class="th-sm">Age
+
+                                            </th>
+                                            <th class="th-sm">Start date
+
+                                            </th>
+                                            <th class="th-sm">Salary
+
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Michael Bruce</td>
+                                            <td>Javascript Developer</td>
+                                            <td>Singapore</td>
+                                            <td>29</td>
+                                            <td>2011/06/27</td>
+                                            <td>$183,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Donna Snider</td>
+                                            <td>Customer Support</td>
+                                            <td>New York</td>
+                                            <td>27</td>
+                                            <td>2011/01/25</td>
+                                            <td>$112,000</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name
+                                            </th>
+                                            <th>Position
+                                            </th>
+                                            <th>Office
+                                            </th>
+                                            <th>Age
+                                            </th>
+                                            <th>Start date
+                                            </th>
+                                            <th>Salary
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                </table> -->
                             </div>
                             <!--//table-responsive-->
 

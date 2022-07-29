@@ -157,16 +157,17 @@
         let itemReqQty = document.getElementById('item-qty-required').value > 0 && document.getElementById('item-qty-required').value;
         let itemPassedQty = document.getElementById('item-qty-passed').value > 0 && document.getElementById('item-qty-passed').value;
         if (itemReqQty && itemPassedQty) {
-            document.querySelector('#added-items-tbody').innerHTML += `<tr>
-                                                <td class="cell">${itemName}</td>
-                                                <td class="cell">${itemReqQty}</td>
-                                                <td class="cell">${itemPassedQty}</td>
-                                                </tr>`;
+            
             if (itemName in addedItemsList) {
                 alert("Item already added.");
                 // addedItemsList[itemName]['reqQty'] += itemReqQty;
                 // addedItemsList[itemName]['passedQty'] += itemPassedQty;
             } else {
+                document.querySelector('#added-items-tbody').innerHTML += `<tr>
+                                                <td class="cell">${itemName}</td>
+                                                <td class="cell">${itemReqQty}</td>
+                                                <td class="cell">${itemPassedQty}</td>
+                                                </tr>`;
                 addedItemsList[itemName] = {
                     'reqQty': itemReqQty,
                     'passedQty': itemPassedQty

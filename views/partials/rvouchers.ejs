@@ -77,7 +77,7 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">RV No.</th>
-                                            <th class="cell">Station</th>
+                                            <th class="cell">Supplier</th>
                                             <th class="cell">S. No.</th>
                                             <th class="cell">Scheme</th>
                                             <th class="cell">DateOfReceival</th>
@@ -123,7 +123,8 @@
                                                 </td>
                                                 <td class="cell">
                                                     <% if (rcv.Approval!=0 ) { %>
-                                                        <%=rcv.ApprovalDate %>
+                                                        <%= new Date(rcv.ApprovalDate).toISOString().slice(0, 10) + " "
+                                                            + new Date(rcv.ApprovalDate).toISOString().slice(11, 19) %>
                                                             <% } else { %>
                                                                 -
                                                                 <% } %>
@@ -187,10 +188,10 @@
                                                                     <% if(auth==2){ %>
                                                                         <div class="modal-footer">
 
-                                                                            <% if (request.Approval !=1 &&
-                                                                                request.Approval !=2) { %>
+                                                                            <% if (rcv.Approval !=1 && rcv.Approval !=2)
+                                                                                { %>
                                                                                 <form
-                                                                                    action="/ivouchers/action/<%=request.ID%>"
+                                                                                    action="/rvouchers/action/<%=rcv.ID%>/<%=id%>"
                                                                                     method="post" name="ratings">
                                                                                     <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
@@ -248,8 +249,8 @@
                                 <table class="table app-table-hover mb-0 text-center	">
                                     <thead>
                                         <tr>
-                                            <th class="cell">IV No.</th>
-                                            <th class="cell">Station</th>
+                                            <th class="cell">RV No.</th>
+                                            <th class="cell">Supplier</th>
                                             <th class="cell">S. No.</th>
                                             <th class="cell">Scheme</th>
                                             <th class="cell">DateOfReceival</th>
@@ -296,7 +297,9 @@
                                                     </td>
                                                     <td class="cell">
                                                         <% if (rcv.Approval!=0 ) { %>
-                                                            <%=rcv.ApprovalDate %>
+                                                            <%= new Date(rcv.ApprovalDate).toISOString().slice(0, 10)
+                                                                + " " + new
+                                                                Date(rcv.ApprovalDate).toISOString().slice(11, 19) %>
                                                                 <% } else { %>
                                                                     -
                                                                     <% } %>
@@ -360,10 +363,10 @@
                                                                         <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
-                                                                                <% if (request.Approval !=1 &&
-                                                                                    request.Approval !=2) { %>
+                                                                                <% if (rcv.Approval !=1 && rcv.Approval
+                                                                                    !=2) { %>
                                                                                     <form
-                                                                                        action="/ivouchers/action/<%=request.ID%>"
+                                                                                        action="/rvouchers/action/<%=rcv.ID%>/<%=id%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
@@ -407,8 +410,8 @@
                                 <table class="table app-table-hover mb-0 text-center	">
                                     <thead>
                                         <tr>
-                                            <th class="cell">IV No.</th>
-                                            <th class="cell">Station</th>
+                                            <th class="cell">RV No.</th>
+                                            <th class="cell">Supplier</th>
                                             <th class="cell">S. No.</th>
                                             <th class="cell">Scheme</th>
                                             <th class="cell">DateOfReceival</th>
@@ -455,7 +458,9 @@
                                                     </td>
                                                     <td class="cell">
                                                         <% if (rcv.Approval!=0 ) { %>
-                                                            <%=rcv.ApprovalDate %>
+                                                            <%= new Date(rcv.ApprovalDate).toISOString().slice(0, 10)
+                                                                + " " + new
+                                                                Date(rcv.ApprovalDate).toISOString().slice(11, 19) %>
                                                                 <% } else { %>
                                                                     -
                                                                     <% } %>
@@ -519,10 +524,10 @@
                                                                         <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
-                                                                                <% if (request.Approval !=1 &&
-                                                                                    request.Approval !=2) { %>
+                                                                                <% if (rcv.Approval !=1 && rcv.Approval
+                                                                                    !=2) { %>
                                                                                     <form
-                                                                                        action="/ivouchers/action/<%=request.ID%>"
+                                                                                        action="/rvouchers/action/<%=rcv.ID%>/<%=id%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->
@@ -565,8 +570,8 @@
                                 <table class="table app-table-hover mb-0 text-center	">
                                     <thead>
                                         <tr>
-                                            <th class="cell">IV No.</th>
-                                            <th class="cell">Station</th>
+                                            <th class="cell">RV No.</th>
+                                            <th class="cell">Supplier</th>
                                             <th class="cell">S. No.</th>
                                             <th class="cell">Scheme</th>
                                             <th class="cell">DateOfReceival</th>
@@ -613,7 +618,9 @@
                                                     </td>
                                                     <td class="cell">
                                                         <% if (rcv.Approval!=0 ) { %>
-                                                            <%=rcv.ApprovalDate %>
+                                                            <%= new Date(rcv.ApprovalDate).toISOString().slice(0, 10)
+                                                                + " " + new
+                                                                Date(rcv.ApprovalDate).toISOString().slice(11, 19) %>
                                                                 <% } else { %>
                                                                     -
                                                                     <% } %>
@@ -677,10 +684,10 @@
                                                                         <% if(auth==2){ %>
                                                                             <div class="modal-footer">
 
-                                                                                <% if (request.Approval !=1 &&
-                                                                                    request.Approval !=2) { %>
+                                                                                <% if (rcv.Approval !=1 && rcv.Approval
+                                                                                    !=2) { %>
                                                                                     <form
-                                                                                        action="/ivouchers/action/<%=request.ID%>"
+                                                                                        action="/rvouchers/action/<%=rcv.ID%>/<%=id%>"
                                                                                         method="post" name="ratings">
                                                                                         <!-- <input type="hidden" name="Id"
                                                                                 value=""> -->

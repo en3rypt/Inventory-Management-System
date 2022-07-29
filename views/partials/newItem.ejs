@@ -16,18 +16,20 @@
                                                                     <input type="text" class="form-control" id="item-id"
                                                                         name="itemid">
                                                                 </div> -->
-                        <div class="mb-3">
+                        <div class="mb-3 ">
                             <label for="message-text" class="row-form-label mt-3">Category:
                             </label>
                             <!-- <input class="form-control" list="datalistOptions"
                                                                         id="category-id" name="categoryid"> -->
-                            <select id="category-id" name="categoryid" required>
-                                <% categs.forEach(function(categ) { %>
-                                    <option value="<%= categ.ID %>">
-                                        <%= categ.Name %>
-                                    </option>
-                                    <% }); %>
-                            </select>
+                            
+                                <select id="category-id" name="categoryid" class="w-25 form-select mt-2" required>
+                                    <% categs.forEach(function(categ) { %>
+                                        <option value="<%= categ.ID %>">
+                                            <%= categ.Name %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                            
                             <!-- <input type="text" class="form-control" id="category-id"
                                                                         name="categoryid"> -->
                         </div>
@@ -47,10 +49,11 @@
                                     name="itemlife" required>
                             </div>
                         </div>
-
+                        
                         <button type="button" class="btn btn-secondary" style="margin-top: 20px;"
-                            data-bs-dismiss="modal">Back</button>
-                        <input type="submit" class="btn btn-primary" style="margin-top: 20px;">
+                            onclick="history.back()">Back</button>
+                        <input type="submit" class="btn btn-primary text-white" style="margin-top: 20px;">
+
 
                     </form>
                 </div>

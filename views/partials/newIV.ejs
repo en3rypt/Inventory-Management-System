@@ -39,27 +39,27 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="station-id" class="col-form-label">Station Name:</label>
-                                
-                                    <select id="station-id" name="stationid" class="form-select" required>
-                                        <% stationRows.forEach(function(station) { %>
-                                            <option value="<%= station.ID %>">
-                                                <%= station.Name %>
-                                            </option>
-                                            <% }); %>
-                                    </select>
-                                
+
+                                <select id="station-id" name="stationid" class="form-select" required>
+                                    <% stationRows.forEach(function(station) { %>
+                                        <option value="<%= station.ID %>">
+                                            <%= station.Name %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+
                             </div>
                             <div class="col-sm-6 ">
                                 <label for="scheme-id" class="col-form-label">Scheme:</label>
-                                
-                                    <select id="scheme-id" name="schemeid" class="form-select" required>
-                                        <% schemeRows.forEach(function(scheme) { %>
-                                            <option value="<%= scheme.ID %>">
-                                                <%= scheme.Name %>
-                                            </option>
-                                            <% }); %>
-                                    </select>
-                                
+
+                                <select id="scheme-id" name="schemeid" class="form-select" required>
+                                    <% schemeRows.forEach(function(scheme) { %>
+                                        <option value="<%= scheme.ID %>">
+                                            <%= scheme.Name %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+
                             </div>
                         </div>
                         <div class="row">
@@ -104,8 +104,10 @@
 
                                         <select id="item-name-drop" name="itemid" class="form-select" required>
                                             <% itemRows.forEach(function(item) { %>
-                                                <option value="<%= item.ID %>">
+                                                <option value='{"ID":<%= item.ID %>,"maxQty":<%=item.Quantity%>}'
+                                                    name="hello">
                                                     <%= item.Name %>
+
                                                 </option>
                                                 <% }); %>
                                         </select>
@@ -115,8 +117,8 @@
                                             min="0" step="1" name="ReqQty" placeholder="Required" required>
                                     </div>
                                     <div class="col-sm-2">
-                                        <input class="form-control w-75 " id="item-qty-passed" type="number"
-                                            min="0" step="1" name="PassedQty" placeholder="Passed" required >
+                                        <input class="form-control w-75 " id="item-qty-passed" type="number" min="0"
+                                            step="1" name="PassedQty" placeholder="Passed" required>
                                     </div>
                                     <div class="col-sm-4">
                                         <button type="button" id="req-item-add"
@@ -149,24 +151,66 @@
 
 
 <script>
+    function changemaxQty() {
+        var yourSelect = document.getElementById("item-name-drop");
+        // var maxQty = yourSelect.options[yourSelect.selectedIndex].value;
+        var item = JSON.parse(yourSelect.options[yourSelect.selectedIndex].value);
+        console.log(item.maxQty);
+        document.getElementById('item-qty-required').max = item.maxQty;
+        document.getElementById('item-qty-passed').max = item.maxQty;
+    }
+    changemaxQty();
+    var yourSelect = document.getElementById("item-name-drop");
+    // console.log(JSON.parse(yourSelect.options[yourSelect.selectedIndex].value));
+    document.getElementById('item-name-drop').addEventListener('change', changemaxQty);
+
     addedItemsList = {};
     const reqAddBtn = document.getElementById('req-item-add');
     const submitBtn = document.getElementById('submit-btn-ov');
     reqAddBtn.addEventListener('click', (e) => {
+        let maxQty = JSON.parse(yourSelect.options[yourSelect.selectedIndex].value).maxQty
+
         let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
-        let itemReqQty = document.getElementById('item-qty-required').value > 0 && document.getElementById('item-qty-required').value;
-        let itemPassedQty = document.getElementById('item-qty-passed').value > 0 && document.getElementById('item-qty-passed').value;
-        if (itemReqQty && itemPassedQty) {
-            document.querySelector('#added-items-tbody').innerHTML += `<tr>
-                                                <td class="cell">${itemName}</td>
-                                                <td class="cell">${itemReqQty}</td>
-                                                <td class="cell">${itemPassedQty}</td>
-                                                </tr>`;
-            if (itemName in addedItemsList) {
-                alert("Item already added.");
-                // addedItemsList[itemName]['reqQty'] += itemReqQty;
-                // addedItemsList[itemName]['passedQty'] += itemPassedQty;
-            } else {
+        let itemReqQty = parseInt(document.getElementById('item-qty-required').value);
+        let itemPassedQty = parseInt(document.getElementById('item-qty-passed').value);
+        if (itemReqQty > maxQty) {
+            alert(`Required quantity cannot be greater than available stock : ${maxQty}`);
+            return;
+        }
+        if (itemPassedQty > maxQty) {
+            alert(`Passed quantity cannot be greater than available stock : ${maxQty}`);
+            return;
+        }
+        if (itemReqQty == '' || itemPassedQty == '') {
+            alert('Please fill all the fields');
+            return;
+        }
+        if (itemReqQty == 0 || itemPassedQty == 0) {
+            alert('Required and Passed quantity cannot be zero');
+            return;
+        }
+        if (itemReqQty < 0 || itemPassedQty < 0) {
+            alert('Required and Passed quantity cannot be negative');
+            return;
+        }
+        if (itemReqQty < itemPassedQty) {
+            console.log(itemReqQty, itemPassedQty, itemReqQty < itemPassedQty);
+            alert('Passed quantity cannot be greater than required quantity');
+            return;
+        }
+
+
+        if (itemName in addedItemsList) {
+            alert("Item already added.");
+            // addedItemsList[itemName]['reqQty'] += itemReqQty;
+            // addedItemsList[itemName]['passedQty'] += itemPassedQty;
+        } else {
+            if (itemReqQty && itemPassedQty) {
+                document.querySelector('#added-items-tbody').innerHTML += `<tr>
+                                                    <td class="cell">${itemName}</td>
+                                                    <td class="cell">${itemReqQty}</td>
+                                                    <td class="cell">${itemPassedQty}</td>
+                                                    </tr>`;
                 addedItemsList[itemName] = {
                     'reqQty': itemReqQty,
                     'passedQty': itemPassedQty

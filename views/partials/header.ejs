@@ -79,7 +79,8 @@
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='ivouchers' && 'active' %>" href="/ivouchers">
+                        <a class="nav-link  <%= (option ==='ivouchers' || option === 'newIV') && 'active' %>"
+                            href="/ivouchers">
                             <span class="nav-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     style="fill: rgba(0, 0, 0, 1);">
@@ -95,7 +96,8 @@
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='rvouchers' && 'active' %>" href="/rvouchers">
+                        <a class="nav-link  <%= (option ==='rvouchers' || option === 'newRV') && 'active' %>"
+                            href="/rvouchers">
                             <span class="nav-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     style="fill: rgba(0, 0, 0, 1);">
@@ -111,7 +113,8 @@
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='items' && 'active' %>" href="/items">
+                        <a class="nav-link  <%= (option ==='items' || option === 'newItem') && 'active' %>"
+                            href="/items">
                             <span class="nav-icon">
                                 <img src="https://img.icons8.com/material-outlined/24/000000/open-box.png" />
                             </span>
@@ -121,7 +124,8 @@
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='categories' && 'active' %>" href="/categories">
+                        <a class="nav-link  <%= (option ==='categories' || option === 'newCategory') && 'active' %>"
+                            href="/categories">
                             <span class="nav-icon">
                                 <img
                                     src="https://img.icons8.com/external-gradak-royyan-wijaya/24/000000/external-categories-gradak-interface-solidarity-gradak-royyan-wijaya.png" />
@@ -132,7 +136,8 @@
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='stations' && 'active' %>" href="/stations">
+                        <a class="nav-link  <%= (option ==='stations' || option === 'newStation') && 'active' %>"
+                            href="/stations">
                             <span class="nav-icon">
                                 <img
                                     src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-police-building-tanah-basah-basic-outline-tanah-basah.png" />
@@ -143,7 +148,8 @@
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='schemes' && 'active' %>" href="/schemes">
+                        <a class="nav-link  <%= (option ==='schemes' || option === 'newScheme') && 'active' %>"
+                            href="/schemes">
                             <span class="nav-icon">
                                 <img src="https://img.icons8.com/material-outlined/24/000000/group-of-projects.png" />
                             </span>

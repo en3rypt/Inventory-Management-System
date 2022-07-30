@@ -86,14 +86,24 @@
                                                                                                                                     %>
                                                                                                                                     <%- include('../partials/editCategory');
                                                                                                                                         %>
-                                                                                                                                        <% break;case 'editItem'
+                                                                                                                                        <% break;case 'itemHistory'
                                                                                                                                             :
                                                                                                                                             %>
-                                                                                                                                            <%- include('../partials/edititem');
+                                                                                                                                            <%- include('../partials/itemHistory');
                                                                                                                                                 %>
-                                                                                                                                                <% break;
-                                                                                                                                                    }
+                                                                                                                                                <% break;case 'report'
+                                                                                                                                                    :
                                                                                                                                                     %>
+                                                                                                                                                    <%- include('../partials/report');
+                                                                                                                                                        %>
+                                                                                                                                                        <% break;case 'editItem'
+                                                                                                                                                    :
+                                                                                                                                                    %>
+                                                                                                                                                    <%- include('../partials/edititem');
+                                                                                                                                                        %>
+                                                                                                                                                        <% break;
+                                                                                                                                                            }
+                                                                                                                                                            %>
                                                                                                                                                     <!--//app-wrapper-->
 
 

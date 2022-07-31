@@ -31,12 +31,12 @@ rvouchers.get('/', (req, res) => {
             if (err) {
                 throw err;
             }
-            db.query(`SELECT * FROM receivedvouchers INNER JOIN rvitems ON receivedvouchers.ID = rvitems.rvID INNER JOIN items ON rvitems.rvItemID = items.ID;`, (err, vItemResult) => {
+            db.query(`SELECT * FROM receivedvouchers INNER JOIN rvitems ON receivedvouchers.ID = rvitems.rvID INNER JOIN items ON rvitems.rvItemID = items.ID;`, (err, rvItemResult) => {
                 if (err) {
                     throw err;
                 }
                 let rvItemlist = {};
-                vItemResult.forEach(row => {
+                rvItemResult.forEach(row => {
                     if (!rvItemlist[row.rvID])
                         rvItemlist[row.rvID] = {};
                     rvItemlist[row.rvID][row.Name] = {

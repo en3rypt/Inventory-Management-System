@@ -74,7 +74,15 @@ items.post('/edit/:id', (req, res) => {
 
 })
 
-items.get('/history/:id', (req,res) => {
-    res.render('pages/index',{option: 'itemHistory'});
+items.get('/history/:id', (req, res) => {
+    db.query(`SELECT items.Name as itemName, issuedvouchers.IVNo, issuedvouchers.IVYear, stations.Name as stationName, ivQtyPassed FROM items INNER JOIN ivitems ON items.ID = ivitems.ivItemID INNER JOIN issuedvouchers ON issuedvouchers.ID = ivitems.ivID INNER JOIN stations ON stations.ID = issuedvouchers.Receiver WHERE items.ID = ${req.params.id}`, (err, itemHistoryResult) => {
+        if (err) throw err;
+        //handling the case when no history is found
+        if (itemHistoryResult.length < 1) {
+            itemHistoryResult.push({ itemName: "No History Found" });
+        }
+        res.render('pages/index', { option: 'itemHistory', itemHistoryResult: itemHistoryResult });
+    });
 })
 module.exports = items;
+

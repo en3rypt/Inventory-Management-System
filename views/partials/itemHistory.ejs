@@ -2,9 +2,11 @@
 
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
-            
+
             <div class="col-auto mt-100">
-                <h1 class="app-page-title mb-100">Item Name</h1>
+                <h1 class="app-page-title mb-100">
+                    <%= itemHistoryResult[0].itemName %>
+                </h1>
             </div>
             <div class="tab-content" id="orders-table-tab-content">
                 <div class="tab-pane fade show active" id="ih-iv" role="tabpanel" aria-labelledby="ih-iv-tab">
@@ -17,11 +19,26 @@
                                             <th class="cell">IV ID</th>
                                             <th class="cell">Station</th>
                                             <th class="cell">Quantity</th>
-                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                                                            </tbody>
+                                        <% if (itemHistoryResult[0].itemName=='No History Found' ) { %>
+                                            <% } else { %>
+                                                <% itemHistoryResult.forEach( function(item) { %>
+                                                    <tr>
+                                                        <td class="cell">
+                                                            IV/<%= item.IVNo %>/<%= item.IVYear %>
+                                                        </td>
+                                                        <td class="cell">
+                                                            <%= item.stationName %>
+                                                        </td>
+                                                        <td class="cell">
+                                                            <%= item.ivQtyPassed %>
+                                                        </td>
+                                                    </tr>
+                                                    <% }) %>
+                                                        <% } %>
+                                    </tbody>
                                 </table>
                             </div>
                             <!--//table-responsive-->
@@ -48,14 +65,14 @@
                 </div>
 
 
+            </div>
+            <!--//container-fluid-->
         </div>
-        <!--//container-fluid-->
+        <!--//app-content-->
+
+        <footer class="app-footer">
+
+        </footer>
+        <!--//app-footer-->
+
     </div>
-    <!--//app-content-->
-
-    <footer class="app-footer">
-
-    </footer>
-    <!--//app-footer-->
-
-</div>

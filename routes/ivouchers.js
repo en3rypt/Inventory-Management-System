@@ -27,7 +27,7 @@ ivouchers.get('/new', (req, res) => {
 
 //OPTIMIZABLE
 ivouchers.get('/', (req, res) => {
-    db.query(`SELECT * FROM issuedvouchers;`, (err, result) => {
+    db.query(`SELECT issuedvouchers.ID as IVID, IVNo, IVYear, stations.Name as stationName, SNo, schemes.Name as schemeName, users.Name as userName, DateOfReceival, Approval, ApprovalDate, ApprovedBy FROM issuedvouchers INNER JOIN stations ON issuedvouchers.Receiver = stations.ID INNER JOIN schemes ON schemes.ID = issuedvouchers.Scheme INNER JOIN users ON users.ID = issuedvouchers.ApprovedBy;`, (err, result) => {
         if (err) {
             throw err;
         }
@@ -35,10 +35,11 @@ ivouchers.get('/', (req, res) => {
             if (err) {
                 throw err;
             }
-            db.query(`SELECT * FROM issuedvouchers INNER JOIN ivitems ON issuedvouchers.ID = ivitems.ivID INNER JOIN items ON ivitems.ivItemID = items.ID;`, (err, vItemResult) => {
+            db.query(`SELECT ivID, items.Name as Name, stations.Name as stationName, ivQtyReq, ivQtyPassed FROM issuedvouchers INNER JOIN ivitems ON issuedvouchers.ID = ivitems.ivID INNER JOIN items ON ivitems.ivItemID = items.ID INNER JOIN stations ON issuedvouchers.Receiver = stations.ID;`, (err, vItemResult) => {
                 if (err) {
                     throw err;
                 }
+                console.log(vItemResult);
                 let ivItemlist = {};
                 vItemResult.forEach(row => {
                     if (!ivItemlist[row.ivID])
@@ -48,6 +49,7 @@ ivouchers.get('/', (req, res) => {
                         'passed': row.ivQtyPassed
                     }
                 });
+                // console.log(ivItemlist);
                 res.render('pages/index', { option: "ivouchers", ivouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist, error: null });
             });
         });

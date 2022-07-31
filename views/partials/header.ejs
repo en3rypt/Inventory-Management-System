@@ -53,8 +53,9 @@
         <div class="sidepanel-inner d-flex flex-column">
             <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
             <div class="app-branding">
-                <a class="app-logo" href="/"><img class="logo-icon me-2" src="/assets/images/app-logo.svg"
-                        alt="logo"><span class="logo-text">&ensp;IMIS</span></a>
+                <a class="app-logo" href="/"><img class="logo-icon me-2"
+                        src="/assets/favicon/android-chrome-512x512.png" alt="logo"><span
+                        class="logo-text">&ensp;IMIS</span></a>
 
             </div>
             <!--//app-branding-->
@@ -65,12 +66,11 @@
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                         <a class="nav-link  <%= option ==='dashboard' && 'active' %>" href="/">
                             <span class="nav-icon">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
-                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z" />
-                                    <path fill-rule="evenodd"
-                                        d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    style="fill: rgba(0, 0, 0, 1);">
+                                    <path
+                                        d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z">
+                                    </path>
                                 </svg>
                             </span>
                             <span class="nav-link-text">Dashboard</span>
@@ -79,30 +79,32 @@
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='ivouchers' && 'active' %>" href="/ivouchers">
+                        <a class="nav-link  <%= (option ==='ivouchers' || option === 'newIV') && 'active' %>"
+                            href="/ivouchers">
                             <span class="nav-icon">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
-                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z" />
-                                    <path fill-rule="evenodd"
-                                        d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    style="fill: rgba(0, 0, 0, 1);">
+                                    <path
+                                        d="m21.706 5.292-2.999-2.999A.996.996 0 0 0 18 2H6a.996.996 0 0 0-.707.293L2.294 5.292A.994.994 0 0 0 2 6v13c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6a.994.994 0 0 0-.294-.708zM6.414 4h11.172l1 1H5.414l1-1zM4 19V7h16l.002 12H4z">
+                                    </path>
+                                    <path d="M7 14h3v3h4v-3h3l-5-5z"></path>
                                 </svg>
                             </span>
-                            <span class="nav-link-text">Issue Vouchers</span>
+                            <span class="nav-link-text">Issued Vouchers</span>
                         </a>
                         <!--//nav-link-->
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='rvouchers' && 'active' %>" href="/rvouchers">
+                        <a class="nav-link  <%= (option ==='rvouchers' || option === 'newRV') && 'active' %>"
+                            href="/rvouchers">
                             <span class="nav-icon">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
-                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z" />
-                                    <path fill-rule="evenodd"
-                                        d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    style="fill: rgba(0, 0, 0, 1);">
+                                    <path
+                                        d="m21.706 5.292-2.999-2.999A.996.996 0 0 0 18 2H6a.996.996 0 0 0-.707.293L2.294 5.292A.994.994 0 0 0 2 6v13c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6a.994.994 0 0 0-.294-.708zM6.414 4h11.172l1 1H5.414l1-1zM4 19V7h16l.002 12H4z">
+                                    </path>
+                                    <path d="M14 9h-4v3H7l5 5 5-5h-3z"></path>
                                 </svg>
                             </span>
                             <span class="nav-link-text">Received Vouchers</span>
@@ -111,15 +113,10 @@
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='items' && 'active' %>" href="/items">
+                        <a class="nav-link  <%= (option ==='items' || option === 'newItem') && 'active' %>"
+                            href="/items">
                             <span class="nav-icon">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
-                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z" />
-                                    <path fill-rule="evenodd"
-                                        d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
-                                </svg>
+                                <img src="https://img.icons8.com/material-outlined/24/000000/open-box.png" />
                             </span>
                             <span class="nav-link-text">Items</span>
                         </a>
@@ -127,15 +124,11 @@
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='categories' && 'active' %>" href="/categories">
+                        <a class="nav-link  <%= (option ==='categories' || option === 'newCategory') && 'active' %>"
+                            href="/categories">
                             <span class="nav-icon">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
-                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z" />
-                                    <path fill-rule="evenodd"
-                                        d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
-                                </svg>
+                                <img
+                                    src="https://img.icons8.com/external-gradak-royyan-wijaya/24/000000/external-categories-gradak-interface-solidarity-gradak-royyan-wijaya.png" />
                             </span>
                             <span class="nav-link-text">Categories</span>
                         </a>
@@ -143,15 +136,11 @@
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='stations' && 'active' %>" href="/stations">
+                        <a class="nav-link  <%= (option ==='stations' || option === 'newStation') && 'active' %>"
+                            href="/stations">
                             <span class="nav-icon">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
-                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z" />
-                                    <path fill-rule="evenodd"
-                                        d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
-                                </svg>
+                                <img
+                                    src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-police-building-tanah-basah-basic-outline-tanah-basah.png" />
                             </span>
                             <span class="nav-link-text">Stations</span>
                         </a>
@@ -159,15 +148,10 @@
                     </li>
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link  <%= option ==='schemes' && 'active' %>" href="/schemes">
+                        <a class="nav-link  <%= (option ==='schemes' || option === 'newScheme') && 'active' %>"
+                            href="/schemes">
                             <span class="nav-icon">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
-                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z" />
-                                    <path fill-rule="evenodd"
-                                        d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
-                                </svg>
+                                <img src="https://img.icons8.com/material-outlined/24/000000/group-of-projects.png" />
                             </span>
                             <span class="nav-link-text">Schemes</span>
                         </a>

@@ -5,7 +5,7 @@
 
             <div class="col-auto mt-100">
                 <h1 class="app-page-title mb-100">
-                    <%= itemHistoryResult[0].itemName %>
+                    <%= itemName %>
                 </h1>
             </div>
             <div class="tab-content" id="orders-table-tab-content">
@@ -16,15 +16,15 @@
                                 <table class="table app-table-hover mb-0 text-center	">
                                     <thead>
                                         <tr>
-                                            <th class="cell">IV ID</th>
-                                            <th class="cell">Station</th>
+                                            <th class="cell">Voucher ID</th>
+                                            <th class="cell">Station / Supplier</th>
                                             <th class="cell">Quantity</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% if (itemHistoryResult[0].itemName=='No History Found' ) { %>
+                                        <% if (itemHistoryIVResult.length < 1 ) { %>
                                             <% } else { %>
-                                                <% itemHistoryResult.forEach( function(item) { %>
+                                                <% itemHistoryIVResult.forEach( function(item) { %>
                                                     <tr>
                                                         <td class="cell">
                                                             IV/<%= item.IVNo %>/<%= item.IVYear %>
@@ -37,7 +37,21 @@
                                                         </td>
                                                     </tr>
                                                     <% }) %>
-                                                        <% } %>
+                                                        <% itemHistoryRVResult.forEach( function(item) { %>
+                                                            <tr>
+                                                                <td class="cell">
+                                                                    RV/<%= item.RVNo %>/<%= item.RVYear %>
+                                                                </td>
+                                                                <td class="cell">
+                                                                    <%= item.Supplier %>
+                                                                </td>
+                                                                <td class="cell">
+                                                                    <%= item.rvItemQty %>
+                                                                </td>
+                                                            </tr>
+                                                            <% }) %>
+                                                                <% } %>
+
                                     </tbody>
                                 </table>
                             </div>

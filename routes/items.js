@@ -75,13 +75,19 @@ items.post('/edit/:id', (req, res) => {
 })
 
 items.get('/history/:id', (req, res) => {
-    db.query(`SELECT items.Name as itemName, issuedvouchers.IVNo, issuedvouchers.IVYear, stations.Name as stationName, ivQtyPassed FROM items INNER JOIN ivitems ON items.ID = ivitems.ivItemID INNER JOIN issuedvouchers ON issuedvouchers.ID = ivitems.ivID INNER JOIN stations ON stations.ID = issuedvouchers.Receiver WHERE items.ID = ${req.params.id}`, (err, itemHistoryResult) => {
+    db.query(`SELECT issuedvouchers.IVNo, issuedvouchers.IVYear, stations.Name as stationName, ivQtyPassed FROM items INNER JOIN ivitems ON items.ID = ivitems.ivItemID INNER JOIN issuedvouchers ON issuedvouchers.ID = ivitems.ivID INNER JOIN stations ON stations.ID = issuedvouchers.Receiver WHERE items.ID = ${req.params.id} AND issuedvouchers.Approval = 1`, (err, itemHistoryIVResult) => {
         if (err) throw err;
         //handling the case when no history is found
-        if (itemHistoryResult.length < 1) {
-            itemHistoryResult.push({ itemName: "No History Found" });
-        }
-        res.render('pages/index', { option: 'itemHistory', itemHistoryResult: itemHistoryResult });
+        db.query(`SELECT receivedvouchers.RVNo, receivedvouchers.RVYear, receivedvouchers.Supplier, rvItemQty FROM items INNER JOIN rvitems ON items.ID = rvitems.rvItemID INNER JOIN receivedvouchers ON receivedvouchers.ID = rvitems.rvID WHERE items.ID = ${req.params.id} AND receivedvouchers.Approval = 1`, (err, itemHistoryRVResult) => {
+            if (err) throw err;
+            db.query(`SELECT Name FROM items WHERE ID = ${req.params.id}`, (err, nameResult) => {
+                if (err) throw err;
+                res.render('pages/index', {
+                    option: 'itemHistory', itemHistoryIVResult: itemHistoryIVResult, itemHistoryRVResult
+                        : itemHistoryRVResult, itemName: nameResult[0].Name
+                });
+            });
+        })
     });
 })
 module.exports = items;

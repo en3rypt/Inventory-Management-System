@@ -19,6 +19,9 @@
                                             <th class="cell">Voucher ID</th>
                                             <th class="cell">Station / Supplier</th>
                                             <th class="cell">Quantity</th>
+                                            <th class="cell">
+                                                ApprovalDate
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -33,7 +36,12 @@
                                                             <%= item.stationName %>
                                                         </td>
                                                         <td class="cell">
-                                                            <%= item.ivQtyPassed %>
+                                                            - <%= item.ivQtyPassed %>
+                                                        </td>
+                                                        <td class="cell">
+                                                            <%= new Date(item.ApprovalDate).toISOString().slice(0, 10)
+                                                                + " " + new
+                                                                Date(item.ApprovalDate).toISOString().slice(11, 19) %>
                                                         </td>
                                                     </tr>
                                                     <% }) %>
@@ -46,7 +54,14 @@
                                                                     <%= item.Supplier %>
                                                                 </td>
                                                                 <td class="cell">
-                                                                    <%= item.rvItemQty %>
+                                                                    + <%= item.rvItemQty %>
+                                                                </td>
+                                                                <td class="cell">
+                                                                    <%= new
+                                                                        Date(item.ApprovalDate).toISOString().slice(0,
+                                                                        10) + " " + new
+                                                                        Date(item.ApprovalDate).toISOString().slice(11,
+                                                                        19) %>
                                                                 </td>
                                                             </tr>
                                                             <% }) %>

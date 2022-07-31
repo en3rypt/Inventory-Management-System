@@ -1,12 +1,12 @@
 'use strict';
 // DELETE COOKKIE
 
-var deleteAllCookies = function () {
-	document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-	console.log('all cookies deleted');
-};
+// var deleteAllCookies = function () {
+// 	document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+// 	console.log('all cookies deleted');
+// };
+// deleteAllCookies();
 /* ===== Enable Bootstrap Popover (on element  ====== */
-deleteAllCookies();
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 	return new bootstrap.Popover(popoverTriggerEl)

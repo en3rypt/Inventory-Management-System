@@ -50,4 +50,40 @@ charts.get('/rv', (req, res) => {
     )
 })
 
+//charts for items isssued
+charts.get('/ii/week', (req, res) => {
+    db.query(`select count(*) from ivitems INNER JOIN issuedvouchers ON issuedvouchers.ID = ivitems.ivID WHERE WEEK(ApprovalDate) = WEEK(now());`, (err, result) => {
+        if (err) throw err;
+        res.json(result);
+    }
+    )
+})
+
+charts.get('/ii/month', (req, res) => {
+    db.query(`select SUM(ivitems.ivQtyReq) from items inner join ivitems on items.ID=ivitems.ivItemID inner join issuedvouchers on ivitems.ivID=issuedvouchers.ID WHERE MONTH(issuedvouchers.DateOfCreation) = MONTH(CURRENT_DATE())
+    AND YEAR(issuedvouchers.DateOfCreation) = YEAR(CURRENT_DATE())`, (err, result) => {
+        if (err) throw err;
+        res.json(result);
+    }
+    )
+})
+
+charts.get('/ii/year', (req, res) => {
+    db.query(`select SUM(ivitems.ivQtyReq) from items inner join ivitems on items.ID=ivitems.ivItemID inner join issuedvouchers on ivitems.ivID=issuedvouchers.ID WHERE YEAR(issuedvouchers.DateOfCreation) = YEAR(CURRENT_DATE())`, (err, result) => {
+        if (err) throw err;
+        res.json(result);
+    }
+    )
+})
+
+charts.get('/ii/all', (req, res) => {
+    db.query(`select SUM(ivitems.ivQtyReq) from items inner join ivitems on items.ID=ivitems.ivItemID inner join issuedvouchers on ivitems.ivID=issuedvouchers.ID`, (err, result) => {
+        if (err) throw err;
+        res.json(result);
+    }
+    )
+})
+
+
+
 module.exports = charts;

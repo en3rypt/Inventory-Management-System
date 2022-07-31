@@ -296,6 +296,98 @@ function ivDoughtnutChart(option) {
 
 }
 
+function iiBarChart(option) {
+	if (option == 0) {
+		var endpoint = `http://localhost:3000/charts/ii/week`;
+	} else {
+		var endpoint = `http://localhost:3000/charts/ii/${option}`;
+
+	}
+
+	return fetch(endpoint)
+		.then(response => response.json())
+		.then(result => {
+			var new_data = [];
+			for (var i = 0; i < result.length; i++) {
+				new_data.push(result[i].count);
+			}
+
+
+			var barChartConfig = {
+				type: 'bar',
+
+				data: {
+					labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+					datasets: [{
+						label: 'Orders',
+						backgroundColor: window.chartColors.green,
+						borderColor: window.chartColors.green,
+						borderWidth: 1,
+						maxBarThickness: 16,
+
+						data: [
+							23,
+							45,
+							76,
+							75,
+							62,
+							37,
+							83
+						]
+					}]
+				},
+				options: {
+					responsive: true,
+					aspectRatio: 1.5,
+					legend: {
+						position: 'bottom',
+						align: 'end',
+					},
+					title: {
+						display: true,
+						text: 'Chart.js Bar Chart Example'
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: false,
+						titleMarginBottom: 10,
+						bodySpacing: 10,
+						xPadding: 16,
+						yPadding: 16,
+						borderColor: window.chartColors.border,
+						borderWidth: 1,
+						backgroundColor: '#fff',
+						bodyFontColor: window.chartColors.text,
+						titleFontColor: window.chartColors.text,
+
+					},
+					scales: {
+						xAxes: [{
+							display: true,
+							gridLines: {
+								drawBorder: false,
+								color: window.chartColors.border,
+							},
+
+						}],
+						yAxes: [{
+							display: true,
+							gridLines: {
+								drawBorder: false,
+								color: window.chartColors.borders,
+							},
+
+
+						}]
+					}
+
+				}
+			}
+			return barChartConfig;
+		})
+
+}
+
 // Generate charts on load
 window.addEventListener('load', function () {
 	//chart by id

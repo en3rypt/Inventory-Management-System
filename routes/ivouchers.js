@@ -129,6 +129,85 @@ ivouchers.post('/new', (req, res) => {
 })
 
 
+ivouchers.get('/edit/:Id', (req, res) => {
+
+    db.query(`SELECT * FROM issuedvouchers WHERE ID = ${req.params.Id}`, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        db.query(`SELECT * FROM items`, (err, itemRowResult) => {
+
+            if (err) {
+                throw err;
+            }
+            db.query(`SELECT * FROM schemes`, (err, schemesResult) => {
+                if (err) {
+                    throw err;
+                }
+                db.query(`SELECT * FROM stations`, (err, stationsResult) => {
+                    if (err) {
+                        throw err;
+                    }
+                    db.query(`SELECT * FROM ivitems INNER JOIN items ON ivitems.ivItemID = items.ID WHERE ivitems.ivID = ${req.params.Id}`, (err, ivItemResult) => {
+                        if (err) {
+                            throw err;
+                        }
+
+
+                        res.render('pages/index', { option: "editIV", result: result[0], itemRows: itemRowResult, ivItemlist: ivItemResult, schemeRows: schemesResult, stationRows: stationsResult, error: null });
+                    }
+                    );
+                }
+                );
+            }
+            );
+        }
+        );
+    }
+    );
+}
+);
+
+ivouchers.post('/edit/:Id', (req, res) => {
+    console.log(req.params.Id);
+    db.query(`UPDATE issuedvouchers SET IVNo = ${req.body.ivid}, IVYear = ${req.body.ivyear}, Receiver = ${req.body.stationid}, SNo = ${req.body.sno}, Scheme = ${req.body.schemeid}, DateOfReceival = '${new Date(req.body.dor).toISOString().slice(0, 10)}' WHERE ID = ${req.params.Id}`, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        db.query(`DELETE FROM ivitems WHERE ivID = ${req.params.Id}`, (err, result) => {
+            if (err) {
+                throw err;
+            }
+            let addedJSON = JSON.parse(req.body.addedJSON);
+            for (i = 0; i < Object.keys(addedJSON).length; i++) {
+                console.log(`SELECT * FROM items WHERE Name = '${encodeURI(Object.keys(addedJSON)[i])}'`)
+                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i]}'`, (err, itemNameIDResult) => {
+                    if (err) {
+                        throw err;
+                    }
+                    // console.log(addedJSON);
+                    // console.log(itemNameIDResult);
+                    db.query(`SELECT LAST_INSERT_ID() as lastID FROM issuedvouchers`, (err, lastVoucherResult) => {
+                        if (err) {
+                            throw err;
+                        }
+                        // console.log(lastVoucherResult);
+                        db.query(`INSERT INTO ivitems (ivID, ivItemID, ivQtyReq, ivQtyPassed) VALUES (${lastVoucherResult[0].lastID}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, ${addedJSON[itemNameIDResult[0].Name].passedQty})`, (err, result) => {
+                            if (err) {
+                                throw err;
+                            }
+                        })
+                    })
+                })
+            }
+            res.redirect('/ivouchers');
+        }
+        );
+    }
+    );
+}
+);
+
 module.exports = ivouchers;
 
 

@@ -1,0 +1,372 @@
+<div class="app-wrapper">
+
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+        <div class="container-xl d-grid gap-5">
+
+            <div class="col-auto">
+                <h1 class="app-page-title mb-0">Edit Issue Voucher</h1>
+            </div>
+            <div class="col-auto">
+                <form action="/ivouchers/edit/<%= result.ID%>" method="POST">
+                    <div class="d-grid gap-5">
+                        <div class="row">
+                            <label for="voucher-id" class="col-form-label">Voucher ID:</label>
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <input type="text" class="form-control text-center" name="IV" value="IV" readonly>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="req-receiverid" name="ivid" required
+                                        value="<%=result.IVNo%>">
+                                </div>
+                                <div class="col-sm-2">
+                                    <select id="iv-year" class="form-select" name="ivyear" required>
+                                        <% for(let count=-1; count <=1; count++ ){ %>
+                                            <% if(result.IVYear===new Date().getFullYear() + count){ %>
+                                                <option value="<%= (new Date().getFullYear() + count) %>" selected>
+                                                    <%= (new Date().getFullYear() + count) %>
+                                                </option>
+                                                <% } else { %>
+                                                    <option value="<%= (new Date().getFullYear() + count) %>">
+                                                        <%= (new Date().getFullYear() + count) %>
+                                                    </option>
+                                                    <% } %>
+
+
+                                                        <% } %>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="station-id" class="col-form-label">Station Name:</label>
+
+                                <select id="station-id" name="stationid" class="form-select" required>
+                                    <% stationRows.forEach(function(station) { %>
+                                        <% if(result.Receiver===station.ID){ %>
+                                            <option value="<%= station.ID %>" selected>
+                                                <%= station.Name %>
+                                            </option>
+                                            <% } else { %>
+                                                <option value="<%= station.ID %>">
+                                                    <%= station.Name %>
+                                                </option>
+                                                <% } %>
+
+
+                                                    <% }); %>
+                                </select>
+
+                            </div>
+                            <div class="col-sm-6 ">
+                                <label for="scheme-id" class="col-form-label">Scheme:</label>
+
+                                <select id="scheme-id" name="schemeid" class="form-select" required>
+                                    <% schemeRows.forEach(function(scheme) { %>
+                                        <% if(result.Scheme===scheme.ID){ %>
+                                            <option value="<%= scheme.ID %>" selected>
+                                                <%= scheme.Name %>
+                                            </option>
+                                            <% } else { %>
+                                                <option value="<%= scheme.ID %>">
+                                                    <%= scheme.Name %>
+                                                </option>
+                                                <% } %>
+
+
+
+                                                    <% }); %>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="date-of-rcv" class="col-form-label">Date of Receival:</label>
+                                <input class="form-control d-inline" id="date-of-rcv" type="date" name="dor"
+                                    value="<%= new Date(result.DateOfReceival).toISOString().slice(0, 10) %>" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="v-s-no" class="col-form-label">Serial No.:</label>
+                                <input class="form-control d-inline" id="v-s-no" type="number" min="0" step="1"
+                                    name="sno" value="<%= result.SNo%>" placeholder="S. No." required>
+                            </div>
+                        </div>
+                        <div id="message-validate" class="d-none">
+                            <div class="alert alert-danger" role="alert">
+                                <strong>
+                                    Please add items to the list before submitting.
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+
+                                <div class="row">
+                                    <table id='added-items-table' class="table app-table-hover mb-0 text-center"
+                                        style="font-size:0.8em;">
+                                        <thead>
+                                            <tr>
+                                                <th class="cell">Item Name</th>
+                                                <th class="cell">Required</th>
+                                                <th class="cell">Passed</th>
+                                                <th class="cell">Available</th>
+                                                <th class="cell">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="added-items-tbody">
+                                            <!-- loop ivItemlist -->
+                                            <% ivItemlist.forEach(function(ivItem) { %>
+                                                <tr id="<%= ivItem.Name%>">
+                                                    <td class="cell">
+                                                        <%= ivItem.Name %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <!-- max="<%= itemRows.find(x =>x.ID === ivItem.ivItemID).Quantity%>" -->
+                                                        <input class="form-control w-75 ms-4" id="req-<%= ivItem.Name%>"
+                                                            type="number" min="0" step="1" name="ReqQty"
+                                                            value="<%= ivItem.ivQtyReq %>" onblur="checkQty(this)"
+                                                            placeholder="Required" required>
+                                                    </td>
+                                                    <td class="cell">
+
+                                                        <input class="form-control w-75 ms-4"
+                                                            id="pass-<%= ivItem.Name%>" type="number" min="0" step="1"
+                                                            name="ReqQty" value="<%= ivItem.ivQtyPassed %>"
+                                                            placeholder="Required" onblur="checkQty(this)" required>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <%= itemRows.find(x=>x.ID === ivItem.ivItemID).Quantity %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <button type="button" class="btn app-btn-secondary"
+                                                            onclick="delRow('<%= ivItem.Name%>')">Delete</button>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                        </tbody>
+                                    </table>
+                                    <!-- myArray.find(x => x.id === '45').foo -->
+                                    <!-- <ul class="added-items-ul">
+
+                                    </ul> -->
+                                    <label for="scheme-id" class="col-form-label">Add Item:</label>
+                                    <div class="col-sm-2 w-25">
+
+                                        <select id="item-name-drop" name="itemid" class="form-select" required>
+                                            <% itemRows.forEach(function(item) { %>
+                                                <option value='{"ID":<%= item.ID %>,"maxQty":<%=item.Quantity%>}'>
+                                                    <%= item.Name %>
+
+                                                </option>
+
+                                                <% }); %>
+                                        </select>
+                                        <p>Available: <span id="available"> </span></p>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input class="form-control w-75 ms-4" id="item-qty-required" type="number"
+                                            min="0" step="1" name="ReqQty" placeholder="Required">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input class="form-control w-75 " id="item-qty-passed" type="number" min="0"
+                                            step="1" name="PassedQty" placeholder="Passed">
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <button type="button" id="req-item-add"
+                                            class="btn app-btn-secondary ">Add</button>
+                                        <input type="text" id="added-JSON" name="addedJSON" class="d-none me-3" s>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+
+                            <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
+                            <input type="submit" id="submit-btn-ov" class="btn btn-primary text-white">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--//container-fluid-->
+    </div>
+    <!--//app-content-->
+
+    <footer class="app-footer">
+
+    </footer>
+    <!--//app-footer-->
+
+</div>
+
+
+
+<script>
+    function checkQty(thi) {
+
+        console.log(thi);
+        let id = thi.id.split("-")[1];
+        let itemReqQty = parseInt(document.getElementById(`req-${id}`).value);
+        let itemPassedQty = parseInt(document.getElementById(`pass-${id}`).value);
+        if (itemReqQty == '' || itemPassedQty == '') {
+            alert('Please fill all the fields');
+            document.getElementById(`req-${id}`).value = addedItemsList[id].reqQty;
+            document.getElementById(`pass-${id}`).value = addedItemsList[id].passedQty;
+            return;
+        }
+        if (itemReqQty == 0 || itemPassedQty == 0) {
+            alert('Required and Passed quantity cannot be zero');
+            document.getElementById(`req-${id}`).value = addedItemsList[id].reqQty;
+            document.getElementById(`pass-${id}`).value = addedItemsList[id].passedQty;
+            return;
+        }
+        if (itemReqQty < 0 || itemPassedQty < 0) {
+            alert('Required and Passed quantity cannot be negative');
+            document.getElementById(`req-${id}`).value = addedItemsList[id].reqQty;
+            document.getElementById(`pass-${id}`).value = addedItemsList[id].passedQty;
+            return;
+        }
+        if (itemReqQty < itemPassedQty) {
+            alert('Passed quantity cannot be greater than required quantity');
+            document.getElementById(`req-${id}`).value = addedItemsList[id].reqQty;
+            document.getElementById(`pass-${id}`).value = addedItemsList[id].passedQty;
+            return;
+        }
+
+        delete addedItemsList[id];
+        addedItemsList[id] = {
+            'reqQty': itemReqQty,
+            'passedQty': itemPassedQty
+        };
+        console.log(addedItemsList);
+
+    }
+    function delRow(id) {
+        var row = document.getElementById(id);
+        row.parentNode.removeChild(row);
+        delete addedItemsList[id];
+        console.log(addedItemsList);
+    }
+
+    var reqList = '<%- JSON.stringify(ivItemlist) %>'
+    var list = JSON.parse(reqList);
+
+    addedItemsList = {};
+    //loop list and add  to addedItemsList
+    list.forEach(function (item) {
+
+
+        addedItemsList[item.Name] = {
+            'reqQty': item.ivQtyReq,
+            'passedQty': item.ivQtyPassed
+        }
+    });
+    function changemaxQty() {
+        var yourSelect = document.getElementById("item-name-drop");
+        // var maxQty = yourSelect.options[yourSelect.selectedIndex].value;
+        var item = JSON.parse(yourSelect.options[yourSelect.selectedIndex].value);
+        // document.getElementById('item-qty-required').max = item.maxQty;
+        // document.getElementById('item-qty-passed').max = item.maxQty;
+        document.getElementById('available').innerHTML = item.maxQty;
+    }
+    changemaxQty();
+
+    var yourSelect = document.getElementById("item-name-drop");
+    // console.log(JSON.parse(yourSelect.options[yourSelect.selectedIndex].value));
+    document.getElementById('item-name-drop').addEventListener('change', changemaxQty);
+
+
+
+    console.log(addedItemsList);
+    const reqAddBtn = document.getElementById('req-item-add');
+    const submitBtn = document.getElementById('submit-btn-ov');
+    reqAddBtn.addEventListener('click', (e) => {
+        console.log(e)
+        let maxQty = JSON.parse(yourSelect.options[yourSelect.selectedIndex].value).maxQty;
+
+        let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
+
+
+        let itemReqQty = parseInt(document.getElementById('item-qty-required').value);
+        let itemPassedQty = parseInt(document.getElementById('item-qty-passed').value);
+        console.log(itemReqQty, itemPassedQty);
+        if (itemReqQty == '' || itemPassedQty == '') {
+            alert('Please fill all the fields');
+            return;
+        }
+        if (itemReqQty == 0 || itemPassedQty == 0) {
+            alert('Required and Passed quantity cannot be zero');
+            return;
+        }
+        if (itemReqQty < 0 || itemPassedQty < 0) {
+            alert('Required and Passed quantity cannot be negative');
+            return;
+        }
+        if (itemReqQty < itemPassedQty) {
+            alert('Passed quantity cannot be greater than required quantity');
+            return;
+        }
+
+
+        if (itemName in addedItemsList) {
+            alert("Item already added.");
+            // addedItemsList[itemName]['reqQty'] += itemReqQty;
+            // addedItemsList[itemName]['passedQty'] += itemPassedQty;
+        } else {
+            if (itemReqQty && itemPassedQty) {
+                document.querySelector('#added-items-tbody').innerHTML += `<tr id='${itemName}'>
+                                                    <td class="cell">${itemName}</td>
+                                                    
+                                                    <td class="cell">
+                                                        <input class="form-control w-75 ms-4" id="" type="number"
+                                                            min="0" step="1" name="ReqQty"
+                                                            value="${itemReqQty}" placeholder="Required"
+                                                            required>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <input class="form-control w-75 ms-4" id="" type="number"
+                                                            min="0" step="1" name="ReqQty"
+                                                            value="${itemPassedQty}" placeholder="Required"
+                                                            required>
+                                                    </td>
+                                                    <td>${maxQty}</td>
+                                                    <td class="cell">
+                                                        <button type="button" class="btn app-btn-secondary"
+                                                            onclick="delRow('${itemName}')">Delete</button>
+                                                    </td>
+                                                    </tr>`;
+                addedItemsList[itemName] = {
+                    'reqQty': itemReqQty,
+                    'passedQty': itemPassedQty
+                };
+            }
+        }
+        document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList); //passing this to the backend with bodyparser and a d-none input.
+        if (Object.keys(addedItemsList).length < 1) {
+
+            document.querySelector('#message-validate').classList.remove('d-none');
+            document.querySelector('#added-items-table').classList.add('d-none');
+        }
+        else {
+            document.querySelector('#message-validate').classList.add('d-none');
+            document.querySelector('#added-items-table').classList.remove('d-none');
+        }
+    });
+    submitBtn.addEventListener('click', (e) => {
+        if (Object.keys(addedItemsList).length < 1) {
+            e.preventDefault();
+            document.querySelector('#message-validate').classList.remove('d-none');
+            document.querySelector('#added-items-table').classList.add('d-none');
+        }
+        else {
+            document.querySelector('#message-validate').classList.add('d-none');
+            document.querySelector('#added-items-table').classList.remove('d-none');
+        }
+    });
+</script>

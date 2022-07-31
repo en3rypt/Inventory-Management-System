@@ -153,16 +153,17 @@
         let itemRefNo = document.getElementById('item-ref-no').value > 0 && document.getElementById('item-ref-no').value;
         let itemRefDate = document.getElementById('item-ref-date').valueAsNumber > 0 && document.getElementById('item-ref-date').value;
         if (itemReqQty && itemRefNo && itemRefDate) {
-            document.querySelector('#added-items-tbody').innerHTML += `<tr>
-                                                <td class="cell">${itemName}</td>
-                                                <td class="cell">${itemReqQty}</td>
-                                                <td class="cell">${itemRefNo}/${itemRefDate}</td>
-                                                </tr>`;
+            
             if (itemName in addedItemsList) {
                 alert("Item already added.");
                 // addedItemsList[itemName]['reqQty'] += itemReqQty;
                 // addedItemsList[itemName]['passedQty'] += itemPassedQty;
             } else {
+                document.querySelector('#added-items-tbody').innerHTML += `<tr>
+                                                <td class="cell">${itemName}</td>
+                                                <td class="cell">${itemReqQty}</td>
+                                                <td class="cell">${itemRefNo}/${itemRefDate}</td>
+                                                </tr>`;
                 addedItemsList[itemName] = {
                     'reqQty': itemReqQty,
                     'refNo': itemRefNo,

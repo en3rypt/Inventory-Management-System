@@ -73,4 +73,8 @@ items.post('/edit/:id', (req, res) => {
 
 
 })
+
+items.get('/history/:id', (req,res) => {
+    res.render('pages/index',{option: 'itemHistory'});
+})
 module.exports = items;

@@ -12,6 +12,7 @@ const categories = require('./routes/categories');
 const dashboard = require('./routes/dashboard');
 const stations = require('./routes/stations');
 const schemes = require('./routes/schemes');
+const report = require('./routes/report');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
@@ -46,6 +47,7 @@ app.use('/categories', requireAuth, categories);
 app.use('/stations', requireAuth, stations);
 app.use('/schemes', requireAuth, schemes);
 app.use('/', requireAuth, dashboard);
+app.use('/report',requireAuth, report);
 
 app.get('/Categories', (req, res) => {
     res.render('pages/Categories', { option: 'dashboard' });

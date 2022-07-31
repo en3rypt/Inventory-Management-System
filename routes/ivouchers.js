@@ -5,6 +5,7 @@ const db = require('../dbConnection');
 
 ivouchers.get('/new', (req, res) => {
     db.query(`SELECT * FROM items`, (err, itemRowResult) => {
+        console.log(itemRowResult);
         if (err) {
             throw err;
         }

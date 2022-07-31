@@ -76,6 +76,7 @@
                                             <th class="cell">Quantity</th>
                                             <th class="cell">Life</th>
                                             <th class="cell">Option</th>
+                                            <th class="cell">History</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -106,6 +107,12 @@
                                                     <a href="/items/edit/<%=item.ID%>">
                                                         <button type="button"
                                                             class="btn app-btn-secondary">Edit</button>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="/items/history/<%=item.ID%>">
+                                                        <button type="button"
+                                                            class="btn app-btn-secondary">View</button>
                                                     </a>
                                                 </td>
                                             </tr>

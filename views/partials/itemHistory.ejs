@@ -2,9 +2,11 @@
 
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
-            
+
             <div class="col-auto mt-100">
-                <h1 class="app-page-title mb-100">Item Name</h1>
+                <h1 class="app-page-title mb-100">
+                    <%= itemName %>
+                </h1>
             </div>
             <div class="tab-content" id="orders-table-tab-content">
                 <div class="tab-pane fade show active" id="ih-iv" role="tabpanel" aria-labelledby="ih-iv-tab">
@@ -14,14 +16,58 @@
                                 <table class="table app-table-hover mb-0 text-center	">
                                     <thead>
                                         <tr>
-                                            <th class="cell">IV ID</th>
-                                            <th class="cell">Station</th>
+                                            <th class="cell">Voucher ID</th>
+                                            <th class="cell">Station / Supplier</th>
                                             <th class="cell">Quantity</th>
-                                            
+                                            <th class="cell">
+                                                ApprovalDate
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                                                            </tbody>
+                                        <% if (itemHistoryIVResult.length < 1 ) { %>
+                                            <% } else { %>
+                                                <% itemHistoryIVResult.forEach( function(item) { %>
+                                                    <tr>
+                                                        <td class="cell">
+                                                            IV/<%= item.IVNo %>/<%= item.IVYear %>
+                                                        </td>
+                                                        <td class="cell">
+                                                            <%= item.stationName %>
+                                                        </td>
+                                                        <td class="cell">
+                                                            - <%= item.ivQtyPassed %>
+                                                        </td>
+                                                        <td class="cell">
+                                                            <%= new Date(item.ApprovalDate).toISOString().slice(0, 10)
+                                                                + " " + new
+                                                                Date(item.ApprovalDate).toISOString().slice(11, 19) %>
+                                                        </td>
+                                                    </tr>
+                                                    <% }) %>
+                                                        <% itemHistoryRVResult.forEach( function(item) { %>
+                                                            <tr>
+                                                                <td class="cell">
+                                                                    RV/<%= item.RVNo %>/<%= item.RVYear %>
+                                                                </td>
+                                                                <td class="cell">
+                                                                    <%= item.Supplier %>
+                                                                </td>
+                                                                <td class="cell">
+                                                                    + <%= item.rvItemQty %>
+                                                                </td>
+                                                                <td class="cell">
+                                                                    <%= new
+                                                                        Date(item.ApprovalDate).toISOString().slice(0,
+                                                                        10) + " " + new
+                                                                        Date(item.ApprovalDate).toISOString().slice(11,
+                                                                        19) %>
+                                                                </td>
+                                                            </tr>
+                                                            <% }) %>
+                                                                <% } %>
+
+                                    </tbody>
                                 </table>
                             </div>
                             <!--//table-responsive-->
@@ -48,14 +94,14 @@
                 </div>
 
 
+            </div>
+            <!--//container-fluid-->
         </div>
-        <!--//container-fluid-->
+        <!--//app-content-->
+
+        <footer class="app-footer">
+
+        </footer>
+        <!--//app-footer-->
+
     </div>
-    <!--//app-content-->
-
-    <footer class="app-footer">
-
-    </footer>
-    <!--//app-footer-->
-
-</div>

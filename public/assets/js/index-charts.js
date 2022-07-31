@@ -324,16 +324,7 @@ function iiBarChart(option) {
 						borderColor: window.chartColors.green,
 						borderWidth: 1,
 						maxBarThickness: 16,
-
-						data: [
-							23,
-							45,
-							76,
-							75,
-							62,
-							37,
-							83
-						]
+						data: new_data
 					}]
 				},
 				options: {
@@ -408,7 +399,6 @@ window.addEventListener('load', function () {
 
 
 	ivDoughtnutChart(0).then(response => window.myDoughnut = new Chart(doughnutChart, response));
-
 
 
 });

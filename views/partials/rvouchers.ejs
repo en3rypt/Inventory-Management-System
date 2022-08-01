@@ -105,7 +105,7 @@
                                                     <%= rcv.SNo %>
                                                 </td>
                                                 <td class="cell">
-                                                    <%= rcv.Scheme %>
+                                                    <%= rcv.schemeName %>
                                                 </td>
                                                 <td class="cell">
                                                     <%= new Date(rcv.DateOfReceival).toISOString().slice(0, 10) %>
@@ -121,7 +121,7 @@
                                                 </td>
                                                 <td class="cell">
                                                     <% if (rcv.Approval!=0 ) { %>
-                                                        <%=rcv.ApprovedBy %>
+                                                        <%=rcv.userName %>
                                                             <% } else { %>
                                                                 -
                                                                 <% } %>
@@ -164,7 +164,7 @@
                                                                             <tbody>
                                                                                 <% Object.keys(rvItemlist).forEach(function(rID)
                                                                                     { %>
-                                                                                    <% if (rID==rcv.ID) { %>
+                                                                                    <% if (rID==rcv.RVID) { %>
                                                                                         <% Object.keys(rvItemlist[rID]).forEach(function(item)
                                                                                             { %>
 

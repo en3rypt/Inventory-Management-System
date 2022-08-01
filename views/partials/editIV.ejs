@@ -208,6 +208,19 @@
 
 
 <script>
+    var reqList = '<%- JSON.stringify(ivItemlist) %>'
+    var list = JSON.parse(reqList);
+
+    addedItemsList = {};
+    //loop list and add  to addedItemsList
+    list.forEach(function (item) {
+
+
+        addedItemsList[item.Name] = {
+            'reqQty': item.ivQtyReq,
+            'passedQty': item.ivQtyPassed
+        }
+    });
     function checkQty(thi) {
 
         console.log(thi);
@@ -254,19 +267,7 @@
         console.log(addedItemsList);
     }
 
-    var reqList = '<%- JSON.stringify(ivItemlist) %>'
-    var list = JSON.parse(reqList);
 
-    addedItemsList = {};
-    //loop list and add  to addedItemsList
-    list.forEach(function (item) {
-
-
-        addedItemsList[item.Name] = {
-            'reqQty': item.ivQtyReq,
-            'passedQty': item.ivQtyPassed
-        }
-    });
     function changemaxQty() {
         var yourSelect = document.getElementById("item-name-drop");
         // var maxQty = yourSelect.options[yourSelect.selectedIndex].value;
@@ -283,11 +284,11 @@
 
 
 
-    console.log(addedItemsList);
+
     const reqAddBtn = document.getElementById('req-item-add');
     const submitBtn = document.getElementById('submit-btn-ov');
     reqAddBtn.addEventListener('click', (e) => {
-        console.log(e)
+
         let maxQty = JSON.parse(yourSelect.options[yourSelect.selectedIndex].value).maxQty;
 
         let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
@@ -324,14 +325,14 @@
                                                     <td class="cell">${itemName}</td>
                                                     
                                                     <td class="cell">
-                                                        <input class="form-control w-75 ms-4" id="" type="number"
-                                                            min="0" step="1" name="ReqQty"
+                                                        <input class="form-control w-75 ms-4" id="req-${itemName}" type="number"
+                                                            min="0" step="1" name="ReqQty" onblur="checkQty(this)"
                                                             value="${itemReqQty}" placeholder="Required"
                                                             required>
                                                     </td>
                                                     <td class="cell">
-                                                        <input class="form-control w-75 ms-4" id="" type="number"
-                                                            min="0" step="1" name="ReqQty"
+                                                        <input class="form-control w-75 ms-4" id="pass-${itemName}" type="number"
+                                                            min="0" step="1" name="ReqQty" onblur="checkQty(this)"
                                                             value="${itemPassedQty}" placeholder="Required"
                                                             required>
                                                     </td>
@@ -347,7 +348,7 @@
                 };
             }
         }
-        document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList); //passing this to the backend with bodyparser and a d-none input.
+
         if (Object.keys(addedItemsList).length < 1) {
 
             document.querySelector('#message-validate').classList.remove('d-none');
@@ -359,6 +360,7 @@
         }
     });
     submitBtn.addEventListener('click', (e) => {
+        document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList);
         if (Object.keys(addedItemsList).length < 1) {
             e.preventDefault();
             document.querySelector('#message-validate').classList.remove('d-none');

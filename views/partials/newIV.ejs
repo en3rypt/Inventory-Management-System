@@ -21,13 +21,9 @@
                                 <div class="col-sm-2">
                                     <select id="iv-year" class="form-select" name="ivyear" required>
                                         <% for(let count=-1; count <=1; count++ ){ %>
-
                                             <option value="<%= (new Date().getFullYear() + count) %>">
                                                 <%= (new Date().getFullYear() + count) %>
                                             </option>
-
-
-
                                             <% } %>
 
                                     </select>
@@ -40,13 +36,9 @@
 
                                 <select id="station-id" name="stationid" class="form-select" required>
                                     <% stationRows.forEach(function(station) { %>
-
                                         <option value="<%= station.ID %>">
                                             <%= station.Name %>
                                         </option>
-
-
-
                                         <% }); %>
                                 </select>
 
@@ -56,14 +48,9 @@
 
                                 <select id="scheme-id" name="schemeid" class="form-select" required>
                                     <% schemeRows.forEach(function(scheme) { %>
-
                                         <option value="<%= scheme.ID %>">
                                             <%= scheme.Name %>
                                         </option>
-
-
-
-
                                         <% }); %>
                                 </select>
 
@@ -109,7 +96,6 @@
                                     </table>
                                     <!-- myArray.find(x => x.id === '45').foo -->
                                     <!-- <ul class="added-items-ul">
-
                                     </ul> -->
                                     <label for="scheme-id" class="col-form-label">Add Item:</label>
                                     <div class="col-sm-2 w-25">
@@ -118,9 +104,7 @@
                                             <% itemRows.forEach(function(item) { %>
                                                 <option value='{"ID":<%= item.ID %>,"maxQty":<%=item.Quantity%>}'>
                                                     <%= item.Name %>
-
                                                 </option>
-
                                                 <% }); %>
                                         </select>
                                         <p>Available: <span id="available"> </span></p>
@@ -168,7 +152,6 @@
 
 <script>
     function checkQty(thi) {
-
         console.log(thi);
         let id = thi.id.split("-")[1];
         let itemReqQty = parseInt(document.getElementById(`req-${id}`).value);
@@ -197,14 +180,12 @@
             document.getElementById(`pass-${id}`).value = addedItemsList[id].passedQty;
             return;
         }
-
         delete addedItemsList[id];
         addedItemsList[id] = {
             'reqQty': itemReqQty,
             'passedQty': itemPassedQty
         };
         console.log(addedItemsList);
-
     }
     function delRow(id) {
         var row = document.getElementById(id);
@@ -212,11 +193,7 @@
         delete addedItemsList[id];
         console.log(addedItemsList);
     }
-
-
-
     addedItemsList = {};
-
     document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList);
     function changemaxQty() {
         var yourSelect = document.getElementById("item-name-drop");
@@ -227,23 +204,16 @@
         document.getElementById('available').innerHTML = item.maxQty;
     }
     changemaxQty();
-
     var yourSelect = document.getElementById("item-name-drop");
     // console.log(JSON.parse(yourSelect.options[yourSelect.selectedIndex].value));
     document.getElementById('item-name-drop').addEventListener('change', changemaxQty);
-
-
-
     console.log(addedItemsList);
     const reqAddBtn = document.getElementById('req-item-add');
     const submitBtn = document.getElementById('submit-btn-ov');
     reqAddBtn.addEventListener('click', (e) => {
         console.log(e)
         let maxQty = JSON.parse(yourSelect.options[yourSelect.selectedIndex].value).maxQty;
-
         let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
-
-
         let itemReqQty = parseInt(document.getElementById('item-qty-required').value);
         let itemPassedQty = parseInt(document.getElementById('item-qty-passed').value);
         console.log(itemReqQty, itemPassedQty);
@@ -263,8 +233,6 @@
             alert('Passed quantity cannot be greater than required quantity');
             return;
         }
-
-
         if (itemName in addedItemsList) {
             alert("Item already added.");
             // addedItemsList[itemName]['reqQty'] += itemReqQty;
@@ -300,7 +268,6 @@
         }
         document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList); //passing this to the backend with bodyparser and a d-none input.
         if (Object.keys(addedItemsList).length < 1) {
-
             document.querySelector('#message-validate').classList.remove('d-none');
             document.querySelector('#added-items-table').classList.add('d-none');
         }

@@ -24,10 +24,10 @@ items = dfs['Articles'].ITEMS
 catID = {'STATIONARY ITEMS': 1, 'CLEANING MATERIALS': 2,
          "ELECTRONIC ITEMS": 3, "ELECTRICAL ITEMS": 4, "FORMS": 5}
 for i in range(len(cat)):
-    if '"' in items[i]:
-        s = f"INSERT INTO ITEMS (CategoryID, Name, Quantity) VALUES({catID[cat[i]]}, '{items[i]}', 1000)"
-    else:
-        s = f'INSERT INTO ITEMS (CategoryID, Name, Quantity) VALUES({catID[cat[i]]}, "{items[i]}", 1000)'
+    k = items[i].replace("'", "\\'").replace('"', '\\"')
+    
+    s = f"INSERT INTO ITEMS (CategoryID, Name, Quantity) VALUES({catID[cat[i]]}, '{k}', 1000)"
+    
     cur.execute(s)
     db.commit()
 

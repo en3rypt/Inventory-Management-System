@@ -27,7 +27,7 @@ ivouchers.get('/new', (req, res) => {
 
 //OPTIMIZABLE
 ivouchers.get('/', (req, res) => {
-    db.query(`SELECT * FROM issuedvouchers;`, (err, result) => {
+    db.query(`SELECT issuedvouchers.ID as IVID, IVNo, IVYear, stations.Name as stationName, SNo, schemes.Name as schemeName, users.Name as userName, DateOfReceival, Approval, ApprovalDate, ApprovedBy FROM issuedvouchers INNER JOIN stations ON issuedvouchers.Receiver = stations.ID INNER JOIN schemes ON schemes.ID = issuedvouchers.Scheme INNER JOIN users ON users.ID = issuedvouchers.ApprovedBy;`, (err, result) => {
         if (err) {
             throw err;
         }

@@ -23,7 +23,7 @@ rvouchers.get('/new', (req, res) => {
 })
 
 rvouchers.get('/', (req, res) => {
-    db.query(`SELECT * FROM receivedvouchers`, (err, result) => {
+    db.query(`SELECT receivedvouchers.ID as RVID, RVNo, RVYear, Supplier, SNo, schemes.Name as schemeName, users.Name as userName, DateOfReceival, Approval, ApprovalDate, ApprovedBy FROM receivedvouchers INNER JOIN schemes ON schemes.ID = receivedvouchers.Scheme INNER JOIN users ON users.ID = receivedvouchers.ApprovedBy;`, (err, result) => {
         if (err) {
             throw err;
         }
@@ -31,12 +31,12 @@ rvouchers.get('/', (req, res) => {
             if (err) {
                 throw err;
             }
-            db.query(`SELECT * FROM receivedvouchers INNER JOIN rvitems ON receivedvouchers.ID = rvitems.rvID INNER JOIN items ON rvitems.rvItemID = items.ID;`, (err, vItemResult) => {
+            db.query(`SELECT * FROM receivedvouchers INNER JOIN rvitems ON receivedvouchers.ID = rvitems.rvID INNER JOIN items ON rvitems.rvItemID = items.ID;`, (err, rvItemResult) => {
                 if (err) {
                     throw err;
                 }
                 let rvItemlist = {};
-                vItemResult.forEach(row => {
+                rvItemResult.forEach(row => {
                     if (!rvItemlist[row.rvID])
                         rvItemlist[row.rvID] = {};
                     rvItemlist[row.rvID][row.Name] = {
@@ -46,7 +46,7 @@ rvouchers.get('/', (req, res) => {
 
                     }
                 });
-                // console.log(rvItemlist);
+                console.log(rvItemlist);
                 // console.log(itemRowResult);
                 res.render('pages/index', { option: "rvouchers", rvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
             });

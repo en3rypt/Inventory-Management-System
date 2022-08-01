@@ -66,7 +66,12 @@
 
 
 
-
+            <div class="row g-3 mb-4 align-items-center justify-content-between">
+                <form class="form-group">
+                    <div id="filterBns" ></div>
+                    <input type="text" class="form-control" id="searchField" style="max-width: 250px;">
+                </form>
+            </div>
 
             <div class="tab-content" id="orders-table-tab-content">
                 <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
@@ -100,7 +105,7 @@
                                                     <%= rcv.SNo %>
                                                 </td>
                                                 <td class="cell">
-                                                    <%= rcv.Scheme %>
+                                                    <%= rcv.schemeName %>
                                                 </td>
                                                 <td class="cell">
                                                     <%= new Date(rcv.DateOfReceival).toISOString().slice(0, 10) %>
@@ -116,7 +121,7 @@
                                                 </td>
                                                 <td class="cell">
                                                     <% if (rcv.Approval!=0 ) { %>
-                                                        <%=rcv.ApprovedBy %>
+                                                        <%=rcv.userName %>
                                                             <% } else { %>
                                                                 -
                                                                 <% } %>
@@ -159,7 +164,7 @@
                                                                             <tbody>
                                                                                 <% Object.keys(rvItemlist).forEach(function(rID)
                                                                                     { %>
-                                                                                    <% if (rID==rcv.ID) { %>
+                                                                                    <% if (rID==rcv.RVID) { %>
                                                                                         <% Object.keys(rvItemlist[rID]).forEach(function(item)
                                                                                             { %>
 

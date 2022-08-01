@@ -3,7 +3,7 @@ const report = express.Router();
 const db = require('../dbConnection');
 
 report.get('/', (req, res) => {
-    db.query(`SELECT * FROM receivedvouchers`, (err, result) => {
+    db.query(`SELECT * FROM receivedvouchers`, (err, rresult) => {
         if (err) {
             throw err;
         }
@@ -26,9 +26,32 @@ report.get('/', (req, res) => {
 
                     }
                 });
-                console.log(result);
-                console.log(rvItemlist);
-                res.render('pages/index', { option: "report", rvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
+                db.query(`SELECT * FROM issuedvouchers;`, (err, iresult) => {
+                    if (err) {
+                        throw err;
+                    }
+                    db.query(`SELECT * FROM items;`, (err, itemRowResult) => {
+                        if (err) {
+                            throw err;
+                        }
+                        db.query(`SELECT * FROM issuedvouchers INNER JOIN ivitems ON issuedvouchers.ID = ivitems.ivID INNER JOIN items ON ivitems.ivItemID = items.ID;`, (err, ivItemResult) => {
+                            if (err) {
+                                throw err;
+                            }
+                            let ivItemlist = {};
+                            ivItemResult.forEach(row => {
+                                if (!ivItemlist[row.ivID])
+                                    ivItemlist[row.ivID] = {};
+                                ivItemlist[row.ivID][row.Name] = {
+                                    'req': row.ivQtyReq,
+                                    'passed': row.ivQtyPassed
+                                }
+                            });
+
+                            res.render('pages/index', { option: "report", rvouchersData: rresult, itemRows: itemRowResult, rvItemlist: rvItemlist, ivouchersData: iresult, itemRows: itemRowResult, ivItemlist: ivItemlist, error: null });
+                        });
+                    });
+                });
             });
         });
     });

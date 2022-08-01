@@ -127,7 +127,12 @@
             </div>
             <!--//row-->
 
-
+            <div class="row g-3 mb-4 align-items-center justify-content-between">
+                <form class="form-group">
+                    <div id="filterBns" ></div>
+                    <input type="text" class="form-control" id="searchField" style="max-width: 250px;">
+                </form>
+            </div>
 
             <div class="tab-content" id="orders-table-tab-content">
                 <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
@@ -156,13 +161,13 @@
                                                     IV/<%= issue.IVNo %>/<%= issue.IVYear %>
                                                 </td>
                                                 <td class="cell">
-                                                    <%= issue.Receiver %>
+                                                    <%= issue.stationName %>
                                                 </td>
                                                 <td class="cell">
                                                     <%= issue.SNo %>
                                                 </td>
                                                 <td class="cell">
-                                                    <%= issue.Scheme %>
+                                                    <%= issue.schemeName %>
                                                 </td>
                                                 <td class="cell">
                                                     <%= new Date(issue.DateOfReceival).toISOString().slice(0, 10) %>
@@ -178,7 +183,7 @@
                                                 </td>
                                                 <td class="cell">
                                                     <% if (issue.Approval!=0 ) { %>
-                                                        <%=issue.ApprovedBy %>
+                                                        <%=issue.userName %>
                                                             <% } else { %>
                                                                 -
                                                                 <% } %>
@@ -222,7 +227,7 @@
                                                                             <tbody>
                                                                                 <% Object.keys(ivItemlist).forEach(function(rID)
                                                                                     { %>
-                                                                                    <% if (rID==issue.ID) { %>
+                                                                                    <% if (rID==issue.IVID) { %>
                                                                                         <% Object.keys(ivItemlist[rID]).forEach(function(item)
                                                                                             { %>
 

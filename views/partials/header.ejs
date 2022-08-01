@@ -66,12 +66,7 @@
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                         <a class="nav-link  <%= option ==='dashboard' && 'active' %>" href="/">
                             <span class="nav-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    style="fill: rgba(0, 0, 0, 1);">
-                                    <path
-                                        d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z">
-                                    </path>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M13 9V3h8v6ZM3 13V3h8v10Zm10 8V11h8v10ZM3 21v-6h8v6Zm2-10h4V5H5Zm10 8h4v-6h-4Zm0-12h4V5h-4ZM5 19h4v-2H5Zm4-8Zm6-4Zm0 6Zm-6 4Z"/></svg>
                             </span>
                             <span class="nav-link-text">Dashboard</span>
                         </a>
@@ -82,13 +77,7 @@
                         <a class="nav-link  <%= (option ==='ivouchers' || option === 'newIV') && 'active' %>"
                             href="/ivouchers">
                             <span class="nav-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    style="fill: rgba(0, 0, 0, 1);">
-                                    <path
-                                        d="m21.706 5.292-2.999-2.999A.996.996 0 0 0 18 2H6a.996.996 0 0 0-.707.293L2.294 5.292A.994.994 0 0 0 2 6v13c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6a.994.994 0 0 0-.294-.708zM6.414 4h11.172l1 1H5.414l1-1zM4 19V7h16l.002 12H4z">
-                                    </path>
-                                    <path d="M7 14h3v3h4v-3h3l-5-5z"></path>
-                                </svg>
+<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V6.5q0-.375.125-.675.125-.3.325-.575l1.4-1.7q.2-.275.5-.413Q5.65 3 6 3h12q.35 0 .65.137.3.138.5.413l1.4 1.7q.2.275.325.575.125.3.125.675V19q0 .825-.587 1.413Q19.825 21 19 21Zm.4-15h13.2l-.85-1H6.25ZM5 8v11h14V8Zm6 10h2v-4.2l1.6 1.6L16 14l-4-4-4 4 1.4 1.4 1.6-1.6Zm-6 1h14H5Z"/></svg>
                             </span>
                             <span class="nav-link-text">Issued Vouchers</span>
                         </a>
@@ -99,13 +88,7 @@
                         <a class="nav-link  <%= (option ==='rvouchers' || option === 'newRV') && 'active' %>"
                             href="/rvouchers">
                             <span class="nav-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    style="fill: rgba(0, 0, 0, 1);">
-                                    <path
-                                        d="m21.706 5.292-2.999-2.999A.996.996 0 0 0 18 2H6a.996.996 0 0 0-.707.293L2.294 5.292A.994.994 0 0 0 2 6v13c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6a.994.994 0 0 0-.294-.708zM6.414 4h11.172l1 1H5.414l1-1zM4 19V7h16l.002 12H4z">
-                                    </path>
-                                    <path d="M14 9h-4v3H7l5 5 5-5h-3z"></path>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V6.5q0-.375.125-.675.125-.3.325-.575l1.4-1.7q.2-.275.5-.413Q5.65 3 6 3h12q.35 0 .65.137.3.138.5.413l1.4 1.7q.2.275.325.575.125.3.125.675V19q0 .825-.587 1.413Q19.825 21 19 21Zm.4-15h13.2l-.85-1H6.25ZM5 8v11h14V8Zm7 10 4-4-1.4-1.4-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14Zm-7 1h14H5Z"/></svg>
                             </span>
                             <span class="nav-link-text">Received Vouchers</span>
                         </a>
@@ -116,7 +99,7 @@
                         <a class="nav-link  <%= (option ==='items' || option === 'newItem' || option === 'itemHistory') && 'active' %>"
                             href="/items">
                             <span class="nav-icon">
-                                <img src="https://img.icons8.com/material-outlined/24/000000/open-box.png" />
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M6 22q-1.25 0-2.125-.875T3 19v-3h3V2l1.5 1.5L9 2l1.5 1.5L12 2l1.5 1.5L15 2l1.5 1.5L18 2l1.5 1.5L21 2v17q0 1.25-.875 2.125T18 22Zm12-2q.425 0 .712-.288Q19 19.425 19 19V5H8v11h9v3q0 .425.288.712.287.288.712.288ZM9 9V7h6v2Zm0 3v-2h6v2Zm8-3q-.425 0-.712-.288Q16 8.425 16 8t.288-.713Q16.575 7 17 7t.712.287Q18 7.575 18 8t-.288.712Q17.425 9 17 9Zm0 3q-.425 0-.712-.288Q16 11.425 16 11t.288-.713Q16.575 10 17 10t.712.287Q18 10.575 18 11t-.288.712Q17.425 12 17 12ZM6 20h9v-2H5v1q0 .425.287.712Q5.575 20 6 20Zm-1 0v-2 2Z"/></svg>
                             </span>
                             <span class="nav-link-text">Items</span>
                         </a>
@@ -127,9 +110,7 @@
                         <a class="nav-link  <%= (option ==='categories' || option === 'newCategory') && 'active' %>"
                             href="/categories">
                             <span class="nav-icon">
-                                <img
-                                    src="https://img.icons8.com/external-gradak-royyan-wijaya/24/000000/external-categories-gradak-interface-solidarity-gradak-royyan-wijaya.png" />
-                            </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M3 22v-7h3v-4h5V9H8V2h8v7h-3v2h5v4h3v7h-8v-7h3v-2H8v2h3v7Zm7-15h4V4h-4ZM5 20h4v-3H5Zm10 0h4v-3h-4ZM12 7ZM9 17Zm6 0Z"/></svg>                            </span>
                             <span class="nav-link-text">Categories</span>
                         </a>
                         <!--//nav-link-->
@@ -139,9 +120,7 @@
                         <a class="nav-link  <%= (option ==='stations' || option === 'newStation') && 'active' %>"
                             href="/stations">
                             <span class="nav-icon">
-                                <img
-                                    src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-police-building-tanah-basah-basic-outline-tanah-basah.png" />
-                            </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M18 23v-3h-3v-2h3v-3h2v3h3v2h-3v3ZM2 20v-6H1v-2l1-5h15l1 5v2h-1v3h-2v-3h-4v6Zm2-2h5v-4H4Zm-.95-6h12.9ZM2 6V4h15v2Zm1.05 6h12.9l-.6-3H3.65Z"/></svg>                            </span>
                             <span class="nav-link-text">Stations</span>
                         </a>
                         <!--//nav-link-->
@@ -151,7 +130,7 @@
                         <a class="nav-link  <%= (option ==='schemes' || option === 'newScheme') && 'active' %>"
                             href="/schemes">
                             <span class="nav-icon">
-                                <img src="https://img.icons8.com/material-outlined/24/000000/group-of-projects.png" />
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M12 11q-1.65 0-2.825-1.175Q8 8.65 8 7q0-1.65 1.175-2.825Q10.35 3 12 3q1.65 0 2.825 1.175Q16 5.35 16 7q0 1.65-1.175 2.825Q13.65 11 12 11Zm0-2q.825 0 1.413-.588Q14 7.825 14 7t-.587-1.412Q12.825 5 12 5q-.825 0-1.412.588Q10 6.175 10 7t.588 1.412Q11.175 9 12 9ZM7 21q-1.65 0-2.825-1.175Q3 18.65 3 17q0-1.65 1.175-2.825Q5.35 13 7 13q1.65 0 2.825 1.175Q11 15.35 11 17q0 1.65-1.175 2.825Q8.65 21 7 21Zm0-2q.825 0 1.412-.587Q9 17.825 9 17q0-.825-.588-1.412Q7.825 15 7 15t-1.412.588Q5 16.175 5 17t.588 1.413Q6.175 19 7 19Zm10 2q-1.65 0-2.825-1.175Q13 18.65 13 17q0-1.65 1.175-2.825Q15.35 13 17 13q1.65 0 2.825 1.175Q21 15.35 21 17q0 1.65-1.175 2.825Q18.65 21 17 21Zm0-2q.825 0 1.413-.587Q19 17.825 19 17q0-.825-.587-1.412Q17.825 15 17 15q-.825 0-1.412.588Q15 16.175 15 17t.588 1.413Q16.175 19 17 19ZM12 7ZM7 17Zm10 0Z"/></svg>
                             </span>
                             <span class="nav-link-text">Schemes</span>
                         </a>
@@ -162,8 +141,7 @@
                         <a class="nav-link  <%= option ==='report' && 'active' %>"
                             href="/report">
                             <span class="nav-icon">
-                                <img src="https://img.icons8.com/material-outlined/24/000000/group-of-projects.png" />
-                            </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M8 9q.425 0 .713-.288Q9 8.425 9 8t-.287-.713Q8.425 7 8 7t-.713.287Q7 7.575 7 8t.287.712Q7.575 9 8 9Zm0 4q.425 0 .713-.288Q9 12.425 9 12t-.287-.713Q8.425 11 8 11t-.713.287Q7 11.575 7 12t.287.712Q7.575 13 8 13Zm0 4q.425 0 .713-.288Q9 16.425 9 16t-.287-.713Q8.425 15 8 15t-.713.287Q7 15.575 7 16t.287.712Q7.575 17 8 17Zm-3 4q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h11l5 5v11q0 .825-.587 1.413Q19.825 21 19 21Zm0-2h14V9h-4V5H5v14ZM5 5v4-4 14V5Z"/></svg>                            </span>
                             <span class="nav-link-text">Report</span>
                         </a>
                         <!--//nav-link-->

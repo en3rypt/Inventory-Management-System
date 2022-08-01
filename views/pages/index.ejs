@@ -163,7 +163,7 @@
                                                                                                                                                                             $.fn.dataTable.moment('HH:mm MMM D, YY');
                                                                                                                                                                             $.fn.dataTable.moment('ddd, MMMM Do, YYYY');
                                                                                                                                                                             $('#itemsTable').DataTable({
-                                                                                                                                                                                dom: 'Bfrtip',
+                                                                                                                                                                                dom: 'Brtip',
                                                                                                                                                                                 lengthMenu: [
                                                                                                                                                                                     [10, 25, 50, -1],
                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
@@ -204,9 +204,12 @@
 
                                                                                                                                                                                 ]
 
-                                                                                                                                                                            });
+                                                                                                                                                                            }).buttons().container().appendTo($('#filterBns'));
+                                                                                                                                                                            $('#searchField').keyup(function(){
+                                                                                                                                                                                $('#itemsTable').DataTable().search($(this).val()).draw() ;
+                                                                                                                                                                            })
                                                                                                                                                                             $('#stationTable').DataTable({
-                                                                                                                                                                                dom: 'Bfrtip',
+                                                                                                                                                                                dom: 'Brtip',
                                                                                                                                                                                 lengthMenu: [
                                                                                                                                                                                     [10, 25, 50, -1],
                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
@@ -247,9 +250,12 @@
 
                                                                                                                                                                                 ]
 
-                                                                                                                                                                            });
+                                                                                                                                                                            }).buttons().container().appendTo($('#filterBns'));
+                                                                                                                                                                            $('#searchField').keyup(function(){
+                                                                                                                                                                                $('#stationTable').DataTable().search($(this).val()).draw() ;
+                                                                                                                                                                            })
                                                                                                                                                                             $('#schemeTable').DataTable({
-                                                                                                                                                                                dom: 'Bfrtip',
+                                                                                                                                                                                dom: 'Brtip',
                                                                                                                                                                                 lengthMenu: [
                                                                                                                                                                                     [10, 25, 50, -1],
                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
@@ -290,9 +296,12 @@
 
                                                                                                                                                                                 ]
 
-                                                                                                                                                                            });
+                                                                                                                                                                            }).buttons().container().appendTo($('#filterBns'));
+                                                                                                                                                                            $('#searchField').keyup(function(){
+                                                                                                                                                                                $('#schemeTable').DataTable().search($(this).val()).draw() ;
+                                                                                                                                                                            })
                                                                                                                                                                             $('#categoryTable').DataTable({
-                                                                                                                                                                                dom: 'Bfrtip',
+                                                                                                                                                                                dom: 'Brtip',
                                                                                                                                                                                 lengthMenu: [
                                                                                                                                                                                     [10, 25, 50, -1],
                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
@@ -333,9 +342,13 @@
 
                                                                                                                                                                                 ]
 
-                                                                                                                                                                            });
+                                                                                                                                                                            }).buttons().container().appendTo($('#filterBns'));
+                                                                                                                                                                            $('#searchField').keyup(function(){
+                                                                                                                                                                                $('#categoryTable').DataTable().search($(this).val()).draw() ;
+                                                                                                                                                                            })
+                                                                                                                                                                            
                                                                                                                                                                             $('#ivTable').DataTable({
-                                                                                                                                                                                dom: 'Bfrtip',
+                                                                                                                                                                                dom: 'Brtip',
                                                                                                                                                                                 lengthMenu: [
                                                                                                                                                                                     [10, 25, 50, -1],
                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
@@ -376,9 +389,12 @@
 
                                                                                                                                                                                 ]
 
-                                                                                                                                                                            });
+                                                                                                                                                                            }).buttons().container().appendTo($('#filterBns'));
+                                                                                                                                                                            $('#searchField').keyup(function(){
+                                                                                                                                                                                $('#ivTable').DataTable().search($(this).val()).draw() ;
+                                                                                                                                                                            })
                                                                                                                                                                             $('#rvTable').DataTable({
-                                                                                                                                                                                dom: 'Bfrtip',
+                                                                                                                                                                                dom: 'Brtip',
                                                                                                                                                                                 lengthMenu: [
                                                                                                                                                                                     [10, 25, 50, -1],
                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
@@ -419,7 +435,10 @@
 
                                                                                                                                                                                 ]
 
-                                                                                                                                                                            });
+                                                                                                                                                                            }).buttons().container().appendTo($('#filterBns'));
+                                                                                                                                                                            $('#searchField').keyup(function(){
+                                                                                                                                                                                $('#rvTable').DataTable().search($(this).val()).draw() ;
+                                                                                                                                                                            })
 
                                                                                                                                                                             // $('.dataTables_length').addClass('bs-select');
 

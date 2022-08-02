@@ -127,5 +127,76 @@ rvouchers.post('/action/:Id/:user', (req, res) => {
 })
 
 
+//receivedvouchers edit page
+rvouchers.get('/edit/:Id', (req, res) => {
+    db.query(`SELECT * FROM receivedvouchers WHERE ID = ${req.params.Id}`, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        db.query(`SELECT * FROM items`, (err, itemRowResult) => {
+            if (err) {
+                throw err;
+            }
+            db.query(`SELECT * FROM rvitems INNER JOIN items ON rvitems.rvItemID = items.ID WHERE rvitems.rvID = ${req.params.Id}`, (err, rvItemResult) => {
+                if (err) {
+                    throw err;
+                }
+
+
+                console.log(rvItemResult);
+                // console.log(itemRowResult);
+                db.query(`SELECT * FROM schemes`, (err, schemesResult) => {
+                    if (err) {
+                        throw err;
+                    }
+                    res.render('pages/index', { option: "editRV", result: result[0], itemRows: itemRowResult, rvItemlist: rvItemResult, schemeRows: schemesResult });
+                })
+            }
+            );
+        }
+        );
+    }
+    );
+}
+);
+
+//edit post request
+rvouchers.post('/edit/:Id', (req, res) => {
+    let addedJSON = JSON.parse(req.body.addedJSON);
+    db.query(
+        `UPDATE receivedvouchers SET RVNo = ${req.body.rvid}, RVYear = ${req.body.rvyear}, Supplier = '${req.body.stationid}', Scheme = ${req.body.schemeid}, SNo = ${req.body.sno}, DateOfReceival = '${new Date(req.body.dor).toISOString().slice(0, 10)}' WHERE ID = ${req.params.Id}`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            }
+            db.query(`DELETE FROM rvitems WHERE rvID = ${req.params.Id}`, (err, result) => {
+                if (err) {
+                    throw err;
+                }
+                for (i = 0; i < Object.keys(addedJSON).length; i++) {
+                    db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i]}'`, (err, itemNameIDResult) => {
+                        if (err) {
+                            throw err;
+                        }
+
+                        db.query(`INSERT INTO rvitems (rvID, rvItemID, rvItemQty, rvItemRefNo, rvItemRefDate) VALUES (${req.params.Id}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, ${addedJSON[itemNameIDResult[0].Name].refNo}, '${new Date(addedJSON[itemNameIDResult[0].Name].refDate).toISOString().slice(0, 10)}')`, (err, result) => {
+                            if (err) {
+                                throw err;
+                            }
+                        }
+                        )
+                    }
+                    );
+
+                }
+                res.redirect('/rvouchers');
+            }
+            );
+        }
+    );
+}
+);
+
+
 
 module.exports = rvouchers;

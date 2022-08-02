@@ -7,7 +7,7 @@
                 <h1 class="app-page-title mb-0">Edit Issue Voucher</h1>
             </div>
             <div class="col-auto">
-                <form action="/ivouchers/new" method="POST">
+                <form action="/ivouchers/edit/<%= result.ID%>" method="POST">
                     <div class="d-grid gap-5">
                         <div class="row">
                             <label for="voucher-id" class="col-form-label">Voucher ID:</label>
@@ -16,15 +16,22 @@
                                     <input type="text" class="form-control text-center" name="IV" value="IV" readonly>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="req-receiverid" name="ivid" required>
+                                    <input type="text" class="form-control" id="req-receiverid" name="ivid" required
+                                        value="<%=result.IVNo%>">
                                 </div>
                                 <div class="col-sm-2">
                                     <select id="iv-year" class="form-select" name="ivyear" required>
                                         <% for(let count=-1; count <=1; count++ ){ %>
-                                            <option value="<%= (new Date().getFullYear() + count) %>">
-                                                <%= (new Date().getFullYear() + count) %>
-                                            </option>
-                                            <% } %>
+                                            <% if(result.IVYear===new Date().getFullYear() + count){ %>
+                                                <option value="<%= (new Date().getFullYear() + count) %>" selected>
+                                                    <%= (new Date().getFullYear() + count) %>
+                                                </option>
+                                                <% } else { %>
+                                                    <option value="<%= (new Date().getFullYear() + count) %>">
+                                                        <%= (new Date().getFullYear() + count) %>
+                                                    </option>
+                                                    <% } %>
+                                                        <% } %>
 
                                     </select>
                                 </div>
@@ -36,10 +43,16 @@
 
                                 <select id="station-id" name="stationid" class="form-select" required>
                                     <% stationRows.forEach(function(station) { %>
-                                        <option value="<%= station.ID %>">
-                                            <%= station.Name %>
-                                        </option>
-                                        <% }); %>
+                                        <% if(result.Receiver===station.ID){ %>
+                                            <option value="<%= station.ID %>" selected>
+                                                <%= station.Name %>
+                                            </option>
+                                            <% } else { %>
+                                                <option value="<%= station.ID %>">
+                                                    <%= station.Name %>
+                                                </option>
+                                                <% } %>
+                                                    <% }); %>
                                 </select>
 
                             </div>
@@ -48,10 +61,16 @@
 
                                 <select id="scheme-id" name="schemeid" class="form-select" required>
                                     <% schemeRows.forEach(function(scheme) { %>
-                                        <option value="<%= scheme.ID %>">
-                                            <%= scheme.Name %>
-                                        </option>
-                                        <% }); %>
+                                        <% if(result.Scheme===scheme.ID){ %>
+                                            <option value="<%= scheme.ID %>" selected>
+                                                <%= scheme.Name %>
+                                            </option>
+                                            <% } else { %>
+                                                <option value="<%= scheme.ID %>">
+                                                    <%= scheme.Name %>
+                                                </option>
+                                                <% } %>
+                                                    <% }); %>
                                 </select>
 
                             </div>
@@ -59,12 +78,13 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="date-of-rcv" class="col-form-label">Date of Receival:</label>
-                                <input class="form-control d-inline" id="date-of-rcv" type="date" name="dor" required>
+                                <input class="form-control d-inline" id="date-of-rcv" type="date" name="dor"
+                                    value="<%= new Date(result.DateOfReceival).toISOString().slice(0, 10) %>" required>
                             </div>
                             <div class="col-sm-6">
                                 <label for="v-s-no" class="col-form-label">Serial No.:</label>
                                 <input class="form-control d-inline" id="v-s-no" type="number" min="0" step="1"
-                                    name="sno" placeholder="S. No." required>
+                                    name="sno" value="<%= result.SNo%>" placeholder="S. No." required>
                             </div>
                         </div>
                         <div id="message-validate" class="d-none">
@@ -91,7 +111,33 @@
                                         </thead>
                                         <tbody id="added-items-tbody">
                                             <!-- loop ivItemlist -->
-
+                                            <% ivItemlist.forEach(function(ivItem) { %>
+                                                <tr id="<%= ivItem.Name%>">
+                                                    <td class="cell">
+                                                        <%= ivItem.Name %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <!-- max="<%= itemRows.find(x =>x.ID === ivItem.ivItemID).Quantity%>" -->
+                                                        <input class="form-control w-75 ms-4" id="req-<%= ivItem.Name%>"
+                                                            type="number" min="0" step="1" name="ReqQty"
+                                                            value="<%= ivItem.ivQtyReq %>" onblur="checkQty(this)"
+                                                            placeholder="Required" required>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <input class="form-control w-75 ms-4"
+                                                            id="pass-<%= ivItem.Name%>" type="number" min="0" step="1"
+                                                            name="ReqQty" value="<%= ivItem.ivQtyPassed %>"
+                                                            placeholder="Required" onblur="checkQty(this)" required>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <%= itemRows.find(x=>x.ID === ivItem.ivItemID).Quantity %>
+                                                    </td>
+                                                    <td class="cell">
+                                                        <button type="button" class="btn app-btn-secondary"
+                                                            onclick="delRow('<%= ivItem.Name%>')">Delete</button>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
                                         </tbody>
                                     </table>
                                     <!-- myArray.find(x => x.id === '45').foo -->
@@ -151,6 +197,16 @@
 
 
 <script>
+    var reqList = '<%- JSON.stringify(ivItemlist) %>'
+    var list = JSON.parse(reqList);
+    addedItemsList = {};
+    //loop list and add  to addedItemsList
+    list.forEach(function (item) {
+        addedItemsList[item.Name] = {
+            'reqQty': item.ivQtyReq,
+            'passedQty': item.ivQtyPassed
+        }
+    });
     function checkQty(thi) {
         console.log(thi);
         let id = thi.id.split("-")[1];
@@ -193,8 +249,6 @@
         delete addedItemsList[id];
         console.log(addedItemsList);
     }
-    addedItemsList = {};
-    document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList);
     function changemaxQty() {
         var yourSelect = document.getElementById("item-name-drop");
         // var maxQty = yourSelect.options[yourSelect.selectedIndex].value;
@@ -207,11 +261,9 @@
     var yourSelect = document.getElementById("item-name-drop");
     // console.log(JSON.parse(yourSelect.options[yourSelect.selectedIndex].value));
     document.getElementById('item-name-drop').addEventListener('change', changemaxQty);
-    console.log(addedItemsList);
     const reqAddBtn = document.getElementById('req-item-add');
     const submitBtn = document.getElementById('submit-btn-ov');
     reqAddBtn.addEventListener('click', (e) => {
-        console.log(e)
         let maxQty = JSON.parse(yourSelect.options[yourSelect.selectedIndex].value).maxQty;
         let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
         let itemReqQty = parseInt(document.getElementById('item-qty-required').value);
@@ -266,7 +318,6 @@
                 };
             }
         }
-        document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList); //passing this to the backend with bodyparser and a d-none input.
         if (Object.keys(addedItemsList).length < 1) {
             document.querySelector('#message-validate').classList.remove('d-none');
             document.querySelector('#added-items-table').classList.add('d-none');
@@ -277,6 +328,7 @@
         }
     });
     submitBtn.addEventListener('click', (e) => {
+        document.querySelector('#added-JSON').value = JSON.stringify(addedItemsList);
         if (Object.keys(addedItemsList).length < 1) {
             e.preventDefault();
             document.querySelector('#message-validate').classList.remove('d-none');

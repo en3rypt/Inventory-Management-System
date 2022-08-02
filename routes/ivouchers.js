@@ -5,7 +5,7 @@ const db = require('../dbConnection');
 
 ivouchers.get('/new', (req, res) => {
     db.query(`SELECT * FROM items`, (err, itemRowResult) => {
-        console.log(itemRowResult);
+        // console.log(itemRowResult);
         if (err) {
             throw err;
         }
@@ -35,11 +35,10 @@ ivouchers.get('/', (req, res) => {
             if (err) {
                 throw err;
             }
-            db.query(`SELECT ivID, items.Name as Name, stations.Name as stationName, ivQtyReq, ivQtyPassed FROM issuedvouchers INNER JOIN ivitems ON issuedvouchers.ID = ivitems.ivID INNER JOIN items ON ivitems.ivItemID = items.ID INNER JOIN stations ON issuedvouchers.Receiver = stations.ID;`, (err, vItemResult) => {
+            db.query(`SELECT * FROM issuedvouchers INNER JOIN ivitems ON issuedvouchers.ID = ivitems.ivID INNER JOIN items ON ivitems.ivItemID = items.ID;`, (err, vItemResult) => {
                 if (err) {
                     throw err;
                 }
-                console.log(vItemResult);
                 let ivItemlist = {};
                 vItemResult.forEach(row => {
                     if (!ivItemlist[row.ivID])
@@ -49,7 +48,6 @@ ivouchers.get('/', (req, res) => {
                         'passed': row.ivQtyPassed
                     }
                 });
-                // console.log(ivItemlist);
                 res.render('pages/index', { option: "ivouchers", ivouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist, error: null });
             });
         });
@@ -131,7 +129,79 @@ ivouchers.post('/new', (req, res) => {
 })
 
 
+ivouchers.get('/edit/:Id', (req, res) => {
+
+    db.query(`SELECT * FROM issuedvouchers WHERE ID = ${req.params.Id}`, (err, result) => {
+
+        if (err) {
+            throw err;
+        }
+        db.query(`SELECT * FROM items`, (err, itemRowResult) => {
+
+            if (err) {
+                throw err;
+            }
+            db.query(`SELECT * FROM schemes`, (err, schemesResult) => {
+                if (err) {
+                    throw err;
+                }
+                db.query(`SELECT * FROM stations`, (err, stationsResult) => {
+                    if (err) {
+                        throw err;
+                    }
+                    db.query(`SELECT * FROM ivitems INNER JOIN items ON ivitems.ivItemID = items.ID WHERE ivitems.ivID = ${req.params.Id}`, (err, ivItemResult) => {
+                        if (err) {
+                            throw err;
+                        }
+
+
+                        res.render('pages/index', { option: "editIV", result: result[0], itemRows: itemRowResult, ivItemlist: ivItemResult, schemeRows: schemesResult, stationRows: stationsResult, error: null });
+                    }
+                    );
+                }
+                );
+            }
+            );
+        }
+        );
+    }
+    );
+}
+);
+
+ivouchers.post('/edit/:Id', (req, res) => {
+
+    let addedJSON = JSON.parse(req.body.addedJSON);
+    db.query(`UPDATE issuedvouchers SET IVNo = ${req.body.ivid}, IVYear = ${req.body.ivyear}, Receiver = ${req.body.stationid}, SNo = ${req.body.sno}, Scheme = ${req.body.schemeid}, DateOfReceival = '${new Date(req.body.dor).toISOString().slice(0, 10)}' WHERE ID = ${req.params.Id}`, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        db.query(`DELETE FROM ivitems WHERE ivID = ${req.params.Id}`, (err, result) => {
+            if (err) {
+                throw err;
+            }
+
+            for (i = 0; i < Object.keys(addedJSON).length; i++) {
+                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i]}'`, (err, itemNameIDResult) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    db.query(`INSERT INTO ivitems (ivID, ivItemID, ivQtyReq, ivQtyPassed) VALUES (${req.params.Id}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, ${addedJSON[itemNameIDResult[0].Name].passedQty})`, (err, result) => {
+
+                        if (err) {
+                            throw err;
+                        }
+                    })
+
+                })
+            }
+            res.redirect('/ivouchers');
+        }
+        );
+    }
+    );
+}
+);
+
 module.exports = ivouchers;
-
-
-

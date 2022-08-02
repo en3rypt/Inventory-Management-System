@@ -129,7 +129,7 @@
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <form class="form-group">
-                    <div id="filterBns" ></div>
+                    <div id="filterBns"></div>
                     <input type="text" class="form-control" id="searchField" style="max-width: 250px;">
                 </form>
             </div>
@@ -150,6 +150,7 @@
                                             <th class="cell">Approval</th>
                                             <th class="cell">ActionBy</th>
                                             <th class="cell">ActionDate</th>
+                                            <th class="cell">Items</th>
                                             <th class="cell">Option</th>
                                         </tr>
                                     </thead>
@@ -198,86 +199,85 @@
                                                 </td>
                                                 <td class="cell">
 
-                                                    <div class="col-auto">
-                                                        <button type="button" class="btn app-btn-secondary"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#v<%=issue.ID%>">View</button>
-                                                        <div class="modal fade" id="v<%=issue.ID%>" tabindex="-1"
-                                                            aria-labelledby="v<%=issue.ID%>Label" aria-hidden="true">
-                                                            <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="viewRequewstLabel">
-                                                                            Issued Items List
-                                                                        </h5>
-                                                                        <button type="button" class="btn-close"
-                                                                            data-bs-dismiss="modal"
-                                                                            aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <table class="table  table-hover">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th scope="col">Item</th>
-                                                                                    <th scope="col">Requested</th>
-                                                                                    <th scope="col">Passed</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <% Object.keys(ivItemlist).forEach(function(rID)
-                                                                                    { %>
-                                                                                    <% if (rID==issue.IVID) { %>
-                                                                                        <% Object.keys(ivItemlist[rID]).forEach(function(item)
-                                                                                            { %>
 
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    <%= item %>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <%= ivItemlist[rID][item].req
-                                                                                                        %>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <%= ivItemlist[rID][item].passed
-                                                                                                        %>
-                                                                                                </td>
-                                                                                            </tr>
+                                                    <table class="table  table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Item</th>
+                                                                <th scope="col">Requested</th>
+                                                                <th scope="col">Passed</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% Object.keys(ivItemlist).forEach(function(rID) { %>
+                                                                <% if (rID==issue.IVID) { %>
+                                                                    <% Object.keys(ivItemlist[rID]).forEach(function(item)
+                                                                        { %>
 
-                                                                                            <% }) %>
-                                                                                                <% } %>
-                                                                                                    <% }) %>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                    <% if(auth==2){ %>
-                                                                        <div class="modal-footer">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <%= item %>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%= ivItemlist[rID][item].req %>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%= ivItemlist[rID][item].passed %>
+                                                                            </td>
+                                                                        </tr>
 
-                                                                            <% if (issue.Approval !=1 && issue.Approval
-                                                                                !=2) { %>
-                                                                                <form
-                                                                                    action="/ivouchers/action/<%=issue.ID%>/<%=id%>"
-                                                                                    method="post" name="ratings">
-                                                                                    <!-- <input type="hidden" name="Id"
-                                                                                value=""> -->
-                                                                                    <button type="submit"
-                                                                                        name="action_type"
-                                                                                        value="Accept"
-                                                                                        class="btn btn-success text-white">Approve</button>
-                                                                                    <button type="submit"
-                                                                                        name="action_type"
-                                                                                        value="Decline"
-                                                                                        class="btn btn-danger text-white"
-                                                                                        data-bs-dismiss="modal">Decline</button>
-                                                                                </form>
-                                                                                <% } %>
-                                                                        </div>
-                                                                        <% } %>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                                        <% }) %>
+                                                                            <% } %>
+                                                                                <% }) %>
+                                                        </tbody>
+                                                    </table>
+
                                                 </td>
+                                                <td style="text-align: center;vertical-align: middle;">
+
+
+
+                                                    <% if (issue.Approval !=1 && issue.Approval !=2) { %>
+
+                                                        <form action="/ivouchers/action/<%=issue.IVID%>/<%=id%>"
+                                                            method="post" name="ratings" class="">
+
+
+
+                                                            <div class="dropdown">
+                                                                <button class="btn app-btn-secondary dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton1"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Action
+                                                                </button>
+                                                                <ul class="dropdown-menu  text-center"
+                                                                    aria-labelledby="dropdownMenuButton1">
+                                                                    <% if(auth==2){ %>
+                                                                        <li><button type="submit" name="action_type"
+                                                                                value="Accept"
+                                                                                class="btn btn-success text-white m-1">Approve</button>
+                                                                        </li>
+                                                                        <li><button type="submit" name="action_type"
+                                                                                value="Decline"
+                                                                                class="btn btn-danger text-white m-1"
+                                                                                data-bs-dismiss="modal">Decline</button>
+                                                                        </li>
+                                                                        <% } %>
+                                                                            <li><a
+                                                                                    href="/ivouchers/edit/<%=issue.IVID%>">
+                                                                                    <button type="button"
+                                                                                        class="btn app-btn-secondary m-1">Edit</button>
+                                                                                </a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </form>
+
+
+
+                                                        <% } %>
+
+                                                </td>
+
                                             </tr>
                                             <% }); %>
                                     </tbody>
@@ -307,489 +307,7 @@
                 </div>
                 <!--//tab-pane-->
 
-                <div class="tab-pane fade" id="orders-approved" role="tabpanel" aria-labelledby="orders-approved-tab">
-                    <div class="app-card app-card-orders-table shadow-sm mb-5">
-                        <div class="app-card-body">
-                            <div class="table-responsive">
-                                <table class="table app-table-hover mb-0 text-center	">
-                                    <thead>
-                                        <tr>
-                                            <th class="cell">IV No.</th>
-                                            <th class="cell">Station</th>
-                                            <th class="cell">S. No.</th>
-                                            <th class="cell">Scheme</th>
-                                            <th class="cell">DateOfReceival</th>
-                                            <th class="cell">Approval</th>
-                                            <th class="cell">ActionBy</th>
-                                            <th class="cell">ActionDate</th>
-                                            <th class="cell"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% ivouchersData.forEach(function(issue) { %>
-                                            <% if (issue.Approval==1 ) { %>
-                                                <tr>
-                                                    <td class="cell">
-                                                        IV/<%= issue.IVNo %>/<%= issue.IVYear %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= issue.Receiver %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= issue.SNo %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= issue.Scheme %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= new Date(issue.DateOfReceival).toISOString().slice(0, 10) %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (issue.Approval==0 ) { %>
-                                                            <span class="badge badge bg-warning">Pending</span>
-                                                            <% } else if (issue.Approval==1 ) { %>
-                                                                <span class="badge badge bg-success">Approved</span>
-                                                                <% } else if (issue.Approval==2 ) { %>
-                                                                    <span class="badge badge bg-danger">Declined</span>
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (issue.Approval!=0 ) { %>
-                                                            <%=issue.ApprovedBy %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (issue.Approval!=0 ) { %>
-                                                            <%= new Date(issue.ApprovalDate).toISOString().slice(0, 10)
-                                                                + " " + new
-                                                                Date(issue.ApprovalDate).toISOString().slice(11, 19) %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
 
-                                                        <div class="col-auto">
-                                                            <button type="button" class="btn app-btn-secondary"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=issue.ID%>">View</button>
-                                                            <div class="modal fade" id="v<%=issue.ID%>" tabindex="-1"
-                                                                aria-labelledby="v<%=issue.ID%>Label"
-                                                                aria-hidden="true">
-                                                                <div
-                                                                    class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="viewRequewstLabel">
-                                                                                Issued Items List
-                                                                            </h5>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <table class="table  table-hover">
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th scope="col">Item</th>
-                                                                                        <th scope="col">Requested</th>
-                                                                                        <th scope="col">Passed</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <% Object.keys(ivItemlist).forEach(function(rID)
-                                                                                        { %>
-                                                                                        <% if (rID==issue.ID) { %>
-                                                                                            <% Object.keys(ivItemlist[rID]).forEach(function(item)
-                                                                                                { %>
-
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <%= item %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= ivItemlist[rID][item].req
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= ivItemlist[rID][item].passed
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                </tr>
-
-                                                                                                <% }) %>
-                                                                                                    <% } %>
-                                                                                                        <% }) %>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                        <% if(auth==2){ %>
-                                                                            <div class="modal-footer">
-
-                                                                                <% if (issue.Approval !=1 &&
-                                                                                    issue.Approval !=2) { %>
-                                                                                    <form
-                                                                                        action="/ivouchers/action/<%=issue.ID%>/<%=id%>"
-                                                                                        method="post" name="ratings">
-                                                                                        <!-- <input type="hidden" name="Id"
-                                                                                value=""> -->
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Accept"
-                                                                                            class="btn btn-success text-white">Approve</button>
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Decline"
-                                                                                            class="btn btn-danger text-white"
-                                                                                            data-bs-dismiss="modal">Decline</button>
-                                                                                    </form>
-                                                                                    <% } %>
-                                                                            </div>
-                                                                            <% } %>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <% } %>
-                                                    <% }); %>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!--//table-responsive-->
-
-                        </div>
-                        <!--//app-card-body-->
-                    </div>
-                    <!--//app-card-->
-                </div>
-                <!--//tab-pane-->
-
-                <div class="tab-pane fade" id="orders-pending" role="tabpanel" aria-labelledby="orders-pending-tab">
-                    <div class="app-card app-card-orders-table shadow-sm mb-5">
-                        <div class="app-card-body">
-                            <div class="table-responsive">
-                                <table class="table app-table-hover mb-0 text-center	">
-                                    <thead>
-                                        <tr>
-                                            <th class="cell">IV No.</th>
-                                            <th class="cell">Station</th>
-                                            <th class="cell">S. No.</th>
-                                            <th class="cell">Scheme</th>
-                                            <th class="cell">DateOfReceival</th>
-                                            <th class="cell">Approval</th>
-                                            <th class="cell">ActionBy</th>
-                                            <th class="cell">ActionDate</th>
-                                            <th class="cell"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% ivouchersData.forEach(function(issue) { %>
-                                            <% if (issue.Approval==0 ) { %>
-                                                <tr>
-                                                    <td class="cell">
-                                                        IV/<%= issue.IVNo %>/<%= issue.IVYear %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= issue.Receiver %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= issue.SNo %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= issue.Scheme %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= new Date(issue.DateOfReceival).toISOString().slice(0, 10) %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (issue.Approval==0 ) { %>
-                                                            <span class="badge badge bg-warning">Pending</span>
-                                                            <% } else if (issue.Approval==1 ) { %>
-                                                                <span class="badge badge bg-success">Approved</span>
-                                                                <% } else if (issue.Approval==2 ) { %>
-                                                                    <span class="badge badge bg-danger">Declined</span>
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (issue.Approval!=0 ) { %>
-                                                            <%=issue.ApprovedBy %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (issue.Approval!=0 ) { %>
-                                                            <%= new Date(issue.ApprovalDate).toISOString().slice(0, 10)
-                                                                + " " + new
-                                                                Date(issue.ApprovalDate).toISOString().slice(11, 19) %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-
-                                                        <div class="col-auto">
-                                                            <button type="button" class="btn app-btn-secondary"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=issue.ID%>">View</button>
-                                                            <div class="modal fade" id="v<%=issue.ID%>" tabindex="-1"
-                                                                aria-labelledby="v<%=issue.ID%>Label"
-                                                                aria-hidden="true">
-                                                                <div
-                                                                    class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="viewRequewstLabel">
-                                                                                Issued Items List
-                                                                            </h5>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <table class="table  table-hover">
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th scope="col">Item</th>
-                                                                                        <th scope="col">Requested</th>
-                                                                                        <th scope="col">Passed</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <% Object.keys(ivItemlist).forEach(function(rID)
-                                                                                        { %>
-                                                                                        <% if (rID==issue.ID) { %>
-                                                                                            <% Object.keys(ivItemlist[rID]).forEach(function(item)
-                                                                                                { %>
-
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <%= item %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= ivItemlist[rID][item].req
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= ivItemlist[rID][item].passed
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                </tr>
-
-                                                                                                <% }) %>
-                                                                                                    <% } %>
-                                                                                                        <% }) %>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                        <% if(auth==2){ %>
-                                                                            <div class="modal-footer">
-
-                                                                                <% if (issue.Approval !=1 &&
-                                                                                    issue.Approval !=2) { %>
-                                                                                    <form
-                                                                                        action="/ivouchers/action/<%=issue.ID%>/<%=id%>"
-                                                                                        method="post" name="ratings">
-                                                                                        <!-- <input type="hidden" name="Id"
-                                                                                value=""> -->
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Accept"
-                                                                                            class="btn btn-success text-white">Approve</button>
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Decline"
-                                                                                            class="btn btn-danger text-white"
-                                                                                            data-bs-dismiss="modal">Decline</button>
-                                                                                    </form>
-                                                                                    <% } %>
-                                                                            </div>
-                                                                            <% } %>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <% }%>
-                                                    <% }); %>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!--//table-responsive-->
-
-                        </div>
-                        <!--//app-card-body-->
-                    </div>
-                    <!--//app-card-->
-                </div>
-                <!--//tab-pane-->
-                <div class="tab-pane fade" id="orders-declined" role="tabpanel" aria-labelledby="orders-declined-tab">
-                    <div class="app-card app-card-orders-table shadow-sm mb-5">
-                        <div class="app-card-body">
-                            <div class="table-responsive">
-                                <table class="table app-table-hover mb-0 text-center	">
-                                    <thead>
-                                        <tr>
-                                            <th class="cell">IV No.</th>
-                                            <th class="cell">Station</th>
-                                            <th class="cell">S. No.</th>
-                                            <th class="cell">Scheme</th>
-                                            <th class="cell">DateOfReceival</th>
-                                            <th class="cell">Approval</th>
-                                            <th class="cell">ActionBy</th>
-                                            <th class="cell">ActionDate</th>
-                                            <th class="cell"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% ivouchersData.forEach(function(issue) { %>
-                                            <% if (issue.Approval==2 ) { %>
-                                                <tr>
-                                                    <td class="cell">
-                                                        IV/<%= issue.IVNo %>/<%= issue.IVYear %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= issue.Receiver %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= issue.SNo %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= issue.Scheme %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= new Date(issue.DateOfReceival).toISOString().slice(0, 10) %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (issue.Approval==0 ) { %>
-                                                            <span class="badge badge bg-warning">Pending</span>
-                                                            <% } else if (issue.Approval==1 ) { %>
-                                                                <span class="badge badge bg-success">Approved</span>
-                                                                <% } else if (issue.Approval==2 ) { %>
-                                                                    <span class="badge badge bg-danger">Declined</span>
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (issue.Approval!=0 ) { %>
-                                                            <%=issue.ApprovedBy %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (issue.Approval!=0 ) { %>
-                                                            <%= new Date(issue.ApprovalDate).toISOString().slice(0, 10)
-                                                                + " " + new
-                                                                Date(issue.ApprovalDate).toISOString().slice(11, 19) %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-
-                                                        <div class="col-auto">
-                                                            <button type="button" class="btn app-btn-secondary"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=issue.ID%>">View</button>
-                                                            <div class="modal fade" id="v<%=issue.ID%>" tabindex="-1"
-                                                                aria-labelledby="v<%=issue.ID%>Label"
-                                                                aria-hidden="true">
-                                                                <div
-                                                                    class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="viewRequewstLabel">
-                                                                                Issued Items List
-                                                                            </h5>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <table class="table  table-hover">
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th scope="col">Item</th>
-                                                                                        <th scope="col">Requested</th>
-                                                                                        <th scope="col">Passed</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <% Object.keys(ivItemlist).forEach(function(rID)
-                                                                                        { %>
-                                                                                        <% if (rID==issue.ID) { %>
-                                                                                            <% Object.keys(ivItemlist[rID]).forEach(function(item)
-                                                                                                { %>
-
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <%= item %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= ivItemlist[rID][item].req
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= ivItemlist[rID][item].passed
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                </tr>
-
-                                                                                                <% }) %>
-                                                                                                    <% } %>
-                                                                                                        <% }) %>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                        <% if(auth==2){ %>
-                                                                            <div class="modal-footer">
-
-                                                                                <% if (issue.Approval !=1 &&
-                                                                                    issue.Approval !=2) { %>
-                                                                                    <form
-                                                                                        action="/ivouchers/action/<%=issue.ID%>/<%=id%>"
-                                                                                        method="post" name="ratings">
-                                                                                        <!-- <input type="hidden" name="Id"
-                                                                                value=""> -->
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Accept"
-                                                                                            class="btn btn-success text-white">Approve</button>
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Decline"
-                                                                                            class="btn btn-danger text-white"
-                                                                                            data-bs-dismiss="modal">Decline</button>
-                                                                                    </form>
-                                                                                    <% } %>
-                                                                            </div>
-                                                                            <% } %>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <% } %>
-                                                    <% }); %>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!--//table-responsive-->
-
-                        </div>
-                        <!--//app-card-body-->
-                    </div>
-                    <!--//app-card-->
-                </div>
                 <!--//tab-pane-->
             </div>
             <!--//tab-content-->

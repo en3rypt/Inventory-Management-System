@@ -197,7 +197,8 @@
 
 
 <script>
-    var reqList = '<%- JSON.stringify(ivItemlist) %>'
+    var reqList = '<%- ivItemJSON %>'
+    // console.log(reqList)
     var list = JSON.parse(reqList);
     addedItemsList = {};
     //loop list and add  to addedItemsList

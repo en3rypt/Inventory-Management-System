@@ -115,24 +115,25 @@ ivouchers.post('/new', (req, res) => {
                 throw err;
             }
             for (i = 0; i < Object.keys(addedJSON).length; i++) {
-                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i]}'`, (err, itemNameIDResult) => {
-                    if (err) {
-                        throw err;
-                    }
-                    // console.log(addedJSON);
-                    // console.log(itemNameIDResult);
-                    db.query(`SELECT LAST_INSERT_ID() as lastID FROM issuedvouchers`, (err, lastVoucherResult) => {
+                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i].replace(/"/g, '\\"').replace(/'/g, "\\'")
+                    }'`, (err, itemNameIDResult) => {
                         if (err) {
                             throw err;
                         }
-                        // console.log(lastVoucherResult);
-                        db.query(`INSERT INTO ivitems (ivID, ivItemID, ivQtyReq, ivQtyPassed) VALUES (${lastVoucherResult[0].lastID}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, ${addedJSON[itemNameIDResult[0].Name].passedQty})`, (err, result) => {
+                        // console.log(addedJSON);
+                        // console.log(itemNameIDResult);
+                        db.query(`SELECT LAST_INSERT_ID() as lastID FROM issuedvouchers`, (err, lastVoucherResult) => {
                             if (err) {
                                 throw err;
                             }
+                            // console.log(lastVoucherResult);
+                            db.query(`INSERT INTO ivitems (ivID, ivItemID, ivQtyReq, ivQtyPassed) VALUES (${lastVoucherResult[0].lastID}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, ${addedJSON[itemNameIDResult[0].Name].passedQty})`, (err, result) => {
+                                if (err) {
+                                    throw err;
+                                }
+                            })
                         })
                     })
-                })
             }
             res.redirect('/ivouchers');
         }
@@ -164,9 +165,7 @@ ivouchers.get('/edit/:Id', (req, res) => {
                         if (err) {
                             throw err;
                         }
-
-
-                        res.render('pages/index', { option: "editIV", result: result[0], itemRows: itemRowResult, ivItemlist: ivItemResult, schemeRows: schemesResult, stationRows: stationsResult, error: null });
+                        res.render('pages/index', { option: "editIV", result: result[0], itemRows: itemRowResult, ivItemlist: ivItemResult, ivItemJSON: JSON.stringify(ivItemResult).replace(/"/g, '\\"').replace(/'/g, "\\'"), schemeRows: schemesResult, stationRows: stationsResult, error: null });
                     }
                     );
                 }

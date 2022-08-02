@@ -62,7 +62,7 @@ ivouchers.post('/action/:Id/:user', (req, res) => {
             if (err) {
                 throw err;
             }
-            console.log(vItemResult);
+            // console.log(vItemResult);
             let lessBalanceList = vItemResult.filter(row => row.balance < 0);
             if (lessBalanceList.length == 0) {
                 // check if the quantity in the inventory is enough

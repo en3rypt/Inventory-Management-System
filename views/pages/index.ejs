@@ -10,14 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%- include('../partials/favicon'); %>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> -->
+        <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.css"> -->
+        <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"> -->
+        <!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"> -->
+
+
         <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.0.2/css/searchPanes.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css">
 
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
 
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
 
         <link rel="stylesheet"
             href="https://cdn.datatables.net/searchbuilder/1.3.4/css/searchBuilder.dataTables.min.css">
@@ -141,8 +147,16 @@
                                                                                                                                                                                         src="https://code.jquery.com/jquery-3.5.1.js"></script>
                                                                                                                                                                                     <script
                                                                                                                                                                                         src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+                                                                                                                                                                                    <!--  -->
+
+                                                                                                                                                                                    <script
+                                                                                                                                                                                        src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
                                                                                                                                                                                     <script
                                                                                                                                                                                         src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+                                                                                                                                                                                    <script
+                                                                                                                                                                                        src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap5.min.js"></script>
+                                                                                                                                                                                    <!--  -->
+
                                                                                                                                                                                     <script
                                                                                                                                                                                         src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
                                                                                                                                                                                     <script
@@ -180,10 +194,29 @@
                                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
                                                                                                                                                                                                 ],
                                                                                                                                                                                                 buttons: [
-                                                                                                                                                                                                    'searchPanes',
-                                                                                                                                                                                                    'searchBuilder',
-                                                                                                                                                                                                    'pageLength', 'colvis', {
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchPanes',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchBuilder',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'pageLength',
+                                                                                                                                                                                                        className: "btn app-btn-secondary "
+
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    , {
+
+                                                                                                                                                                                                        extend: 'colvis',
+                                                                                                                                                                                                        className: 'btn app-btn-secondary'
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    , {
                                                                                                                                                                                                         extend: 'print',
+                                                                                                                                                                                                        className: "btn app-btn-secondary",
+
                                                                                                                                                                                                         exportOptions: {
 
                                                                                                                                                                                                             columns: [0, 1, 2, 3, 4]
@@ -202,12 +235,14 @@
                                                                                                                                                                                                     },
                                                                                                                                                                                                     {
                                                                                                                                                                                                         extend: 'pdfHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1, 2, 3, 4]
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                     }, {
                                                                                                                                                                                                         extend: 'excelHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1, 2, 3, 4]
                                                                                                                                                                                                         }
@@ -226,10 +261,28 @@
                                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
                                                                                                                                                                                                 ],
                                                                                                                                                                                                 buttons: [
-                                                                                                                                                                                                    'searchPanes',
-                                                                                                                                                                                                    'searchBuilder',
-                                                                                                                                                                                                    'pageLength', 'colvis', {
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchPanes',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchBuilder',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'pageLength',
+                                                                                                                                                                                                        className: "btn app-btn-secondary "
+
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    , {
+
+                                                                                                                                                                                                        extend: 'colvis',
+                                                                                                                                                                                                        className: 'btn app-btn-secondary'
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    , {
                                                                                                                                                                                                         extend: 'print',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
 
                                                                                                                                                                                                             columns: [0, 1]
@@ -248,12 +301,14 @@
                                                                                                                                                                                                     },
                                                                                                                                                                                                     {
                                                                                                                                                                                                         extend: 'pdfHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1]
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                     }, {
                                                                                                                                                                                                         extend: 'excelHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1]
                                                                                                                                                                                                         }
@@ -272,10 +327,28 @@
                                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
                                                                                                                                                                                                 ],
                                                                                                                                                                                                 buttons: [
-                                                                                                                                                                                                    'searchPanes',
-                                                                                                                                                                                                    'searchBuilder',
-                                                                                                                                                                                                    'pageLength', 'colvis', {
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchPanes',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchBuilder',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'pageLength',
+                                                                                                                                                                                                        className: "btn app-btn-secondary "
+
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    , {
+
+                                                                                                                                                                                                        extend: 'colvis',
+                                                                                                                                                                                                        className: 'btn app-btn-secondary'
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    , {
                                                                                                                                                                                                         extend: 'print',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
 
                                                                                                                                                                                                             columns: [0, 1]
@@ -294,12 +367,14 @@
                                                                                                                                                                                                     },
                                                                                                                                                                                                     {
                                                                                                                                                                                                         extend: 'pdfHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1]
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                     }, {
                                                                                                                                                                                                         extend: 'excelHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1]
                                                                                                                                                                                                         }
@@ -318,10 +393,28 @@
                                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
                                                                                                                                                                                                 ],
                                                                                                                                                                                                 buttons: [
-                                                                                                                                                                                                    'searchPanes',
-                                                                                                                                                                                                    'searchBuilder',
-                                                                                                                                                                                                    'pageLength', 'colvis', {
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchPanes',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchBuilder',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'pageLength',
+                                                                                                                                                                                                        className: "btn app-btn-secondary "
+
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    , {
+
+                                                                                                                                                                                                        extend: 'colvis',
+                                                                                                                                                                                                        className: 'btn app-btn-secondary'
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    , {
                                                                                                                                                                                                         extend: 'print',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
 
                                                                                                                                                                                                             columns: [0, 1]
@@ -340,12 +433,14 @@
                                                                                                                                                                                                     },
                                                                                                                                                                                                     {
                                                                                                                                                                                                         extend: 'pdfHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1]
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                     }, {
                                                                                                                                                                                                         extend: 'excelHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1]
                                                                                                                                                                                                         }
@@ -365,10 +460,28 @@
                                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
                                                                                                                                                                                                 ],
                                                                                                                                                                                                 buttons: [
-                                                                                                                                                                                                    'searchPanes',
-                                                                                                                                                                                                    'searchBuilder',
-                                                                                                                                                                                                    'pageLength', 'colvis', {
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchPanes',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchBuilder',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'pageLength',
+                                                                                                                                                                                                        className: "btn app-btn-secondary "
+
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    , {
+
+                                                                                                                                                                                                        extend: 'colvis',
+                                                                                                                                                                                                        className: 'btn app-btn-secondary'
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    , {
                                                                                                                                                                                                         extend: 'print',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
 
                                                                                                                                                                                                             columns: [0, 1, 2, 3, 4, 5, 6, 7]
@@ -387,12 +500,14 @@
                                                                                                                                                                                                     },
                                                                                                                                                                                                     {
                                                                                                                                                                                                         extend: 'pdfHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1, 2, 3, 4, 5, 6, 7]
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                     }, {
                                                                                                                                                                                                         extend: 'excelHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1, 2, 3, 4, 5, 6, 7]
                                                                                                                                                                                                         }
@@ -411,10 +526,28 @@
                                                                                                                                                                                                     ['10 rows', '25 rows', '50 rows', 'Show all']
                                                                                                                                                                                                 ],
                                                                                                                                                                                                 buttons: [
-                                                                                                                                                                                                    'searchPanes',
-                                                                                                                                                                                                    'searchBuilder',
-                                                                                                                                                                                                    'pageLength', 'colvis', {
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchPanes',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchBuilder',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'pageLength',
+                                                                                                                                                                                                        className: "btn app-btn-secondary "
+
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    , {
+
+                                                                                                                                                                                                        extend: 'colvis',
+                                                                                                                                                                                                        className: 'btn app-btn-secondary'
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    , {
                                                                                                                                                                                                         extend: 'print',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
 
                                                                                                                                                                                                             columns: [0, 1, 2, 3, 4, 5, 6, 7]
@@ -433,12 +566,14 @@
                                                                                                                                                                                                     },
                                                                                                                                                                                                     {
                                                                                                                                                                                                         extend: 'pdfHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1, 2, 3, 4, 5, 6, 7]
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                     }, {
                                                                                                                                                                                                         extend: 'excelHtml5',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
                                                                                                                                                                                                             columns: [0, 1, 2, 3, 4, 5, 6, 7]
                                                                                                                                                                                                         }

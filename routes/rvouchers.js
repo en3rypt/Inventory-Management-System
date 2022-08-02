@@ -46,7 +46,7 @@ rvouchers.get('/', (req, res) => {
 
                     }
                 });
-                console.log(rvItemlist);
+                // console.log(rvItemlist);
                 // console.log(itemRowResult);
                 res.render('pages/index', { option: "rvouchers", rvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
             });
@@ -143,7 +143,7 @@ rvouchers.get('/edit/:Id', (req, res) => {
                 }
 
 
-                console.log(rvItemResult);
+                // console.log(rvItemResult);
                 // console.log(itemRowResult);
                 db.query(`SELECT * FROM schemes`, (err, schemesResult) => {
                     if (err) {

@@ -58,27 +58,38 @@ ivouchers.post('/action/:Id/:user', (req, res) => {
     var inputValue = req.body.action_type;
     if (inputValue == "Accept") {
         //compare the quantity of the item in the voucher with the quantity in the inventory
-        db.query(`SELECT * FROM ivitems INNER JOIN items where ivitems.ivID =${req.params.Id} and ivitems.ivItemID = items.ID`, (err, vItemResult) => {
+        db.query(`SELECT *, quantity - ivQtyPassed as balance FROM ivitems INNER JOIN items where ivitems.ivID =${req.params.Id} and ivitems.ivItemID = items.ID`, (err, vItemResult) => {
             if (err) {
                 throw err;
             }
-            //loop result and update the quantity of the item in the inventory
-            vItemResult.forEach(row => {
-                db.query(`UPDATE items SET Quantity = Quantity - ${row.ivQtyPassed} WHERE ID = ${row.ID}`, (err, stockUpdateResult) => {
+            // console.log(vItemResult);
+            let lessBalanceList = vItemResult.filter(row => row.balance < 0);
+            if (lessBalanceList.length == 0) {
+                // check if the quantity in the inventory is enough
+                vItemResult.forEach(row => {
+                    db.query(`UPDATE items SET Quantity = Quantity - ${row.ivQtyPassed} WHERE ID = ${row.ID}`, (err, stockUpdateResult) => {
+                        if (err) {
+                            throw err;
+                        }
+                    });
+                }
+                );
+                //update the status of the voucher to accepted
+                db.query(`UPDATE issuedvouchers SET Approval = 1, ApprovedBy = ${req.params.user}, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ${req.params.Id}`, (err, result) => {
                     if (err) {
                         throw err;
                     }
-                });
-            }
-            );
-            //update the status of the voucher to accepted
-            db.query(`UPDATE issuedvouchers SET Approval = 1, ApprovedBy = ${req.params.user}, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ${req.params.Id}`, (err, result) => {
-                if (err) {
-                    throw err;
                 }
+                );
+                res.redirect('/ivouchers');
             }
-            );
-            res.redirect('/ivouchers');
+            else {
+                let str = ``;
+                lessBalanceList.forEach(row => {
+                    str += `There's a shortage of ${row.Name} in the inventory.`;
+                });
+                res.status(409).send(str);
+            }
         })
     } else {
         //db query to set approval to 2

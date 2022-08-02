@@ -58,44 +58,37 @@ ivouchers.post('/action/:Id/:user', (req, res) => {
     var inputValue = req.body.action_type;
     if (inputValue == "Accept") {
         //compare the quantity of the item in the voucher with the quantity in the inventory
-        db.query(`SELECT * FROM ivitems INNER JOIN items where ivitems.ivID =${req.params.Id} and ivitems.ivItemID = items.ID`, (err, vItemResult) => {
+        db.query(`SELECT *, quantity - ivQtyPassed as balance FROM ivitems INNER JOIN items where ivitems.ivID =${req.params.Id} and ivitems.ivItemID = items.ID`, (err, vItemResult) => {
             if (err) {
                 throw err;
             }
-            let redirect = 0;
-            //check if the quantity in the inventory is enough
-            vItemResult.forEach(row => {
-                db.query(`SELECT * FROM items WHERE ID = ${row.ivItemID}`, (err, inventoryResult) => {
-                    if (inventoryResult[0].Quantity - row.ivQtyPassed < 0) {
-                        console.log(`There is a shortage of ${row.ivQtyPassed - inventoryResult[0].Quantity} of ${row.Name} in the inventory for this.'`);
-                        redirect = 1;
-                        console.log("Value of redirect in the change place :" + redirect);
-                        res.redirect(`/ivouchers`);
+            console.log(vItemResult);
+            let lessBalanceList = vItemResult.filter(row => row.balance < 0);
+            if (lessBalanceList.length == 0) {
+                // check if the quantity in the inventory is enough
+                vItemResult.forEach(row => {
+                    db.query(`UPDATE items SET Quantity = Quantity - ${row.ivQtyPassed} WHERE ID = ${row.ID}`, (err, stockUpdateResult) => {
+                        if (err) {
+                            throw err;
+                        }
+                    });
+                }
+                );
+                //update the status of the voucher to accepted
+                db.query(`UPDATE issuedvouchers SET Approval = 1, ApprovedBy = ${req.params.user}, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ${req.params.Id}`, (err, result) => {
+                    if (err) {
+                        throw err;
                     }
+                }
+                );
+                res.redirect('/ivouchers');
+            }
+            else {
+                let str = ``;
+                lessBalanceList.forEach(row => {
+                    str += `There's a shortage of ${row.Name} in the inventory.`;
                 });
-            });
-            if (redirect) {
-                res.redirect(`/ivouchers`);
-            } else {
-                console.log("Value of redirect in else :" + redirect);
-                //loop result and update the quantity of the item in the inventory
-                console.log("LMFAO how am i executing.")
-                // vItemResult.forEach(row => {
-                //     db.query(`UPDATE items SET Quantity = Quantity - ${row.ivQtyPassed} WHERE ID = ${row.ID}`, (err, stockUpdateResult) => {
-                //         if (err) {
-                //             throw err;
-                //         }
-                //     });
-                // }
-                // );
-                // //update the status of the voucher to accepted
-                // db.query(`UPDATE issuedvouchers SET Approval = 1, ApprovedBy = ${req.params.user}, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ${req.params.Id}`, (err, result) => {
-                //     if (err) {
-                //         throw err;
-                //     }
-                // }
-                // );
-                // res.redirect('/ivouchers');
+                res.status(409).send(str);
             }
         })
     } else {

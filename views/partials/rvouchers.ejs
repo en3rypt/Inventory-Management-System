@@ -68,7 +68,7 @@
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <form class="form-group">
-                    <div id="filterBns" ></div>
+                    <div id="filterBns"></div>
                     <input type="text" class="form-control" id="searchField" style="max-width: 250px;">
                 </form>
             </div>
@@ -89,7 +89,8 @@
                                             <th class="cell">Approval</th>
                                             <th class="cell">ActionBy</th>
                                             <th class="cell">ActionDate</th>
-                                            <th class="cell"></th>
+                                            <th class="cell">List</th>
+                                            <th class="cell">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -135,88 +136,84 @@
                                                                 <% } %>
                                                 </td>
                                                 <td class="cell">
+                                                    <table class="table  table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Item</th>
+                                                                <th scope="col">Qty. Requested</th>
+                                                                <th scope="col">Reference</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% Object.keys(rvItemlist).forEach(function(rID) { %>
+                                                                <% if (rID==rcv.RVID) { %>
+                                                                    <% Object.keys(rvItemlist[rID]).forEach(function(item)
+                                                                        { %>
 
-                                                    <div class="col-auto">
-                                                        <button type="button" class="btn app-btn-secondary"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#v<%=rcv.ID%>">View</button>
-                                                        <div class="modal fade" id="v<%=rcv.ID%>" tabindex="-1"
-                                                            aria-labelledby="v<%=rcv.ID%>Label" aria-hidden="true">
-                                                            <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="viewRequewstLabel">
-                                                                            Received Items List
-                                                                        </h5>
-                                                                        <button type="button" class="btn-close"
-                                                                            data-bs-dismiss="modal"
-                                                                            aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <table class="table  table-hover">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th scope="col">Item</th>
-                                                                                    <th scope="col">Qty. Requested</th>
-                                                                                    <th scope="col">Reference</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <% Object.keys(rvItemlist).forEach(function(rID)
-                                                                                    { %>
-                                                                                    <% if (rID==rcv.RVID) { %>
-                                                                                        <% Object.keys(rvItemlist[rID]).forEach(function(item)
-                                                                                            { %>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <%= item %>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%= rvItemlist[rID][item].req %>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%= rvItemlist[rID][item].refno %>/<%=
+                                                                                        rvItemlist[rID][item].refdate %>
+                                                                            </td>
+                                                                        </tr>
 
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    <%= item %>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <%= rvItemlist[rID][item].req
-                                                                                                        %>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <%= rvItemlist[rID][item].refno
-                                                                                                        %>/<%=
-                                                                                                            rvItemlist[rID][item].refdate
-                                                                                                            %>
-                                                                                                </td>
-                                                                                            </tr>
+                                                                        <% }) %>
+                                                                            <% } %>
+                                                                                <% }) %>
+                                                        </tbody>
+                                                    </table>
 
-                                                                                            <% }) %>
-                                                                                                <% } %>
-                                                                                                    <% }) %>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
+
+                                                </td>
+
+                                                <td style="text-align: center;vertical-align: middle;">
+
+
+
+                                                    <% if (rcv.Approval !=1 && rcv.Approval !=2) { %>
+
+                                                        <form action="/rvouchers/action/<%=rcv.RVID%>/<%=id%>"
+                                                            method="post" name="ratings" class="">
+
+
+
+                                                            <div class="dropdown">
+                                                                <button class="btn app-btn-secondary dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton1"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Action
+                                                                </button>
+                                                                <ul class="dropdown-menu  text-center"
+                                                                    aria-labelledby="dropdownMenuButton1">
                                                                     <% if(auth==2){ %>
-                                                                        <div class="modal-footer">
-
-                                                                            <% if (rcv.Approval !=1 && rcv.Approval !=2)
-                                                                                { %>
-                                                                                <form
-                                                                                    action="/rvouchers/action/<%=rcv.ID%>/<%=id%>"
-                                                                                    method="post" name="ratings">
-                                                                                    <!-- <input type="hidden" name="Id"
-                                                                                value=""> -->
-                                                                                    <button type="submit"
-                                                                                        name="action_type"
-                                                                                        value="Accept"
-                                                                                        class="btn btn-success text-white">Approve</button>
-                                                                                    <button type="submit"
-                                                                                        name="action_type"
-                                                                                        value="Decline"
-                                                                                        class="btn btn-danger text-white"
-                                                                                        data-bs-dismiss="modal">Decline</button>
-                                                                                </form>
-                                                                                <% } %>
-                                                                        </div>
+                                                                        <li><button type="submit" name="action_type"
+                                                                                value="Accept"
+                                                                                class="btn btn-success text-white m-1">Approve</button>
+                                                                        </li>
+                                                                        <li><button type="submit" name="action_type"
+                                                                                value="Decline"
+                                                                                class="btn btn-danger text-white m-1"
+                                                                                data-bs-dismiss="modal">Decline</button>
+                                                                        </li>
                                                                         <% } %>
-                                                                </div>
+                                                                            <li><a href="/rvouchers/edit/<%=rcv.RVID%>">
+                                                                                    <button type="button"
+                                                                                        class="btn app-btn-secondary m-1">Edit</button>
+                                                                                </a></li>
+                                                                </ul>
                                                             </div>
-                                                        </div>
-                                                    </div>
+                                                        </form>
+
+
+
+                                                        <% } %>
+
                                                 </td>
                                             </tr>
                                             <% }); %>
@@ -245,489 +242,7 @@
                     <!--//app-pagination-->
 
                 </div>
-                <!--//tab-pane-->
 
-                <div class="tab-pane fade" id="orders-approved" role="tabpanel" aria-labelledby="orders-approved-tab">
-                    <div class="app-card app-card-orders-table shadow-sm mb-5">
-                        <div class="app-card-body">
-                            <div class="table-responsive">
-                                <table class="table app-table-hover mb-0 text-center	">
-                                    <thead>
-                                        <tr>
-                                            <th class="cell">RV No.</th>
-                                            <th class="cell">Supplier</th>
-                                            <th class="cell">S. No.</th>
-                                            <th class="cell">Scheme</th>
-                                            <th class="cell">DateOfReceival</th>
-                                            <th class="cell">Approval</th>
-                                            <th class="cell">ActionBy</th>
-                                            <th class="cell">ActionDate</th>
-                                            <th class="cell"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% rvouchersData.forEach(function(rcv) { %>
-                                            <% if (rcv.Approval==1 ) { %>
-                                                <tr>
-                                                    <td class="cell">
-                                                        RV/<%=rcv.RVNo %>/<%= rcv.RVYear %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= rcv.Receiver %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= rcv.SNo %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= rcv.Scheme %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= new Date(rcv.DateOfReceival).toISOString().slice(0, 10) %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (rcv.Approval==0 ) { %>
-                                                            <span class="badge badge bg-warning">Pending</span>
-                                                            <% } else if (rcv.Approval==1 ) { %>
-                                                                <span class="badge badge bg-success">Approved</span>
-                                                                <% } else if (rcv.Approval==2 ) { %>
-                                                                    <span class="badge badge bg-danger">Declined</span>
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (rcv.Approval!=0 ) { %>
-                                                            <%=rcv.ApprovedBy %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (rcv.Approval!=0 ) { %>
-                                                            <%= new Date(rcv.ApprovalDate).toISOString().slice(0, 10)
-                                                                + " " + new
-                                                                Date(rcv.ApprovalDate).toISOString().slice(11, 19) %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-
-                                                        <div class="col-auto">
-                                                            <button type="button" class="btn app-btn-secondary"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=rcv.ID%>">View</button>
-                                                            <div class="modal fade" id="v<%=rcv.ID%>" tabindex="-1"
-                                                                aria-labelledby="v<%=rcv.ID%>Label" aria-hidden="true">
-                                                                <div
-                                                                    class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="viewRequewstLabel">
-                                                                                Received Items List
-                                                                            </h5>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <table class="table  table-hover">
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th scope="col">Item</th>
-                                                                                        <th scope="col">Requested</th>
-                                                                                        <th scope="col">Passed</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <% Object.keys(rvItemlist).forEach(function(rID)
-                                                                                        { %>
-                                                                                        <% if (rID==rcv.ID) { %>
-                                                                                            <% Object.keys(rvItemlist[rID]).forEach(function(item)
-                                                                                                { %>
-
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <%= item %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= rvItemlist[rID][item].req
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= rvItemlist[rID][item].passed
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                </tr>
-
-                                                                                                <% }) %>
-                                                                                                    <% } %>
-                                                                                                        <% }) %>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                        <% if(auth==2){ %>
-                                                                            <div class="modal-footer">
-
-                                                                                <% if (rcv.Approval !=1 && rcv.Approval
-                                                                                    !=2) { %>
-                                                                                    <form
-                                                                                        action="/rvouchers/action/<%=rcv.ID%>/<%=id%>"
-                                                                                        method="post" name="ratings">
-                                                                                        <!-- <input type="hidden" name="Id"
-                                                                                value=""> -->
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Accept"
-                                                                                            class="btn btn-success text-white">Approve</button>
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Decline"
-                                                                                            class="btn btn-danger text-white"
-                                                                                            data-bs-dismiss="modal">Decline</button>
-                                                                                    </form>
-                                                                                    <% } %>
-                                                                            </div>
-                                                                            <% } %>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <% } %>
-                                                    <% }); %>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!--//table-responsive-->
-
-                        </div>
-                        <!--//app-card-body-->
-                    </div>
-                    <!--//app-card-->
-                </div>
-                <!--//tab-pane-->
-
-                <div class="tab-pane fade" id="orders-pending" role="tabpanel" aria-labelledby="orders-pending-tab">
-                    <div class="app-card app-card-orders-table shadow-sm mb-5">
-                        <div class="app-card-body">
-                            <div class="table-responsive">
-                                <table class="table app-table-hover mb-0 text-center	">
-                                    <thead>
-                                        <tr>
-                                            <th class="cell">RV No.</th>
-                                            <th class="cell">Supplier</th>
-                                            <th class="cell">S. No.</th>
-                                            <th class="cell">Scheme</th>
-                                            <th class="cell">DateOfReceival</th>
-                                            <th class="cell">Approval</th>
-                                            <th class="cell">ActionBy</th>
-                                            <th class="cell">ActionDate</th>
-                                            <th class="cell"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% rvouchersData.forEach(function(rcv) { %>
-                                            <% if (rcv.Approval==0 ) { %>
-                                                <tr>
-                                                    <td class="cell">
-                                                        RV/<%=rcv.RVNo %>/<%= rcv.RVYear %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= rcv.Receiver %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= rcv.SNo %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= rcv.Scheme %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= new Date(rcv.DateOfReceival).toISOString().slice(0, 10) %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (rcv.Approval==0 ) { %>
-                                                            <span class="badge badge bg-warning">Pending</span>
-                                                            <% } else if (rcv.Approval==1 ) { %>
-                                                                <span class="badge badge bg-success">Approved</span>
-                                                                <% } else if (rcv.Approval==2 ) { %>
-                                                                    <span class="badge badge bg-danger">Declined</span>
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (rcv.Approval!=0 ) { %>
-                                                            <%=rcv.ApprovedBy %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (rcv.Approval!=0 ) { %>
-                                                            <%= new Date(rcv.ApprovalDate).toISOString().slice(0, 10)
-                                                                + " " + new
-                                                                Date(rcv.ApprovalDate).toISOString().slice(11, 19) %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-
-                                                        <div class="col-auto">
-                                                            <button type="button" class="btn app-btn-secondary"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=rcv.ID%>">View</button>
-                                                            <div class="modal fade" id="v<%=rcv.ID%>" tabindex="-1"
-                                                                aria-labelledby="v<%=rcv.ID%>Label" aria-hidden="true">
-                                                                <div
-                                                                    class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="viewRequewstLabel">
-                                                                                Received Items List
-                                                                            </h5>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <table class="table  table-hover">
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th scope="col">Item</th>
-                                                                                        <th scope="col">Requested</th>
-                                                                                        <th scope="col">Passed</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <% Object.keys(rvItemlist).forEach(function(rID)
-                                                                                        { %>
-                                                                                        <% if (rID==rcv.ID) { %>
-                                                                                            <% Object.keys(rvItemlist[rID]).forEach(function(item)
-                                                                                                { %>
-
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <%= item %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= rvItemlist[rID][item].req
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= rvItemlist[rID][item].passed
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                </tr>
-
-                                                                                                <% }) %>
-                                                                                                    <% } %>
-                                                                                                        <% }) %>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                        <% if(auth==2){ %>
-                                                                            <div class="modal-footer">
-
-                                                                                <% if (rcv.Approval !=1 && rcv.Approval
-                                                                                    !=2) { %>
-                                                                                    <form
-                                                                                        action="/rvouchers/action/<%=rcv.ID%>/<%=id%>"
-                                                                                        method="post" name="ratings">
-                                                                                        <!-- <input type="hidden" name="Id"
-                                                                                value=""> -->
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Accept"
-                                                                                            class="btn btn-success text-white">Approve</button>
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Decline"
-                                                                                            class="btn btn-danger text-white"
-                                                                                            data-bs-dismiss="modal">Decline</button>
-                                                                                    </form>
-                                                                                    <% } %>
-                                                                            </div>
-                                                                            <% } %>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <% } %>
-                                                    <% }); %>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!--//table-responsive-->
-
-                        </div>
-                        <!--//app-card-body-->
-                    </div>
-                    <!--//app-card-->
-                </div>
-                <!--//tab-pane-->
-                <div class="tab-pane fade" id="orders-declined" role="tabpanel" aria-labelledby="orders-declined-tab">
-                    <div class="app-card app-card-orders-table shadow-sm mb-5">
-                        <div class="app-card-body">
-                            <div class="table-responsive">
-                                <table class="table app-table-hover mb-0 text-center	">
-                                    <thead>
-                                        <tr>
-                                            <th class="cell">RV No.</th>
-                                            <th class="cell">Supplier</th>
-                                            <th class="cell">S. No.</th>
-                                            <th class="cell">Scheme</th>
-                                            <th class="cell">DateOfReceival</th>
-                                            <th class="cell">Approval</th>
-                                            <th class="cell">ActionBy</th>
-                                            <th class="cell">ActionDate</th>
-                                            <th class="cell"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% rvouchersData.forEach(function(rcv) { %>
-                                            <% if (rcv.Approval==2 ) { %>
-                                                <tr>
-                                                    <td class="cell">
-                                                        RV/<%=rcv.RVNo %>/<%= rcv.RVYear %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= rcv.Receiver %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= rcv.SNo %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= rcv.Scheme %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <%= new Date(rcv.DateOfReceival).toISOString().slice(0, 10) %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (rcv.Approval==0 ) { %>
-                                                            <span class="badge badge bg-warning">Pending</span>
-                                                            <% } else if (rcv.Approval==1 ) { %>
-                                                                <span class="badge badge bg-success">Approved</span>
-                                                                <% } else if (rcv.Approval==2 ) { %>
-                                                                    <span class="badge badge bg-danger">Declined</span>
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (rcv.Approval!=0 ) { %>
-                                                            <%=rcv.ApprovedBy %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-                                                        <% if (rcv.Approval!=0 ) { %>
-                                                            <%= new Date(rcv.ApprovalDate).toISOString().slice(0, 10)
-                                                                + " " + new
-                                                                Date(rcv.ApprovalDate).toISOString().slice(11, 19) %>
-                                                                <% } else { %>
-                                                                    -
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="cell">
-
-                                                        <div class="col-auto">
-                                                            <button type="button" class="btn app-btn-secondary"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#v<%=rcv.ID%>">View</button>
-                                                            <div class="modal fade" id="v<%=rcv.ID%>" tabindex="-1"
-                                                                aria-labelledby="v<%=rcv.ID%>Label" aria-hidden="true">
-                                                                <div
-                                                                    class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="viewRequewstLabel">
-                                                                                Received Items List
-                                                                            </h5>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <table class="table  table-hover">
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th scope="col">Item</th>
-                                                                                        <th scope="col">Requested</th>
-                                                                                        <th scope="col">Passed</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <% Object.keys(rvItemlist).forEach(function(rID)
-                                                                                        { %>
-                                                                                        <% if (rID==rcv.ID) { %>
-                                                                                            <% Object.keys(rvItemlist[rID]).forEach(function(item)
-                                                                                                { %>
-
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <%= item %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= rvItemlist[rID][item].req
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <%= rvItemlist[rID][item].passed
-                                                                                                            %>
-                                                                                                    </td>
-                                                                                                </tr>
-
-                                                                                                <% }) %>
-                                                                                                    <% } %>
-                                                                                                        <% }) %>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                        <% if(auth==2){ %>
-                                                                            <div class="modal-footer">
-
-                                                                                <% if (rcv.Approval !=1 && rcv.Approval
-                                                                                    !=2) { %>
-                                                                                    <form
-                                                                                        action="/rvouchers/action/<%=rcv.ID%>/<%=id%>"
-                                                                                        method="post" name="ratings">
-                                                                                        <!-- <input type="hidden" name="Id"
-                                                                                value=""> -->
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Accept"
-                                                                                            class="btn btn-success text-white">Approve</button>
-                                                                                        <button type="submit"
-                                                                                            name="action_type"
-                                                                                            value="Decline"
-                                                                                            class="btn btn-danger text-white"
-                                                                                            data-bs-dismiss="modal">Decline</button>
-                                                                                    </form>
-                                                                                    <% } %>
-                                                                            </div>
-                                                                            <% } %>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <% } %>
-                                                    <% }); %>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!--//table-responsive-->
-
-                        </div>
-                        <!--//app-card-body-->
-                    </div>
-                    <!--//app-card-->
-                </div>
-                <!--//tab-pane-->
             </div>
             <!--//tab-content-->
 

@@ -109,7 +109,8 @@
                                                     <%= rcv.schemeName %>
                                                 </td>
                                                 <td class="cell">
-                                                    <%= new Date(rcv.DateOfReceival).toISOString().slice(0, 10) %>
+                                                    <%= new Date(new Date(rcv.DateOfReceival).getTime() + 330 * 60 *
+                                                        1000).toISOString().slice(0, 10) %>
                                                 </td>
                                                 <td class="cell">
                                                     <% if (rcv.Approval==0 ) { %>

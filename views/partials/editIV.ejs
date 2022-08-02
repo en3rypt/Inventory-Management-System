@@ -79,7 +79,8 @@
                             <div class="col-sm-6">
                                 <label for="date-of-rcv" class="col-form-label">Date of Receival:</label>
                                 <input class="form-control d-inline" id="date-of-rcv" type="date" name="dor"
-                                    value="<%= new Date(result.DateOfReceival).toISOString().slice(0, 10) %>" required>
+                                    value="<%= new Date(new Date(result.DateOfReceival).getTime() + 330*60*1000).toISOString().slice(0, 10) %>"
+                                    required>
                             </div>
                             <div class="col-sm-6">
                                 <label for="v-s-no" class="col-form-label">Serial No.:</label>

@@ -58,27 +58,38 @@ ivouchers.post('/action/:Id/:user', (req, res) => {
     var inputValue = req.body.action_type;
     if (inputValue == "Accept") {
         //compare the quantity of the item in the voucher with the quantity in the inventory
-        db.query(`SELECT * FROM ivitems INNER JOIN items where ivitems.ivID =${req.params.Id} and ivitems.ivItemID = items.ID`, (err, vItemResult) => {
+        db.query(`SELECT *, quantity - ivQtyPassed as balance FROM ivitems INNER JOIN items where ivitems.ivID =${req.params.Id} and ivitems.ivItemID = items.ID`, (err, vItemResult) => {
             if (err) {
                 throw err;
             }
-            //loop result and update the quantity of the item in the inventory
-            vItemResult.forEach(row => {
-                db.query(`UPDATE items SET Quantity = Quantity - ${row.ivQtyPassed} WHERE ID = ${row.ID}`, (err, stockUpdateResult) => {
+            // console.log(vItemResult);
+            let lessBalanceList = vItemResult.filter(row => row.balance < 0);
+            if (lessBalanceList.length == 0) {
+                // check if the quantity in the inventory is enough
+                vItemResult.forEach(row => {
+                    db.query(`UPDATE items SET Quantity = Quantity - ${row.ivQtyPassed} WHERE ID = ${row.ID}`, (err, stockUpdateResult) => {
+                        if (err) {
+                            throw err;
+                        }
+                    });
+                }
+                );
+                //update the status of the voucher to accepted
+                db.query(`UPDATE issuedvouchers SET Approval = 1, ApprovedBy = ${req.params.user}, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ${req.params.Id}`, (err, result) => {
                     if (err) {
                         throw err;
                     }
-                });
-            }
-            );
-            //update the status of the voucher to accepted
-            db.query(`UPDATE issuedvouchers SET Approval = 1, ApprovedBy = ${req.params.user}, ApprovalDate = CURRENT_TIMESTAMP() WHERE ID = ${req.params.Id}`, (err, result) => {
-                if (err) {
-                    throw err;
                 }
+                );
+                res.redirect('/ivouchers');
             }
-            );
-            res.redirect('/ivouchers');
+            else {
+                let str = ``;
+                lessBalanceList.forEach(row => {
+                    str += `There's a shortage of ${row.Name} in the inventory.`;
+                });
+                res.status(409).send(str);
+            }
         })
     } else {
         //db query to set approval to 2
@@ -98,30 +109,31 @@ ivouchers.post('/new', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
     // console.log(addedJSON);
     db.query(
-        `INSERT INTO issuedvouchers (IVNo, IVYear, Receiver, SNo, Scheme, DateOfReceival ) VALUES (${req.body.ivid}, ${req.body.ivyear}, ${req.body.stationid}, ${req.body.sno}, ${req.body.schemeid}, '${new Date(req.body.dor).toISOString().slice(0, 10)}')`,
+        `INSERT INTO issuedvouchers (IVNo, IVYear, Receiver, SNo, Scheme, DateOfReceival ) VALUES (${req.body.ivid}, ${req.body.ivyear}, ${req.body.stationid}, ${req.body.sno}, ${req.body.schemeid}, '${new Date(new Date(req.body.dor).getTime() + 330 * 60 * 1000).toISOString().slice(0, 10)}')`,
         (err, result) => {
             if (err) {
                 throw err;
             }
             for (i = 0; i < Object.keys(addedJSON).length; i++) {
-                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i]}'`, (err, itemNameIDResult) => {
-                    if (err) {
-                        throw err;
-                    }
-                    // console.log(addedJSON);
-                    // console.log(itemNameIDResult);
-                    db.query(`SELECT LAST_INSERT_ID() as lastID FROM issuedvouchers`, (err, lastVoucherResult) => {
+                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i].replace(/"/g, '\\"').replace(/'/g, "\\'")
+                    }'`, (err, itemNameIDResult) => {
                         if (err) {
                             throw err;
                         }
-                        // console.log(lastVoucherResult);
-                        db.query(`INSERT INTO ivitems (ivID, ivItemID, ivQtyReq, ivQtyPassed) VALUES (${lastVoucherResult[0].lastID}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, ${addedJSON[itemNameIDResult[0].Name].passedQty})`, (err, result) => {
+                        // console.log(addedJSON);
+                        // console.log(itemNameIDResult);
+                        db.query(`SELECT LAST_INSERT_ID() as lastID FROM issuedvouchers`, (err, lastVoucherResult) => {
                             if (err) {
                                 throw err;
                             }
+                            // console.log(lastVoucherResult);
+                            db.query(`INSERT INTO ivitems (ivID, ivItemID, ivQtyReq, ivQtyPassed) VALUES (${lastVoucherResult[0].lastID}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, ${addedJSON[itemNameIDResult[0].Name].passedQty})`, (err, result) => {
+                                if (err) {
+                                    throw err;
+                                }
+                            })
                         })
                     })
-                })
             }
             res.redirect('/ivouchers');
         }
@@ -153,9 +165,7 @@ ivouchers.get('/edit/:Id', (req, res) => {
                         if (err) {
                             throw err;
                         }
-
-
-                        res.render('pages/index', { option: "editIV", result: result[0], itemRows: itemRowResult, ivItemlist: ivItemResult, schemeRows: schemesResult, stationRows: stationsResult, error: null });
+                        res.render('pages/index', { option: "editIV", result: result[0], itemRows: itemRowResult, ivItemlist: ivItemResult, ivItemJSON: JSON.stringify(ivItemResult).replace(/"/g, '\\"').replace(/'/g, "\\'"), schemeRows: schemesResult, stationRows: stationsResult, error: null });
                     }
                     );
                 }
@@ -172,7 +182,7 @@ ivouchers.get('/edit/:Id', (req, res) => {
 ivouchers.post('/edit/:Id', (req, res) => {
 
     let addedJSON = JSON.parse(req.body.addedJSON);
-    db.query(`UPDATE issuedvouchers SET IVNo = ${req.body.ivid}, IVYear = ${req.body.ivyear}, Receiver = ${req.body.stationid}, SNo = ${req.body.sno}, Scheme = ${req.body.schemeid}, DateOfReceival = '${new Date(req.body.dor).toISOString().slice(0, 10)}' WHERE ID = ${req.params.Id}`, (err, result) => {
+    db.query(`UPDATE issuedvouchers SET IVNo = ${req.body.ivid}, IVYear = ${req.body.ivyear}, Receiver = ${req.body.stationid}, SNo = ${req.body.sno}, Scheme = ${req.body.schemeid}, DateOfReceival = '${new Date(new Date(req.body.dor).getTime() + 330 * 60 * 1000).toISOString().slice(0, 10)}' WHERE ID = ${req.params.Id}`, (err, result) => {
         if (err) {
             throw err;
         }
@@ -182,7 +192,7 @@ ivouchers.post('/edit/:Id', (req, res) => {
             }
 
             for (i = 0; i < Object.keys(addedJSON).length; i++) {
-                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i]}'`, (err, itemNameIDResult) => {
+                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i].replace(/"/g, '\\"').replace(/'/g, "\\'")}'`, (err, itemNameIDResult) => {
                     if (err) {
                         throw err;
                     }

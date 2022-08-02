@@ -46,7 +46,7 @@ rvouchers.get('/', (req, res) => {
 
                     }
                 });
-                console.log(rvItemlist);
+                // console.log(rvItemlist);
                 // console.log(itemRowResult);
                 res.render('pages/index', { option: "rvouchers", rvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
             });
@@ -57,13 +57,13 @@ rvouchers.get('/', (req, res) => {
 rvouchers.post('/new', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
     db.query(
-        `INSERT INTO receivedvouchers (RVNo, RVYear, Supplier, Scheme, SNo, DateOfReceival) VALUES (${req.body.rvid}, ${req.body.rvyear}, '${req.body.stationid}', ${req.body.schemeid}, ${req.body.sno}, '${new Date(req.body.dor).toISOString().slice(0, 10)}')`,
+        `INSERT INTO receivedvouchers (RVNo, RVYear, Supplier, Scheme, SNo, DateOfReceival) VALUES (${req.body.rvid}, ${req.body.rvyear}, '${req.body.stationid}', ${req.body.schemeid}, ${req.body.sno}, '${new Date(new Date(req.body.dor).getTime() + 330 * 60 * 1000).toISOString().slice(0, 10)}')`,
         (err, result) => {
             if (err) {
                 throw err;
             }
             for (i = 0; i < Object.keys(addedJSON).length; i++) {
-                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i]}'`, (err, itemNameIDResult) => {
+                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i].replace(/"/g, '\\"').replace(/'/g, "\\'")}'`, (err, itemNameIDResult) => {
                     if (err) {
                         throw err;
                     }
@@ -143,7 +143,7 @@ rvouchers.get('/edit/:Id', (req, res) => {
                 }
 
 
-                console.log(rvItemResult);
+                // console.log(rvItemResult);
                 // console.log(itemRowResult);
                 db.query(`SELECT * FROM schemes`, (err, schemesResult) => {
                     if (err) {
@@ -164,7 +164,7 @@ rvouchers.get('/edit/:Id', (req, res) => {
 rvouchers.post('/edit/:Id', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
     db.query(
-        `UPDATE receivedvouchers SET RVNo = ${req.body.rvid}, RVYear = ${req.body.rvyear}, Supplier = '${req.body.stationid}', Scheme = ${req.body.schemeid}, SNo = ${req.body.sno}, DateOfReceival = '${new Date(req.body.dor).toISOString().slice(0, 10)}' WHERE ID = ${req.params.Id}`,
+        `UPDATE receivedvouchers SET RVNo = ${req.body.rvid}, RVYear = ${req.body.rvyear}, Supplier = '${req.body.stationid}', Scheme = ${req.body.schemeid}, SNo = ${req.body.sno}, DateOfReceival = '${new Date(new Date(req.body.dor).getTime() + 330 * 60 * 1000).toISOString().slice(0, 10)}' WHERE ID = ${req.params.Id}`,
         (err, result) => {
             if (err) {
                 throw err;
@@ -174,7 +174,7 @@ rvouchers.post('/edit/:Id', (req, res) => {
                     throw err;
                 }
                 for (i = 0; i < Object.keys(addedJSON).length; i++) {
-                    db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i]}'`, (err, itemNameIDResult) => {
+                    db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i].replace(/"/g, '\\"').replace(/'/g, "\\'")}'`, (err, itemNameIDResult) => {
                         if (err) {
                             throw err;
                         }

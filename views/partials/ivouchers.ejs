@@ -175,7 +175,9 @@
                                                     <%= issue.schemeName %>
                                                 </td>
                                                 <td class="cell">
-                                                    <%= new Date(issue.DateOfReceival).toISOString().slice(0, 10) %>
+
+                                                    <%= new Date(new Date(issue.DateOfReceival).getTime() + 330 * 60 *
+                                                        1000).toISOString().slice(0, 10) %>
                                                 </td>
                                                 <td class="cell">
                                                     <% if (issue.Approval==0 ) { %>

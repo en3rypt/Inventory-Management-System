@@ -192,7 +192,7 @@ ivouchers.post('/edit/:Id', (req, res) => {
             }
 
             for (i = 0; i < Object.keys(addedJSON).length; i++) {
-                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i]}'`, (err, itemNameIDResult) => {
+                db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i].replace(/"/g, '\\"').replace(/'/g, "\\'")}'`, (err, itemNameIDResult) => {
                     if (err) {
                         throw err;
                     }

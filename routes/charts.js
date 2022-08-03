@@ -52,7 +52,7 @@ charts.get('/rv', (req, res) => {
 
 //charts for items isssued
 charts.get('/ii/week', (req, res) => {
-    db.query(`SELECT Date(ApprovalDate), SUM(ivitems.ivQtyPassed) FROM
+    db.query(`SELECT DATE_FORMAT(Date(ApprovalDate),'%y-%m-%d') as date, SUM(ivitems.ivQtyPassed) as sum FROM
     ivitems INNER JOIN issuedvouchers ON ivitems.ivID = issuedvouchers.ID
     WHERE issuedvouchers.Approval = 1 AND DATE(ApprovalDate) > now() - INTERVAL 1 WEEK
     GROUP BY DATE(ApprovalDate); `, (err, result) => {
@@ -63,7 +63,7 @@ charts.get('/ii/week', (req, res) => {
 })
 
 charts.get('/ii/month', (req, res) => {
-    db.query(`SELECT DAY(ApprovalDate), SUM(ivitems.ivQtyPassed) FROM
+    db.query(`SELECT DATE_FORMAT(Date(ApprovalDate),'%y-%m-%d') as date, SUM(ivitems.ivQtyPassed) as sum FROM
     ivitems INNER JOIN issuedvouchers ON ivitems.ivID = issuedvouchers.ID
     WHERE issuedvouchers.Approval = 1 AND ApprovalDate > now() - INTERVAL 1 MONTH
     GROUP BY DAY(ApprovalDate); `, (err, result) => {
@@ -74,7 +74,7 @@ charts.get('/ii/month', (req, res) => {
 })
 
 charts.get('/ii/year', (req, res) => {
-    db.query(`SELECT MONTH(ApprovalDate), SUM(ivitems.ivQtyPassed) FROM
+    db.query(`SELECT MONTH(ApprovalDate) as date, SUM(ivitems.ivQtyPassed) as sum FROM
     ivitems INNER JOIN issuedvouchers ON ivitems.ivID = issuedvouchers.ID
     WHERE issuedvouchers.Approval = 1 AND ApprovalDate > now() - INTERVAL 1 YEAR
     GROUP BY MONTH(ApprovalDate); `, (err, result) => {
@@ -85,7 +85,7 @@ charts.get('/ii/year', (req, res) => {
 })
 
 charts.get('/ii/all', (req, res) => {
-    db.query(`SELECT YEAR(ApprovalDate), SUM(ivitems.ivQtyPassed) FROM
+    db.query(`SELECT YEAR(ApprovalDate) as date, SUM(ivitems.ivQtyPassed) as sum FROM
     ivitems INNER JOIN issuedvouchers ON ivitems.ivID = issuedvouchers.ID
     WHERE issuedvouchers.Approval = 1
     GROUP BY YEAR(ApprovalDate);`, (err, result) => {

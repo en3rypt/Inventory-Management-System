@@ -1,9 +1,9 @@
 const express = require('express');
 const items = express.Router();
 const db = require('../dbConnection');
+const { authRole } = require('../middleware/authMiddleware');
 
-
-items.get('/new', (req, res) => {
+items.get('/new', authRole([2, 3]), (req, res) => {
     db.query(`SELECT * FROM categories`, (err, categResult) => {
         if (err) {
             throw err;
@@ -28,7 +28,7 @@ items.get('/', (req, res) => {
 
 
 
-items.post('/new', (req, res) => {
+items.post('/new', authRole([2, 3]), (req, res) => {
     db.query(
         `INSERT INTO items (CategoryID, Name, Quantity, Life) VALUES ( ${req.body.categoryid}, '${req.body.itemname.replace(/"/g, '\\"').replace(/'/g, "\\'")}', ${req.body.itemquantity}, ${req.body.itemlife})`,
         (err, result) => {

@@ -1,8 +1,9 @@
 const express = require('express');
 const schemes = express.Router();
 const db = require('../dbConnection');
+const { authRole } = require('../middleware/authMiddleware');
 
-schemes.get('/new', (req, res) => {
+schemes.get('/new', authRole([2, 3]), (req, res) => {
     res.render('pages/index', { option: 'newScheme' });
 })
 
@@ -45,7 +46,7 @@ schemes.get('/', (req, res) => {
     });
 })
 
-schemes.post('/new', (req, res) => {
+schemes.post('/new', authRole([2, 3]), (req, res) => {
     db.query(
         `INSERT INTO schemes (Name) VALUES ('${req.body.schemename}')`,
         (err, result) => {

@@ -13,7 +13,7 @@ const dashboard = require('./routes/dashboard');
 const stations = require('./routes/stations');
 const schemes = require('./routes/schemes');
 
-const report = require('./routes/report');
+
 
 const charts = require('./routes/charts');
 
@@ -52,7 +52,6 @@ app.use('/stations', requireAuth, stations);
 app.use('/schemes', requireAuth, schemes);
 app.use('/charts', requireAuth, charts);
 app.use('/', requireAuth, dashboard);
-app.use('/report',requireAuth, report);
 
 
 

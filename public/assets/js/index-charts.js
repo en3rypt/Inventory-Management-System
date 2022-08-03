@@ -133,81 +133,6 @@ var lineChartConfig = {
 
 // Chart.js Bar Chart Example 
 
-var barChartConfig = {
-	type: 'bar',
-
-	data: {
-		labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-		datasets: [{
-			label: 'Orders',
-			backgroundColor: window.chartColors.green,
-			borderColor: window.chartColors.green,
-			borderWidth: 1,
-			maxBarThickness: 16,
-
-			data: [
-				23,
-				45,
-				76,
-				75,
-				62,
-				37,
-				83
-			]
-		}]
-	},
-	options: {
-		responsive: true,
-		aspectRatio: 1.5,
-		legend: {
-			position: 'bottom',
-			align: 'end',
-		},
-		title: {
-			display: true,
-			text: 'Chart.js Bar Chart Example'
-		},
-		tooltips: {
-			mode: 'index',
-			intersect: false,
-			titleMarginBottom: 10,
-			bodySpacing: 10,
-			xPadding: 16,
-			yPadding: 16,
-			borderColor: window.chartColors.border,
-			borderWidth: 1,
-			backgroundColor: '#fff',
-			bodyFontColor: window.chartColors.text,
-			titleFontColor: window.chartColors.text,
-
-		},
-		scales: {
-			xAxes: [{
-				display: true,
-				gridLines: {
-					drawBorder: false,
-					color: window.chartColors.border,
-				},
-
-			}],
-			yAxes: [{
-				display: true,
-				gridLines: {
-					drawBorder: false,
-					color: window.chartColors.borders,
-				},
-
-
-			}]
-		}
-
-	}
-}
-
-
-
-
-
 
 function ivDoughtnutChart(option) {
 	if (option == 0) {
@@ -303,13 +228,26 @@ function iiBarChart(option) {
 		var endpoint = `http://localhost:3000/charts/ii/${option}`;
 
 	}
-
 	return fetch(endpoint)
 		.then(response => response.json())
 		.then(result => {
-			var new_data = [];
+			console.log(result);
+			var date = [];
+
+
+			var sum = [];
 			for (var i = 0; i < result.length; i++) {
-				new_data.push(result[i].count);
+				date.push(result[i].date);
+				sum.push(result[i].sum);
+			}
+			if (option == 'year') {
+				var sums = new Array(12).fill(0);
+				var dates = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+				//loop date
+				for (var i = 0; i < date.length; i++) {
+					sums[date[i] - 1] = sum[i];
+				}
+
 			}
 
 
@@ -317,14 +255,14 @@ function iiBarChart(option) {
 				type: 'bar',
 
 				data: {
-					labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+					labels: dates ? dates : date,
 					datasets: [{
-						label: 'Orders',
+						label: 'items',
 						backgroundColor: window.chartColors.green,
 						borderColor: window.chartColors.green,
 						borderWidth: 1,
 						maxBarThickness: 16,
-						data: new_data
+						data: sums ? sums : sum,
 					}]
 				},
 				options: {
@@ -336,7 +274,7 @@ function iiBarChart(option) {
 					},
 					title: {
 						display: true,
-						text: 'Chart.js Bar Chart Example'
+						text: 'items issued'
 					},
 					tooltips: {
 						mode: 'index',
@@ -383,12 +321,11 @@ function iiBarChart(option) {
 window.addEventListener('load', function () {
 	//chart by id
 	var doughnutChart = document.getElementById('chart-doughnut').getContext('2d');
+	var barChart = document.getElementById('canvas-barchart').getContext('2d');
 
 	// var lineChart = document.getElementById('canvas-linechart').getContext('2d');
 	// window.myLine = new Chart(lineChart, lineChartConfig);
 
-	var barChart = document.getElementById('canvas-barchart').getContext('2d');
-	window.myBar = new Chart(barChart, barChartConfig);
 
 	//select box on change
 	var selectBox = document.getElementById('iv-doughnut');
@@ -400,6 +337,13 @@ window.addEventListener('load', function () {
 
 	ivDoughtnutChart(0).then(response => window.myDoughnut = new Chart(doughnutChart, response));
 
-
+	//bar chart
+	var barchatbox = document.getElementById('ii-bar');
+	barchatbox.addEventListener('change', function () {
+		var selected = barchatbox.options[barchatbox.selectedIndex].value;
+		iiBarChart(selected).then(response => window.myBar = new Chart(barChart, response));
+	}
+	);
+	iiBarChart(0).then(response => window.myBar = new Chart(barChart, response));
 });
 

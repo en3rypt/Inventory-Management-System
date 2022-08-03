@@ -1,9 +1,9 @@
 const express = require('express');
 const ivouchers = express.Router();
 const db = require('../dbConnection');
+const { authRole } = require('../middleware/authMiddleware');
 
-
-ivouchers.get('/new', (req, res) => {
+ivouchers.get('/new', authRole([2, 3]), (req, res) => {
     db.query(`SELECT * FROM items`, (err, itemRowResult) => {
         // console.log(itemRowResult);
         if (err) {
@@ -105,7 +105,7 @@ ivouchers.post('/action/:Id/:user', (req, res) => {
 })
 
 
-ivouchers.post('/new', (req, res) => {
+ivouchers.post('/new', authRole([2, 3]), (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
     // console.log(addedJSON);
     db.query(

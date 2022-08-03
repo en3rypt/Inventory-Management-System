@@ -1,8 +1,9 @@
 const express = require('express');
 const stations = express.Router();
 const db = require('../dbConnection');
+const { authRole } = require('../middleware/authMiddleware');
 
-stations.get('/new', (req, res) => {
+stations.get('/new', authRole([2, 3]), (req, res) => {
     res.render('pages/index', { option: 'newStation' });
 })
 stations.get('/', (req, res) => {
@@ -16,7 +17,7 @@ stations.get('/', (req, res) => {
     });
 })
 
-stations.post('/new', (req, res) => {
+stations.post('/new', authRole([2, 3]), (req, res) => {
     db.query(
         `INSERT INTO stations (Name) VALUES ('${req.body.stationname}')`,
         (err, result) => {

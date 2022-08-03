@@ -1,8 +1,9 @@
 const express = require('express');
 const categories = express.Router();
 const db = require('../dbConnection');
+const { authRole } = require('../middleware/authMiddleware');
 
-categories.get('/new', (req, res) => {
+categories.get('/new', authRole([2, 3]), (req, res) => {
     res.render('pages/index', { option: 'newCategory' });
 })
 categories.get('/', (req, res) => {
@@ -16,7 +17,7 @@ categories.get('/', (req, res) => {
     });
 })
 
-categories.post('/new', (req, res) => {
+categories.post('/new', authRole([2, 3]), (req, res) => {
     db.query(
         `INSERT INTO categories (Name) VALUES ('${req.body.categname}')`,
         (err, result) => {

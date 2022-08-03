@@ -38,10 +38,10 @@ const checkUser = (req, res, next) => {
     }
 }
 
-const authRole = (role) => {
+const authRole = (roles) => {
     return (req, res, next) => {
-        if (res.locals.auth !== role) {
-            return res.status(401).redirect('/login')
+        if (!roles.includes(res.locals.auth)) {
+            return res.status(401).redirect('/')
         }
         next()
 

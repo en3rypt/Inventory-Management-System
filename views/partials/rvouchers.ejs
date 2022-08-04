@@ -270,3 +270,27 @@
     </footer>
     <!--//app-footer-->
 </div>
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<script>
+    alertify.set('notifier', 'position', 'top-right');
+    var status = '<%= status %>';
+    console.log(status);
+    if (status == 'Addsuccess') {
+        alertify.success('Received Voucher Added Successfully!');
+    } else if (status == 'Editsuccess') {
+        alertify.success('Received Voucher Updated Successfully!');
+
+    } else if (status == 'Deletesuccess') {
+        alertify.success('Received Voucher Deleted Successfully!');
+
+    } else if (status == 'Existerror') {
+        alertify.warning('Received Voucher Already Exists!');
+    }
+    else if (status == 'Acceptsuccess') {
+        alertify.warning('Received Voucher Accepted Successfully!');
+    }
+    else if (status == 'Rejectsuccess') {
+        alertify.warning('Received Voucher Rejected Successfully!');
+    }
+</script>

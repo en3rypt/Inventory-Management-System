@@ -27,6 +27,10 @@ ivouchers.get('/new', authRole([2, 3]), (req, res) => {
 
 //OPTIMIZABLE
 ivouchers.get('/', (req, res) => {
+    var status = req.query.status;
+    if (!(status == 'Addsuccess' || status == 'Deletesuccess' || status == 'Editsuccess' || status == 'Existerror' || status == 'Acceptsuccess' || status == 'Rejectsuccess')) {
+        status = null;
+    }
     var error = req.query.error;
     if (!error) {
         error = null;
@@ -62,7 +66,7 @@ ivouchers.get('/', (req, res) => {
                     })
                 });
 
-                res.render('pages/index', { option: "ivouchers", ivouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist, error: error });
+                res.render('pages/index', { status: status, option: "ivouchers", ivouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist, error: error });
 
             });
         });
@@ -70,6 +74,7 @@ ivouchers.get('/', (req, res) => {
 });
 
 ivouchers.post('/action/:Id/:user', (req, res) => {
+
     var inputValue = req.body.action_type;
     if (inputValue == "Accept") {
         //compare the quantity of the item in the voucher with the quantity in the inventory
@@ -96,7 +101,7 @@ ivouchers.post('/action/:Id/:user', (req, res) => {
                     }
                 }
                 );
-                res.redirect('/ivouchers');
+                res.redirect('/ivouchers?status=Acceptsuccess');
             }
             else {
                 let str = ``;
@@ -113,7 +118,7 @@ ivouchers.post('/action/:Id/:user', (req, res) => {
             if (err) {
                 throw err;
             }
-            res.redirect('/ivouchers');
+            res.redirect('/ivouchers?status=Rejectsuccess');
         }
         );
 
@@ -121,7 +126,7 @@ ivouchers.post('/action/:Id/:user', (req, res) => {
 })
 
 
-ivouchers.post('/new', authRole([2, 3]), (req, res) => {
+ivouchers.post('/new', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
     // console.log(addedJSON);
     db.query(
@@ -151,7 +156,7 @@ ivouchers.post('/new', authRole([2, 3]), (req, res) => {
                         })
                     })
             }
-            res.redirect('/ivouchers');
+            res.redirect('/ivouchers?status=Addsuccess');
         }
     );
 })
@@ -223,7 +228,7 @@ ivouchers.post('/edit/:Id', (req, res) => {
 
                 })
             }
-            res.redirect('/ivouchers');
+            res.redirect('/ivouchers?status=Editsuccess');
         }
         );
     }

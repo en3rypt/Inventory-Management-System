@@ -21,15 +21,15 @@
                             </label>
                             <!-- <input class="form-control" list="datalistOptions"
                                                                         id="category-id" name="categoryid"> -->
-                            
-                                <select id="category-id" name="categoryid" class="w-25 form-select mt-2" required>
-                                    <% categs.forEach(function(categ) { %>
-                                        <option value="<%= categ.ID %>">
-                                            <%= categ.Name %>
-                                        </option>
-                                        <% }); %>
-                                </select>
-                            
+
+                            <select id="category-id" name="categoryid" class="w-25 form-select mt-2" required>
+                                <% categs.forEach(function(categ) { %>
+                                    <option value="<%= categ.ID %>">
+                                        <%= categ.Name %>
+                                    </option>
+                                    <% }); %>
+                            </select>
+
                             <!-- <input type="text" class="form-control" id="category-id"
                                                                         name="categoryid"> -->
                         </div>
@@ -49,7 +49,7 @@
                                     name="itemlife" required>
                             </div>
                         </div>
-                        
+
                         <button type="button" class="btn btn-secondary" style="margin-top: 20px;"
                             onclick="history.back()">Back</button>
                         <input type="submit" class="btn btn-primary text-white" style="margin-top: 20px;">
@@ -69,7 +69,14 @@
     <!--//app-content-->
 
     <footer class="app-footer">
+        <div class="container text-center py-3">
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
+                    style="color: #fb866a;"></i> by Students of<a class="app-link"
+                    href="https://www.psgtech.edu/hme.php?var=AMC" target="_blank"> PSG TECH</a> for Coimbatore City
+                Police Commissioner Office</small>
 
+        </div>
     </footer>
     <!--//app-footer-->
 

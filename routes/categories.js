@@ -7,24 +7,28 @@ categories.get('/new', authRole([2, 3]), (req, res) => {
     res.render('pages/index', { option: 'newCategory' });
 })
 categories.get('/', (req, res) => {
+    var status = req.query.status;
+    if (!(status == 'Addsuccess' || status == 'Deletesuccess' || status == 'Editsuccess' || status == 'Existerror')) {
+        status = null;
+    }
 
     db.query(`SELECT * FROM categories`, (err, result) => {
         // console.log(result);
         if (err) {
             throw err;
         }
-        res.render('pages/index', { option: "categories", categoriesData: result });
+        res.render('pages/index', { option: "categories", categoriesData: result, status: status });
     });
 })
 
-categories.post('/new', authRole([2, 3]), (req, res) => {
+categories.post('/new', (req, res) => {
     db.query(
         `INSERT INTO categories (Name) VALUES ('${req.body.categname}')`,
         (err, result) => {
             if (err) {
                 throw err;
             }
-            res.redirect('/categories');
+            res.redirect('/categories?status=Addsuccess');
         }
     );
 })
@@ -41,14 +45,14 @@ categories.post('/edit/:id', (req, res) => {
     if (option == "Submit") {
         db.query(`UPDATE categories SET Name = '${req.body.categname}' WHERE id = ${req.params.id}`, (err, result) => {
             if (err) throw err;
-            res.redirect('/categories');
+            res.redirect('/categories?status=Editsuccess');
         }
         )
     }
     else if (option == "Delete") {
         db.query(`DELETE FROM categories WHERE id = ${req.params.id}`, (err, result) => {
             if (err) throw err;
-            res.redirect('/categories');
+            res.redirect('/categories?status=Deletesuccess');
         }
         )
     }

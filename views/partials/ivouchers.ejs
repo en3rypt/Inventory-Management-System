@@ -4,126 +4,39 @@
         <div class="container-xl">
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
-                <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Issue Vouchers</h1>
-                </div>
-
-                <div class="col-auto">
-                    <div class="page-utilities">
-                        <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-                            <!-- <div class="col-auto">
-                                <form class="table-search-form row gx-1 align-items-center">
-                                    <div class="col-auto">
-                                        <input type="text" id="search-orders" name="searchorders"
-                                            class="form-control search-orders" placeholder="Search">
-                                    </div>
-                                    <div class="col-auto">
-                                        <button type="submit" class="btn app-btn-secondary">Search</button>
-                                    </div>
-                                </form>
-
-                            </div>
-                            <div class="col-auto">
-
-                                <select class="form-select w-auto">
-                                    <option selected value="option-1">All</option>
-                                    <option value="option-2">This week</option>
-                                    <option value="option-3">This month</option>
-                                    <option value="option-4">Last 3 months</option>
-
-                                </select>
-                            </div> -->
-                            <% if(auth==3){ %>
-                                <div class="col-auto">
-                                    <a href="/ivouchers/new">
-
-                                        <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#newEntryModal">New Issue Voucher</button>
-                                    </a>
-                                    <!-- <div class="modal fade" id="newEntryModal" tabindex="-1"
-                                            aria-labelledby="newEntryModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="newEntryModalLabel">Enter data
-                                                        for
-                                                        new i-voucher</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="/ivouchers" method="POST">
-                                                        <div class="mb-3">
-                                                            <label for="recipient-name"
-                                                                class="col-form-label">ivoucher
-                                                                ID:</label>
-                                                            <input type="text" class="form-control" id="req-receiverid"
-                                                                name="reqid" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="recipient-name" class="col-form-label">Receiver
-                                                                ID:</label>
-                                                            <input type="text" class="form-control" id="req-receiverid"
-                                                                name="reqreceiverid" required>
-                                                        </div>
-                                                        <div id="message-validate" class="mb-3 d-none">
-                                                            <div class="alert alert-danger" role="alert">
-                                                                <strong>
-                                                                    Please add items to the list before submitting.
-                                                                </strong>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="message-text" class="col-form-label">Add
-                                                                items:</label><br>
-                                                            <ul class="added-items-ul">
-
-                                                            </ul>
-                                                            <select id="item-name-drop" required>
-                                                                <% itemRows.forEach(function(item) { %>
-                                                                    <option value="<%= item.ID %>">
-                                                                        <%= item.Name %>
-                                                                    </option>
-                                                                    <% }) %>
-                                                            </select>
-                                                            <input class="form-control w-75 d-inline" id="item-quantity"
-                                                                type="number" min="0" step="1" placeholder="Quantity"
-                                                                required>
-                                                            <button type="button" id="req-item-add"
-                                                                class="btn app-btn-secondary">Add</button>
-                                                            <input type="text" id="added-JSON" name="addedJSON"
-                                                                class="d-none">
-                                                        </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <input type="submit" id="submit-btn-ov" class="btn btn-primary">
-                                                </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                                </div>
-                                <% } %>
-                                    <!-- <div class="col-auto">
-                                <a class="btn app-btn-secondary" href="#">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
-                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                                        <path fill-rule="evenodd"
-                                            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                                    </svg>
-                                    Download CSV
-                                </a>
-                            </div> -->
-                        </div>
-                        <!--//row-->
+                <% if(error){ %>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Not Enough Stock!</strong>
+                        <%= error %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <!--//table-utilities-->
-                </div>
-                <!--//col-auto-->
+                    <% } %>
+                        <div class="col-auto">
+                            <h1 class="app-page-title mb-0">Issue Vouchers</h1>
+                        </div>
+
+                        <div class="col-auto">
+                            <div class="page-utilities">
+                                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+
+                                    <% if(auth==3){ %>
+                                        <div class="col-auto">
+                                            <a href="/ivouchers/new">
+
+                                                <button type="button" class="btn app-btn-secondary"
+                                                    data-bs-toggle="modal" data-bs-target="#newEntryModal">New Issue
+                                                    Voucher</button>
+                                            </a>
+
+                                        </div>
+                                        <% } %>
+
+                                </div>
+                                <!--//row-->
+                            </div>
+                            <!--//table-utilities-->
+                        </div>
+                        <!--//col-auto-->
             </div>
             <!--//row-->
 

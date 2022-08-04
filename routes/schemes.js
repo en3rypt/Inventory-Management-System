@@ -20,14 +20,14 @@ schemes.post('/edit/:id', (req, res) => {
 
         db.query(`UPDATE schemes SET Name = '${req.body.schemename}' WHERE id = ${req.params.id}`, (err, result) => {
             if (err) throw err;
-            res.redirect('/schemes');
+            res.redirect('/schemes?status=Editsuccess');
         }
         )
     }
     else if (option == "Delete") {
         db.query(`DELETE FROM schemes WHERE id = ${req.params.id}`, (err, result) => {
             if (err) throw err;
-            res.redirect('/schemes');
+            res.redirect('/schemes?status=Deletesuccess');
         }
         )
     }
@@ -37,24 +37,42 @@ schemes.post('/edit/:id', (req, res) => {
 
 schemes.get('/', (req, res) => {
 
+    var status = req.query.status;
+    if (!(status == 'Addsuccess' || status == 'Deletesuccess' || status == 'Editsuccess' || status == 'Existerror')) {
+        status = null;
+    }
+
     db.query(`SELECT * FROM schemes`, (err, result) => {
         // console.log(result);
         if (err) {
             throw err;
         }
-        res.render('pages/index', { option: "schemes", schemesData: result });
+        res.render('pages/index', { option: "schemes", schemesData: result, status: status });
     });
 })
 
-schemes.post('/new', authRole([2, 3]), (req, res) => {
-    db.query(
-        `INSERT INTO schemes (Name) VALUES ('${req.body.schemename}')`,
-        (err, result) => {
-            if (err) {
-                throw err;
-            }
-            res.redirect('/schemes');
+schemes.post('/new', (req, res) => {
+    //check if scheme already exists in database\
+    db.query(`SELECT * FROM schemes WHERE Name = '${req.body.schemename}'`, (err, result) => {
+        if (err) {
+            throw err;
         }
-    );
+        if (result.length > 0) {
+            res.redirect('/schemes?status=Existerror');
+        } else {
+
+            db.query(
+                `INSERT INTO schemes (Name) VALUES ('${req.body.schemename}')`,
+                (err, result) => {
+                    if (err) {
+                        throw err;
+                    }
+                    res.redirect('/schemes?status=Addsuccess');
+                }
+            );
+
+        }
+    });
+
 })
 module.exports = schemes;

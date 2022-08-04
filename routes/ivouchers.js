@@ -27,6 +27,10 @@ ivouchers.get('/new', authRole([2, 3]), (req, res) => {
 
 //OPTIMIZABLE
 ivouchers.get('/', (req, res) => {
+    var error = req.query.error;
+    if (!error) {
+        error = null;
+    }
     db.query(`SELECT issuedvouchers.ID as IVID, IVNo, IVYear, stations.Name as stationName, SNo, schemes.Name as schemeName, users.Name as userName, DateOfReceival, Approval, ApprovalDate, ApprovedBy FROM issuedvouchers INNER JOIN stations ON issuedvouchers.Receiver = stations.ID INNER JOIN schemes ON schemes.ID = issuedvouchers.Scheme INNER JOIN users ON users.ID = issuedvouchers.ApprovedBy;`, (err, result) => {
         if (err) {
             throw err;
@@ -48,7 +52,7 @@ ivouchers.get('/', (req, res) => {
                         'passed': row.ivQtyPassed
                     }
                 });
-                res.render('pages/index', { option: "ivouchers", ivouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist, error: null });
+                res.render('pages/index', { option: "ivouchers", ivouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist, error: error });
             });
         });
     });
@@ -88,7 +92,8 @@ ivouchers.post('/action/:Id/:user', (req, res) => {
                 lessBalanceList.forEach(row => {
                     str += `There's a shortage of ${row.Name} in the inventory.`;
                 });
-                res.status(409).send(str);
+                // res.status(409).send(str);
+                res.redirect(`/ivouchers?error=${str}`);
             }
         })
     } else {
@@ -180,7 +185,7 @@ ivouchers.get('/edit/:Id', (req, res) => {
 );
 
 ivouchers.post('/edit/:Id', (req, res) => {
-
+    console.log('in')
     let addedJSON = JSON.parse(req.body.addedJSON);
     db.query(`UPDATE issuedvouchers SET IVNo = ${req.body.ivid}, IVYear = ${req.body.ivyear}, Receiver = ${req.body.stationid}, SNo = ${req.body.sno}, Scheme = ${req.body.schemeid}, DateOfReceival = '${new Date(new Date(req.body.dor).getTime() + 330 * 60 * 1000).toISOString().slice(0, 10)}' WHERE ID = ${req.params.Id}`, (err, result) => {
         if (err) {
@@ -192,6 +197,7 @@ ivouchers.post('/edit/:Id', (req, res) => {
             }
 
             for (i = 0; i < Object.keys(addedJSON).length; i++) {
+
                 db.query(`SELECT * FROM items WHERE Name = '${Object.keys(addedJSON)[i].replace(/"/g, '\\"').replace(/'/g, "\\'")}'`, (err, itemNameIDResult) => {
                     if (err) {
                         throw err;

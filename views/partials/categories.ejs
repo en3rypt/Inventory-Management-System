@@ -118,3 +118,20 @@
     <!--//app-footer-->
 
 </div>
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<script>
+    var status = '<%= status %>';
+    console.log(status);
+    if (status == 'Addsuccess') {
+        alertify.success('Category Added Successfully!');
+    } else if (status == 'Editsuccess') {
+        alertify.success('Category Updated Successfully!');
+
+    } else if (status == 'Deletesuccess') {
+        alertify.success('Category Deleted Successfully!');
+
+    } else if (status == 'Existerror') {
+        alertify.warning('Category Already Exists!');
+    }
+</script>

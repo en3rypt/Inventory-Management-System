@@ -220,22 +220,35 @@
                                                                 <% if (rID==issue.IVID) { %>
                                                                     <% Object.keys(ivItemlist[rID]).forEach(function(item)
                                                                         { %>
-
-                                                                        <tr>
-                                                                            <td>
-                                                                                <%= item %>
-                                                                            </td>
-                                                                            <td>
-                                                                                <%= ivItemlist[rID][item].req %>
-                                                                            </td>
-                                                                            <td>
-                                                                                <%= ivItemlist[rID][item].passed %>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <% }) %>
-                                                                            <% } %>
-                                                                                <% }) %>
+                                                                        <% if (ivItemlist[rID][item].balance < 0 ) { %>
+                                                                            <tr class="text-danger">
+                                                                                <td>
+                                                                                    <%= item %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <%= ivItemlist[rID][item].req %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <%= ivItemlist[rID][item].passed %>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <% } else { %>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <%= item %>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <%= ivItemlist[rID][item].req %>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <%= ivItemlist[rID][item].passed
+                                                                                            %>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <% } %>
+                                                                                    <% }) %>
+                                                                                        <% } %>
+                                                                                            <% }) %>
                                                         </tbody>
                                                     </table>
 
@@ -260,9 +273,18 @@
                                                                 <ul class="dropdown-menu  text-center"
                                                                     aria-labelledby="dropdownMenuButton1">
                                                                     <% if(auth==2){ %>
-                                                                        <li><button type="submit" name="action_type"
-                                                                                value="Accept"
-                                                                                class="btn btn-success text-white m-1">Approve</button>
+                                                                        <li>
+                                                                            <% if (issue.balance < 0) { %>
+                                                                                <button type="submit" name="action_type"
+                                                                                    value="Accept"
+                                                                                    class="btn btn-success text-white m-1"
+                                                                                    disabled>Approve</button>
+                                                                                <% } else { %>
+                                                                                    <button type="submit"
+                                                                                        name="action_type"
+                                                                                        value="Accept"
+                                                                                        class="btn btn-success text-white m-1">Approve</button>
+                                                                                    <% } %>
                                                                         </li>
                                                                         <li><button type="submit" name="action_type"
                                                                                 value="Decline"

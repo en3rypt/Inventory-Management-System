@@ -35,19 +35,29 @@ ivouchers.get('/', (req, res) => {
             if (err) {
                 throw err;
             }
-            db.query(`SELECT * FROM issuedvouchers INNER JOIN ivitems ON issuedvouchers.ID = ivitems.ivID INNER JOIN items ON ivitems.ivItemID = items.ID;`, (err, vItemResult) => {
+            db.query(`SELECT *, quantity - ivQtyPassed as Balance FROM issuedvouchers INNER JOIN ivitems ON issuedvouchers.ID = ivitems.ivID INNER JOIN items ON ivitems.ivItemID = items.ID;`, (err, vItemResult) => {
                 if (err) {
                     throw err;
                 }
+                // console.log(vItemResult);
                 let ivItemlist = {};
                 vItemResult.forEach(row => {
                     if (!ivItemlist[row.ivID])
                         ivItemlist[row.ivID] = {};
                     ivItemlist[row.ivID][row.Name] = {
                         'req': row.ivQtyReq,
-                        'passed': row.ivQtyPassed
+                        'passed': row.ivQtyPassed,
+                        'balance': row.Balance
                     }
+                    result.forEach(ivRow => {
+                        if (ivRow.IVID == row.ivID) {
+                            ivRow.balance = 0;
+                            if (row.Balance < 0)
+                                ivRow.balance = row.Balance;
+                        }
+                    })
                 });
+                // console.log(result);
                 res.render('pages/index', { option: "ivouchers", ivouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist, error: null });
             });
         });

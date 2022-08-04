@@ -57,7 +57,7 @@ ivouchers.get('/', (req, res) => {
                         }
                     })
                 });
-                console.log(result);
+                // console.log(result);
                 res.render('pages/index', { option: "ivouchers", ivouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist, error: null });
             });
         });

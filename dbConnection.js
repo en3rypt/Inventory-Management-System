@@ -7,6 +7,12 @@ require('dotenv').config()
 // DB_USER = admin 
 // DB_PASSWORD = admin
 // DB_NAME = cbe_stocks
+
+// DB_HOST = sql6.freesqldatabase.com
+// DB_PORT = 3306
+// DB_USER = sql6510904
+// DB_PASSWORD = HE7SwbFPZT
+// DB_NAME = sql6510904
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,

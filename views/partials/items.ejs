@@ -233,14 +233,37 @@
     <!--//app-content-->
 
     <footer class="app-footer">
+        <div class="container text-center py-3">
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
+                    style="color: #fb866a;"></i> by Students of<a class="app-link"
+                    href="https://www.psgtech.edu/hme.php?var=AMC" target="_blank"> PSG TECH</a> for Coimbatore City
+                Police Commissioner Office</small>
 
+        </div>
     </footer>
     <!--//app-footer-->
 
 </div>
 
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
 <script>
+    alertify.set('notifier', 'position', 'bottom-right');
+    var status = '<%= status %>';
+    console.log(status);
+    if (status == 'Addsuccess') {
+        alertify.success('Scheme Added Successfully!');
+    } else if (status == 'Editsuccess') {
+        alertify.success('Scheme Updated Successfully!');
+
+    } else if (status == 'Deletesuccess') {
+        alertify.success('Scheme Deleted Successfully!');
+
+    } else if (status == 'Existerror') {
+        alertify.warning('Scheme Already Exists!');
+    }
+
     const dwnldBtn = document.getElementById('dwnld-btn');
     const printBtn = document.getElementById('print-btn');
 

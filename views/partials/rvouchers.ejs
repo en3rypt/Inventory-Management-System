@@ -135,8 +135,7 @@
                                                 </td>
                                                 <td class="cell">
                                                     <% if (rcv.Approval!=0 ) { %>
-                                                        <%= new Date(rcv.ApprovalDate).toISOString().slice(0, 10) + " "
-                                                            + new Date(rcv.ApprovalDate).toISOString().slice(11, 19) %>
+                                                        <%= new Date(rcv.ApprovalDate).toISOString().slice(0, 10) %>
                                                             <% } else { %>
                                                                 -
                                                                 <% } %>
@@ -260,7 +259,38 @@
     <!--//app-content-->
 
     <footer class="app-footer">
+        <div class="container text-center py-3">
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
+                    style="color: #fb866a;"></i> by Students of<a class="app-link"
+                    href="https://www.psgtech.edu/hme.php?var=AMC" target="_blank"> PSG TECH</a> for Coimbatore City
+                Police Commissioner Office</small>
 
+        </div>
     </footer>
     <!--//app-footer-->
 </div>
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<script>
+    alertify.set('notifier', 'position', 'top-right');
+    var status = '<%= status %>';
+    console.log(status);
+    if (status == 'Addsuccess') {
+        alertify.success('Received Voucher Added Successfully!');
+    } else if (status == 'Editsuccess') {
+        alertify.success('Received Voucher Updated Successfully!');
+
+    } else if (status == 'Deletesuccess') {
+        alertify.success('Received Voucher Deleted Successfully!');
+
+    } else if (status == 'Existerror') {
+        alertify.warning('Received Voucher Already Exists!');
+    }
+    else if (status == 'Acceptsuccess') {
+        alertify.warning('Received Voucher Accepted Successfully!');
+    }
+    else if (status == 'Rejectsuccess') {
+        alertify.warning('Received Voucher Rejected Successfully!');
+    }
+</script>

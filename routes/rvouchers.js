@@ -23,6 +23,10 @@ rvouchers.get('/new', (req, res) => {
 })
 
 rvouchers.get('/', (req, res) => {
+    var status = req.query.status;
+    if (!(status == 'Addsuccess' || status == 'Deletesuccess' || status == 'Editsuccess' || status == 'Existerror' || status == 'Acceptsuccess' || status == 'Rejectsuccess')) {
+        status = null;
+    }
     db.query(`SELECT receivedvouchers.ID as RVID, RVNo, RVYear, Supplier, SNo, schemes.Name as schemeName, users.Name as userName, DateOfReceival, Approval, ApprovalDate, ApprovedBy FROM receivedvouchers INNER JOIN schemes ON schemes.ID = receivedvouchers.Scheme INNER JOIN users ON users.ID = receivedvouchers.ApprovedBy;`, (err, result) => {
         if (err) {
             throw err;
@@ -48,7 +52,7 @@ rvouchers.get('/', (req, res) => {
                 });
                 // console.log(rvItemlist);
                 // console.log(itemRowResult);
-                res.render('pages/index', { option: "rvouchers", rvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
+                res.render('pages/index', { status: status, option: "rvouchers", rvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
             });
         });
     });
@@ -82,7 +86,7 @@ rvouchers.post('/new', (req, res) => {
                     })
                 })
             }
-            res.redirect('/rvouchers');
+            res.redirect('/rvouchers?status=Addsuccess');
         }
     );
 })
@@ -111,7 +115,7 @@ rvouchers.post('/action/:Id/:user', (req, res) => {
                 }
             }
             );
-            res.redirect('/rvouchers');
+            res.redirect('/rvouchers?status=Acceptsuccess');
         })
     } else {
         //db query to set approval to 2
@@ -119,7 +123,7 @@ rvouchers.post('/action/:Id/:user', (req, res) => {
             if (err) {
                 throw err;
             }
-            res.redirect('/rvouchers');
+            res.redirect('/rvouchers?status=Rejectsuccess');
         }
         );
 
@@ -189,7 +193,7 @@ rvouchers.post('/edit/:Id', (req, res) => {
                     );
 
                 }
-                res.redirect('/rvouchers');
+                res.redirect('/rvouchers?status=Editsuccess');
             }
             );
         }

@@ -34,8 +34,12 @@
         <!-- App CSS -->
         <link id="theme-style" rel="stylesheet" href="/assets/css/portal.css">
 
-
-
+        <!-- alertify css -->
+        <!-- CSS -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+        <!-- Bootstrap theme -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+        <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" /> -->
 
 
 
@@ -180,6 +184,10 @@
                                                                                                                                                                                         src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
                                                                                                                                                                                     <script
                                                                                                                                                                                         src="//cdn.datatables.net/plug-ins/1.10.21/sorting/datetime-moment.js"></script>
+
+                                                                                                                                                                                    <!-- Alertify js -->
+                                                                                                                                                                                    <script
+                                                                                                                                                                                        src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
                                                                                                                                                                                     <script>
                                                                                                                                                                                         $(document).ready(function () {
                                                                                                                                                                                             $.fn.dataTable.moment('HH:mm MMM D, YY');
@@ -216,13 +224,13 @@
 
                                                                                                                                                                                                         exportOptions: {
 
-                                                                                                                                                                                                            columns: [0, 1, 2, 3, 4]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         },
                                                                                                                                                                                                         customize: function (win) {
                                                                                                                                                                                                             $(win.document.body)
                                                                                                                                                                                                                 .css('font-size', '10pt')
                                                                                                                                                                                                                 .prepend(
-                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/300px-TamilNadu_Logo.svg.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/en/4/40/Tamil_Nadu_Police_Logo.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
                                                                                                                                                                                                                 );
 
                                                                                                                                                                                                             $(win.document.body).find('table')
@@ -234,14 +242,14 @@
                                                                                                                                                                                                         extend: 'pdfHtml5',
                                                                                                                                                                                                         className: "btn app-btn-secondary",
                                                                                                                                                                                                         exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1, 2, 3, 4]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                     }, {
                                                                                                                                                                                                         extend: 'excelHtml5',
                                                                                                                                                                                                         className: "btn app-btn-secondary",
                                                                                                                                                                                                         exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1, 2, 3, 4]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         }
                                                                                                                                                                                                     }
 
@@ -282,13 +290,13 @@
                                                                                                                                                                                                         className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
 
-                                                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         },
                                                                                                                                                                                                         customize: function (win) {
                                                                                                                                                                                                             $(win.document.body)
                                                                                                                                                                                                                 .css('font-size', '10pt')
                                                                                                                                                                                                                 .prepend(
-                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/300px-TamilNadu_Logo.svg.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/en/4/40/Tamil_Nadu_Police_Logo.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
                                                                                                                                                                                                                 );
 
                                                                                                                                                                                                             $(win.document.body).find('table')
@@ -300,14 +308,14 @@
                                                                                                                                                                                                         extend: 'pdfHtml5',
                                                                                                                                                                                                         className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                     }, {
                                                                                                                                                                                                         extend: 'excelHtml5',
                                                                                                                                                                                                         className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         }
                                                                                                                                                                                                     }
 
@@ -348,13 +356,13 @@
                                                                                                                                                                                                         className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
 
-                                                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         },
                                                                                                                                                                                                         customize: function (win) {
                                                                                                                                                                                                             $(win.document.body)
                                                                                                                                                                                                                 .css('font-size', '10pt')
                                                                                                                                                                                                                 .prepend(
-                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/300px-TamilNadu_Logo.svg.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/en/4/40/Tamil_Nadu_Police_Logo.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
                                                                                                                                                                                                                 );
 
                                                                                                                                                                                                             $(win.document.body).find('table')
@@ -366,14 +374,14 @@
                                                                                                                                                                                                         extend: 'pdfHtml5',
                                                                                                                                                                                                         className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                     }, {
                                                                                                                                                                                                         extend: 'excelHtml5',
                                                                                                                                                                                                         className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         }
                                                                                                                                                                                                     }
 
@@ -414,13 +422,13 @@
                                                                                                                                                                                                         className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
 
-                                                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         },
                                                                                                                                                                                                         customize: function (win) {
                                                                                                                                                                                                             $(win.document.body)
                                                                                                                                                                                                                 .css('font-size', '10pt')
                                                                                                                                                                                                                 .prepend(
-                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/300px-TamilNadu_Logo.svg.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/en/4/40/Tamil_Nadu_Police_Logo.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
                                                                                                                                                                                                                 );
 
                                                                                                                                                                                                             $(win.document.body).find('table')
@@ -432,14 +440,14 @@
                                                                                                                                                                                                         extend: 'pdfHtml5',
                                                                                                                                                                                                         className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                     }, {
                                                                                                                                                                                                         extend: 'excelHtml5',
                                                                                                                                                                                                         className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1]
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         }
                                                                                                                                                                                                     }
 
@@ -479,34 +487,21 @@
                                                                                                                                                                                                     , {
                                                                                                                                                                                                         extend: 'print',
                                                                                                                                                                                                         className: "btn app-btn-secondary ",
-                                                                                                                                                                                                        exportOptions: {
 
-                                                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                                                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                                                            stripHtml: false,
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         },
                                                                                                                                                                                                         customize: function (win) {
                                                                                                                                                                                                             $(win.document.body)
                                                                                                                                                                                                                 .css('font-size', '10pt')
                                                                                                                                                                                                                 .prepend(
-                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/300px-TamilNadu_Logo.svg.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/en/4/40/Tamil_Nadu_Police_Logo.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
                                                                                                                                                                                                                 );
 
                                                                                                                                                                                                             $(win.document.body).find('table')
                                                                                                                                                                                                                 .addClass('compact')
                                                                                                                                                                                                                 .css('font-size', 'inherit');
-                                                                                                                                                                                                        }
-                                                                                                                                                                                                    },
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                        extend: 'pdfHtml5',
-                                                                                                                                                                                                        className: "btn app-btn-secondary ",
-                                                                                                                                                                                                        exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                    }, {
-                                                                                                                                                                                                        extend: 'excelHtml5',
-                                                                                                                                                                                                        className: "btn app-btn-secondary ",
-                                                                                                                                                                                                        exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
                                                                                                                                                                                                         }
                                                                                                                                                                                                     }
 
@@ -546,33 +541,19 @@
                                                                                                                                                                                                         extend: 'print',
                                                                                                                                                                                                         className: "btn app-btn-secondary ",
                                                                                                                                                                                                         exportOptions: {
-
-                                                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                                                                                                                                                                                                            stripHtml: false,
+                                                                                                                                                                                                            columns: ':visible'
                                                                                                                                                                                                         },
                                                                                                                                                                                                         customize: function (win) {
                                                                                                                                                                                                             $(win.document.body)
                                                                                                                                                                                                                 .css('font-size', '10pt')
                                                                                                                                                                                                                 .prepend(
-                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/300px-TamilNadu_Logo.svg.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/en/4/40/Tamil_Nadu_Police_Logo.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
                                                                                                                                                                                                                 );
 
                                                                                                                                                                                                             $(win.document.body).find('table')
                                                                                                                                                                                                                 .addClass('compact')
                                                                                                                                                                                                                 .css('font-size', 'inherit');
-                                                                                                                                                                                                        }
-                                                                                                                                                                                                    },
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                        extend: 'pdfHtml5',
-                                                                                                                                                                                                        className: "btn app-btn-secondary ",
-                                                                                                                                                                                                        exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                    }, {
-                                                                                                                                                                                                        extend: 'excelHtml5',
-                                                                                                                                                                                                        className: "btn app-btn-secondary ",
-                                                                                                                                                                                                        exportOptions: {
-                                                                                                                                                                                                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
                                                                                                                                                                                                         }
                                                                                                                                                                                                     }
 

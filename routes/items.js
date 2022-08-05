@@ -13,6 +13,11 @@ items.get('/new', authRole([2, 3]), (req, res) => {
 })
 
 items.get('/', (req, res) => {
+    var status = req.query.status;
+    if (!(status == 'Addsuccess' || status == 'Deletesuccess' || status == 'Editsuccess' || status == 'Existerror')) {
+        status = null;
+    }
+
     db.query(`SELECT * FROM items`, (err, result) => {
         if (err) {
             throw err;
@@ -21,21 +26,21 @@ items.get('/', (req, res) => {
             if (err) {
                 throw err;
             }
-            res.render('pages/index', { option: "items", itemsData: result, categs: categResult });
+            res.render('pages/index', { option: "items", itemsData: result, categs: categResult, status: status });
         });
     });
 });
 
 
 
-items.post('/new', authRole([2, 3]), (req, res) => {
+items.post('/new', (req, res) => {
     db.query(
         `INSERT INTO items (CategoryID, Name, Quantity, Life) VALUES ( ${req.body.categoryid}, '${req.body.itemname.replace(/"/g, '\\"').replace(/'/g, "\\'")}', ${req.body.itemquantity}, ${req.body.itemlife})`,
         (err, result) => {
             if (err) {
                 throw err;
             }
-            res.redirect('/items');
+            res.redirect('/items?status=Addsuccess');
         }
     );
 })
@@ -59,14 +64,14 @@ items.post('/edit/:id', (req, res) => {
     if (option == "Submit") {
         db.query(`UPDATE items SET CategoryID = ${req.body.categoryid}, Name = '${req.body.itemname.replace(/"/g, '\\"').replace(/'/g, "\\'")}', Life = ${req.body.itemlife} WHERE id = ${req.params.id}`, (err, result) => {
             if (err) throw err;
-            res.redirect('/items');
+            res.redirect('/items?status=Editsuccess');
         }
         )
     }
     else if (option == "Delete") {
         db.query(`DELETE FROM items WHERE id = ${req.params.id}`, (err, result) => {
             if (err) throw err;
-            res.redirect('/items');
+            res.redirect('/items?status=Deletesuccess');
         }
         )
     }

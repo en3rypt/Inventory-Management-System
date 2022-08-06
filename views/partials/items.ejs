@@ -12,22 +12,10 @@
                         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
                             <!--//col-->
-                            <!-- <div class="col-auto">
 
-                                <select class="form-select w-auto">
-                                    <option selected value="option-1">All</option>
-                                    <option value="option-2">This week</option>
-                                    <option value="option-3">This month</option>
-                                    <option value="option-4">Last 3 months</option>
-
-                                </select>
-                            </div> -->
                             <% if(auth==3){ %>
                                 <div class="col-auto">
-                                    <!-- <a class="btn app-btn-secondary" href="#">
-                                <i class="fa-solid fa-plus"></i>
-                                New Entry
-                            </a> -->
+
                                     <a href="/items/new">
 
                                         <button type="button" class="btn app-btn-secondary" data-bs-toggle="modal"
@@ -47,27 +35,17 @@
             <!--//row-->
 
 
-            <!-- <nav id="orders-table-tab"
-                class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-                <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab"
-                    href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-                <a class="flex-sm-fill text-sm-center nav-link" id="orders-paid-tab" data-bs-toggle="tab"
-                    href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
-                <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab"
-                    href="#orders-pending" role="tab" aria-controls="orders-pending"
-                    aria-selected="false">Pending</a>
-                <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab"
-                    href="#orders-cancelled" role="tab" aria-controls="orders-cancelled"
-                    aria-selected="false">Cancelled</a>
-            </nav> -->
+
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <form class="form-group">
-                    <div class="d-flex flex-row-reverse justify-content-between align-items-center" id="filterBns">
-
-                        <div class="d-flex  justify-content-center align-items-center">
-                            <label for="searchField">Search:</label>
-                            <input type="text" class="form-control" id="searchField" style="max-width: 250px;">
+                    <div class="row">
+                        <div class="col-12 col-md-8" id="filterBns"></div>
+                        <div class="col-12 col-md-4">
+                            <div class="d-flex  justify-content-center justify-content-md-end align-items-center">
+                                <label for="searchField">Search:</label>
+                                <input type="text" class="form-control" id="searchField" style="max-width: 250px;">
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -130,74 +108,7 @@
                                             <% }); %>
                                     </tbody>
                                 </table>
-                                <!-- <table id="dtBasicExample" class="table table-striped table-bordered table-sm"
-                                    cellspacing="0" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th class="th-sm">Name
 
-                                            </th>
-                                            <th class="th-sm">Position
-
-                                            </th>
-                                            <th class="th-sm">Office
-
-                                            </th>
-                                            <th class="th-sm">Age
-
-                                            </th>
-                                            <th class="th-sm">Start date
-
-                                            </th>
-                                            <th class="th-sm">Salary
-
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Michael Bruce</td>
-                                            <td>Javascript Developer</td>
-                                            <td>Singapore</td>
-                                            <td>29</td>
-                                            <td>2011/06/27</td>
-                                            <td>$183,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$112,000</td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name
-                                            </th>
-                                            <th>Position
-                                            </th>
-                                            <th>Office
-                                            </th>
-                                            <th>Age
-                                            </th>
-                                            <th>Start date
-                                            </th>
-                                            <th>Salary
-                                            </th>
-                                        </tr>
-                                    </tfoot>
-                                </table> -->
                             </div>
                             <!--//table-responsive-->
 
@@ -205,19 +116,7 @@
                         <!--//app-card-body-->
                     </div>
                     <!--//app-card-->
-                    <!-- <nav class="app-pagination">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav> -->
+
                     <!--//app-pagination-->
 
                 </div>

@@ -564,7 +564,62 @@
                                                                                                                                                                                                 $('#rvTable').DataTable().search($(this).val()).draw();
                                                                                                                                                                                             })
 
-                                                                                                                                                                                            // $('.dataTables_length').addClass('bs-select');
+
+
+
+
+                                                                                                                                                                                            $('#itemHistory').DataTable({
+                                                                                                                                                                                                dom: 'Brtip',
+                                                                                                                                                                                                lengthMenu: [
+                                                                                                                                                                                                    [10, 25, 50, -1],
+                                                                                                                                                                                                    ['10 rows', '25 rows', '50 rows', 'Show all']
+                                                                                                                                                                                                ],
+                                                                                                                                                                                                buttons: [
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchPanes',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'searchBuilder',
+                                                                                                                                                                                                        className: "btn app-btn-secondary"
+                                                                                                                                                                                                    },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                        extend: 'pageLength',
+                                                                                                                                                                                                        className: "btn app-btn-secondary "
+
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    , {
+
+                                                                                                                                                                                                        extend: 'colvis',
+                                                                                                                                                                                                        className: 'btn app-btn-secondary'
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    , {
+                                                                                                                                                                                                        extend: 'print',
+                                                                                                                                                                                                        className: "btn app-btn-secondary ",
+                                                                                                                                                                                                        exportOptions: {
+                                                                                                                                                                                                            stripHtml: false,
+                                                                                                                                                                                                            columns: ':visible'
+                                                                                                                                                                                                        },
+                                                                                                                                                                                                        customize: function (win) {
+                                                                                                                                                                                                            $(win.document.body)
+                                                                                                                                                                                                                .css('font-size', '10pt')
+                                                                                                                                                                                                                .prepend(
+                                                                                                                                                                                                                    '<img src="https://upload.wikimedia.org/wikipedia/en/4/40/Tamil_Nadu_Police_Logo.png" style="position:absolute; top:30%; left:30%;z-index: -1;opacity: 0.1;" />'
+                                                                                                                                                                                                                );
+
+                                                                                                                                                                                                            $(win.document.body).find('table')
+                                                                                                                                                                                                                .addClass('compact')
+                                                                                                                                                                                                                .css('font-size', 'inherit');
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                ]
+
+                                                                                                                                                                                            }).buttons().container().appendTo($('#filterBns'));
+                                                                                                                                                                                            $('#searchField').keyup(function () {
+                                                                                                                                                                                                $('#itemHistory').DataTable().search($(this).val()).draw();
+                                                                                                                                                                                            })
 
                                                                                                                                                                                         });
 

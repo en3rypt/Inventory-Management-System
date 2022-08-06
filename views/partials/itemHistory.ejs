@@ -9,14 +9,25 @@
                 </h1>
             </div>
             <div class="row g-3 mb-4 align-items-center justify-content-between">
-                <div id="filterBns"></div>
+                <form class="form-group">
+                    <div class="row">
+                        <div class="col-12 col-md-8" id="filterBns"></div>
+                        <div class="col-12 col-md-4">
+                            <div class="d-flex  justify-content-center justify-content-md-end align-items-center">
+                                <label for="searchField">Search:</label>
+                                <input type="text" class="form-control" id="searchField" style="max-width: 250px;">
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="tab-content" id="orders-table-tab-content">
                 <div class="tab-pane fade show active" id="ih-iv" role="tabpanel" aria-labelledby="ih-iv-tab">
                     <div class="app-card app-card-orders-table shadow-sm mb-5">
                         <div class="app-card-body">
                             <div class="table-responsive">
-                                <table class="table app-table-hover mb-0 text-center	">
+                                <table id="itemHistory" class="table  app-table-hover mb-0" cellspacing="0"
+                                    width="100%">
                                     <thead>
                                         <tr>
                                             <th class="cell">Voucher ID</th>
@@ -79,20 +90,7 @@
                         <!--//app-card-body-->
                     </div>
                     <!--//app-card-->
-                    <nav class="app-pagination">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <!--//app-pagination-->
+
 
                 </div>
 
@@ -104,7 +102,6 @@
 
         <footer class="app-footer">
             <div class="container text-center py-3">
-                <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
                 <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
                         style="color: #fb866a;"></i> by Students of<a class="app-link"
                         href="https://www.psgtech.edu/hme.php?var=AMC" target="_blank"> PSG TECH</a> for Coimbatore City

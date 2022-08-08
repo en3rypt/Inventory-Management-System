@@ -133,35 +133,21 @@
                                                                 <% if (rID==issue.IVID) { %>
                                                                     <% Object.keys(ivItemlist[rID]).forEach(function(item)
                                                                         { %>
-                                                                        <% if (ivItemlist[rID][item].balance < 0 ) { %>
-                                                                            <tr class="text-danger">
-                                                                                <td>
-                                                                                    <%= item %>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <%= ivItemlist[rID][item].req %>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <%= ivItemlist[rID][item].passed %>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <% } else { %>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        <%= item %>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <%= ivItemlist[rID][item].req %>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <%= ivItemlist[rID][item].passed
-                                                                                            %>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <% } %>
-                                                                                    <% }) %>
-                                                                                        <% } %>
-                                                                                            <% }) %>
+                                                                        <tr
+                                                                            class="<%= (ivItemlist[rID][item].balance < 0 && issue.Approval == 0) &&  'text-danger' %>">
+                                                                            <td>
+                                                                                <%= item %>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%= ivItemlist[rID][item].req %>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%= ivItemlist[rID][item].passed %>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <% }) %>
+                                                                            <% } %>
+                                                                                <% }) %>
                                                         </tbody>
                                                     </table>
 

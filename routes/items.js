@@ -62,7 +62,7 @@ items.get('/edit/:id', (req, res) => {
 items.post('/edit/:id', (req, res) => {
     var option = req.body.option;
     if (option == "Submit") {
-        db.query(`UPDATE items SET CategoryID = ${req.body.categoryid}, Name = '${req.body.itemname.replace(/"/g, '\\"').replace(/'/g, "\\'")}', Life = ${req.body.itemlife} WHERE id = ${req.params.id}`, (err, result) => {
+        db.query(`UPDATE items SET CategoryID = ${req.body.categoryid}, Name = '${req.body.itemname.replace(/"/g, '\\"').replace(/'/g, "\\'")}', Quantity = ${req.body.itemquantity}, Life = ${req.body.itemlife} WHERE id = ${req.params.id}`, (err, result) => {
             if (err) throw err;
             res.redirect('/items?status=Editsuccess');
         }

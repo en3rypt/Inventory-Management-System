@@ -44,6 +44,11 @@
                                     value="<%-result.Name%>" onClick="this.select();">
                             </div>
                             <div class="mb-3 col-lg-4">
+                                <label for="message-text" class="col-form-label">Quantity:</label>
+                                <input class="form-control" id="item-quantity" type="number" min="0" step="1"
+                                    name="itemquantity" value="<%-result.Quantity%>" required>
+                            </div>
+                            <div class="mb-3 col-lg-4">
                                 <label for="message-text" class="col-form-label">Item Life:</label>
                                 <input class="form-control" id="item-life" type="number" min="0" step="1"
                                     name="itemlife" required value="<%-result.Life%>" onClick="this.select();">

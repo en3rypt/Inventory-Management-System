@@ -7,14 +7,14 @@ schemes.get('/new', authRole([2, 3]), (req, res) => {
     res.render('pages/index', { option: 'newScheme' });
 })
 
-schemes.get('/edit/:id([0-9])', (req, res) => {
+schemes.get('/edit/:id([0-9]+)', (req, res) => {
     db.query(`SELECT * FROM schemes WHERE id = ${req.params.id}`, (err, result) => {
         if (err) throw err;
         res.render('pages/index', { option: 'editScheme', inputVal: result[0].Name, id: req.params.id });
     }
     )
 })
-schemes.post('/edit/:id([0-9])', (req, res) => {
+schemes.post('/edit/:id([0-9]+)', (req, res) => {
     var option = req.body.option;
     if (option == "Submit") {
 

@@ -47,7 +47,7 @@ items.post('/new', (req, res) => {
 
 
 
-items.get('/edit/:id([0-9])', (req, res) => {
+items.get('/edit/:id([0-9]+)', (req, res) => {
     db.query(`SELECT * FROM items WHERE id = ${req.params.id}`, (err, result) => {
         if (err) throw err;
         db.query(`SELECT * FROM categories`, (err, categResult) => {
@@ -59,7 +59,7 @@ items.get('/edit/:id([0-9])', (req, res) => {
     )
 
 })
-items.post('/edit/:id([0-9])', (req, res) => {
+items.post('/edit/:id([0-9]+)', (req, res) => {
     var option = req.body.option;
     if (option == "Submit") {
         db.query(`UPDATE items SET CategoryID = ${req.body.categoryid}, Name = '${req.body.itemname.replace(/"/g, '\\"').replace(/'/g, "\\'")}', Quantity = ${req.body.itemquantity}, Life = ${req.body.itemlife} WHERE id = ${req.params.id}`, (err, result) => {
@@ -79,7 +79,7 @@ items.post('/edit/:id([0-9])', (req, res) => {
 
 })
 
-items.get('/history/:id([0-9])', (req, res) => {
+items.get('/history/:id([0-9]+)', (req, res) => {
     db.query(`SELECT issuedvouchers.IVNo, issuedvouchers.IVYear, stations.Name as stationName, ivQtyPassed, ApprovalDate FROM items INNER JOIN ivitems ON items.ID = ivitems.ivItemID INNER JOIN issuedvouchers ON issuedvouchers.ID = ivitems.ivID INNER JOIN stations ON stations.ID = issuedvouchers.Receiver WHERE items.ID = ${req.params.id} AND issuedvouchers.Approval = 1`, (err, itemHistoryIVResult) => {
         if (err) throw err;
         //handling the case when no history is found

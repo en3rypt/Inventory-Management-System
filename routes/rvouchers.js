@@ -91,7 +91,7 @@ rvouchers.post('/new', (req, res) => {
     );
 })
 
-rvouchers.post('/action/:Id([0-9])/:user([0-9])', (req, res) => {
+rvouchers.post('/action/:Id([0-9]+)/:user([0-9]+)', (req, res) => {
     var inputValue = req.body.action_type;
     if (inputValue == "Accept") {
         //compare the quantity of the item in the voucher with the quantity in the inventory
@@ -132,7 +132,7 @@ rvouchers.post('/action/:Id([0-9])/:user([0-9])', (req, res) => {
 
 
 //receivedvouchers edit page
-rvouchers.get('/edit/:Id([0-9])', (req, res) => {
+rvouchers.get('/edit/:Id([0-9]+)', (req, res) => {
     db.query(`SELECT * FROM receivedvouchers WHERE ID = ${req.params.Id}`, (err, result) => {
         if (err) {
             throw err;
@@ -165,7 +165,7 @@ rvouchers.get('/edit/:Id([0-9])', (req, res) => {
 );
 
 //edit post request
-rvouchers.post('/edit/:Id([0-9])', (req, res) => {
+rvouchers.post('/edit/:Id([0-9]+)', (req, res) => {
     let addedJSON = JSON.parse(req.body.addedJSON);
     db.query(
         `UPDATE receivedvouchers SET RVNo = ${req.body.rvid}, RVYear = ${req.body.rvyear}, Supplier = '${req.body.stationid}', Scheme = ${req.body.schemeid}, SNo = ${req.body.sno}, DateOfReceival = '${new Date(new Date(req.body.dor).getTime() + 330 * 60 * 1000).toISOString().slice(0, 10)}' WHERE ID = ${req.params.Id}`,

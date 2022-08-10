@@ -45,14 +45,14 @@ stations.post('/new', (req, res) => {
     });
 })
 
-stations.get('/edit/:id([0-9])', (req, res) => {
+stations.get('/edit/:id([0-9]+)', (req, res) => {
     db.query(`SELECT * FROM stations WHERE id = ${req.params.id}`, (err, result) => {
         if (err) throw err;
         res.render('pages/index', { option: 'editStation', inputVal: result[0].Name, id: req.params.id });
     }
     )
 })
-stations.post('/edit/:id([0-9])', (req, res) => {
+stations.post('/edit/:id([0-9]+)', (req, res) => {
     var option = req.body.option;
     if (option == "Submit") {
         db.query(`UPDATE stations SET Name = '${req.body.stationname}' WHERE id = ${req.params.id}`, (err, result) => {

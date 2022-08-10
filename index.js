@@ -62,6 +62,11 @@ app.get('/Categories', (req, res) => {
 app.get('/logout', (req, res) => {
     res.clearCookie('access_token').redirect('/login');
 })
+
+
+app.get('*', requireAuth, (req, res) => {
+    res.render('pages/404');
+});
 //app listen
 app.listen(process.env.PORT || 3000, () => console.log(`Listening on http://localhost:${PORT} .`));
 

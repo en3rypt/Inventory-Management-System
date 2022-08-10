@@ -73,7 +73,7 @@ ivouchers.get('/', (req, res) => {
     });
 });
 
-ivouchers.post('/action/:Id/:user', (req, res) => {
+ivouchers.post('/action/:Id([0-9])/:user([0-9])', (req, res) => {
 
     var inputValue = req.body.action_type;
     if (inputValue == "Accept") {
@@ -162,7 +162,7 @@ ivouchers.post('/new', (req, res) => {
 })
 
 
-ivouchers.get('/edit/:Id', (req, res) => {
+ivouchers.get('/edit/:Id([0-9])', (req, res) => {
 
     db.query(`SELECT * FROM issuedvouchers WHERE ID = ${req.params.Id}`, (err, result) => {
 
@@ -200,7 +200,7 @@ ivouchers.get('/edit/:Id', (req, res) => {
 }
 );
 
-ivouchers.post('/edit/:Id', (req, res) => {
+ivouchers.post('/edit/:Id([0-9])', (req, res) => {
     console.log('in')
     let addedJSON = JSON.parse(req.body.addedJSON);
     db.query(`UPDATE issuedvouchers SET IVNo = ${req.body.ivid}, IVYear = ${req.body.ivyear}, Receiver = ${req.body.stationid}, SNo = ${req.body.sno}, Scheme = ${req.body.schemeid}, DateOfReceival = '${new Date(new Date(req.body.dor).getTime() + 330 * 60 * 1000).toISOString().slice(0, 10)}' WHERE ID = ${req.params.Id}`, (err, result) => {

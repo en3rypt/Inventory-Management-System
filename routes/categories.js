@@ -33,14 +33,14 @@ categories.post('/new', (req, res) => {
     );
 })
 
-categories.get('/edit/:id', (req, res) => {
+categories.get('/edit/:id([0-9])', (req, res) => {
     db.query(`SELECT * FROM categories WHERE id = ${req.params.id}`, (err, result) => {
         if (err) throw err;
         res.render('pages/index', { option: 'editCategory', inputVal: result[0].Name, id: req.params.id });
     }
     )
 })
-categories.post('/edit/:id', (req, res) => {
+categories.post('/edit/:id([0-9])', (req, res) => {
     var option = req.body.option;
     if (option == "Submit") {
         db.query(`UPDATE categories SET Name = '${req.body.categname}' WHERE id = ${req.params.id}`, (err, result) => {

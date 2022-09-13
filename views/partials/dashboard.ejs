@@ -204,7 +204,8 @@
 
 </div>
 <script>
-    fetch('http://192.168.1.89:3000/charts/ds')
+    // fetch('http://192.168.1.89:3000/charts/ds')
+    fetch('http://localhost:3000/charts/ds')
         .then(response => response.json())
         .then(result => {
             //loop result
@@ -217,7 +218,8 @@
 
             });
         })
-    fetch('http://192.168.1.89:3000/charts/lri')
+    // fetch('http://192.168.1.89:3000/charts/lri')
+    fetch('http://localhost:3000/charts/lri')
         .then(response => response.json())
         .then(result => {
             //loop result

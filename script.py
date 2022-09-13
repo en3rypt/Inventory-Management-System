@@ -1,18 +1,27 @@
 import mysql.connector
 import pandas as pd
 
+# db = mysql.connector.connect(
+#     host="sql6.freesqldatabase.com",
+#     user="sql6510904",
+#     password="HE7SwbFPZT"
+# )
+
 db = mysql.connector.connect(
-    host="sql6.freesqldatabase.com",
-    user="sql6510904",
-    password="HE7SwbFPZT"
+    host="localhost",
+    user="admin",
+    password="admin"
 )
+
+
 cur = db.cursor()
 
 
-# cur.execute('DROP DATABASE IF EXISTS CBE_STOCKS')
-# # database creation
-# cur.execute("CREATE DATABASE IF NOT EXISTS CBE_STOCKS")
-cur.execute("USE sql6510904")
+cur.execute('DROP DATABASE IF EXISTS CBE_STOCKS')
+# database creation
+cur.execute("CREATE DATABASE IF NOT EXISTS CBE_STOCKS")
+# cur.execute("USE sql6510904")
+cur.execute("USE CBE_STOCKS")
 
 
 # table creation
@@ -88,8 +97,7 @@ CREATE TABLE rvitems (
 	rvID INT NOT NULL,
 	rvItemID INT NOT NULL,
 	rvItemQty INT NOT NULL,
-	rvItemRefNo varchar(255) NOT NULL,
-	rvItemRefDate DATE NOT NULL,
+	rvItemRef varchar(255) NOT NULL,
 	PRIMARY KEY (rvID, rvItemID)
 );''',
      '''

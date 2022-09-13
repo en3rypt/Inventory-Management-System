@@ -25,7 +25,7 @@ const { requireAuth, checkUser, authRole } = require('./middleware/authMiddlewar
 const app = express();
 const cors = require('cors');
 app.use(cors({
-        origin: '*'
+    origin: '*'
 }));
 
 const PORT = 3000;
@@ -71,6 +71,5 @@ app.get('/logout', (req, res) => {
 app.get('*', requireAuth, (req, res) => {
     res.render('pages/404');
 });
-//app listen
-//app.listen(process.env.PORT || 3000, () => console.log(`Listening on http://localhost:${PORT} .`));
-app.listen(3000,'192.168.1.89', () => console.log(`Listening on http://192.168.1.89:3000 .`));
+app.listen(process.env.PORT || 3000, () => console.log(`Listening on http://localhost:${PORT} .`));
+// app.listen(3000,'192.168.1.89', () => console.log(`Listening on http://192.168.1.89:3000 .`));

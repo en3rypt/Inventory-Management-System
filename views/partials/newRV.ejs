@@ -85,8 +85,8 @@
                                             <tr>
                                                 <th class="cell">Item Name</th>
                                                 <th class="cell">Quantity</th>
-                                                <th class="cell">Reference No.</th>
-                                                <th class="cell">Reference Date</th>
+                                                <th class="cell">Reference</th>
+                                                <!-- <th class="cell">Reference Date</th> -->
                                                 <th class="cell">Delete</th>
                                             </tr>
                                         </thead>
@@ -111,10 +111,10 @@
                                             min="0" step="1" name="ReqQty" placeholder="Qty. received" required>
                                     </div>
                                     <div class="col-sm-4 d-flex">
-                                        <input class="form-control w-50" id="item-ref-no" type="number" min="0" step="1"
-                                            name="RefNo" placeholder="Ref. No." required>
-                                        <input class="form-control w-50" type="date" id="item-ref-date" name="RefDate"
-                                            value="">
+                                        <input class="form-control w-50" id="item-ref-no" type="text" name="RefNo"
+                                            placeholder="Ref." required>
+                                        <!-- <input class="form-control w-50" type="date" id="item-ref-date" name="RefDate"
+                                            value=""> -->
                                     </div>
 
                                     <div class="col-sm-2">
@@ -167,7 +167,7 @@
         addedItemsList[id] = {
             'reqQty': itemReqQty,
             'refNo': itemRefNo,
-            'refDate': itemRefDate
+            // 'refDate': itemRefDate
         };
     }
     function delRow(id) {
@@ -182,9 +182,10 @@
         let itemName = document.getElementById('item-name-drop').options[document.getElementById('item-name-drop').selectedIndex].text;
         let itemReqQty = document.getElementById('item-qty-required').value;
         let itemRefNo = document.getElementById('item-ref-no').value;
-        let itemRefDate = document.getElementById('item-ref-date').value;
+        // let itemRefDate = document.getElementById('item-ref-date').value;
 
-        if (itemName && itemReqQty && itemRefNo && itemRefDate) {
+        // if (itemName && itemReqQty && itemRefNo && itemRefDate) {
+        if (itemName && itemReqQty && itemRefNo) {
 
             if (itemName in addedItemsList) {
                 alert("Item already added.");
@@ -203,16 +204,11 @@
                                                             required>
                                                     </td>
                                                     <td class="cell">
-                                                        <input class="form-control w-75 ms-4" id="ref-${itemName}" type="number"
-                                                            min="0" step="1" name="ReqQty" onblur="checkItem(this)"
+                                                        <input class="form-control w-75 ms-4" id="ref-${itemName}" type="text"
+                                                            name="ReqQty" onblur="checkItem(this)"
                                                             value="${itemRefNo}" placeholder="Required"
                                                             required>
                                                     </td>
-                                                    <td class="cell">
-                                                        <input class="form-control w-50" type="date" id="date-${itemName}" name="RefDate"
-                                            value="${itemRefDate}" " onblur="checkItem(this)">
-                                                    </td>
-                                                    
                                                     <td class="cell">
                                                         <button type="button" class="btn app-btn-secondary"
                                                             onclick="delRow('${itemName}')">Delete</button>
@@ -221,7 +217,7 @@
                 addedItemsList[itemName] = {
                     'reqQty': itemReqQty,
                     'refNo': itemRefNo,
-                    'refDate': itemRefDate
+                    // 'refDate': itemRefDate
                 };
             }
         } else {

@@ -45,8 +45,8 @@ rvouchers.get('/', (req, res) => {
                         rvItemlist[row.rvID] = {};
                     rvItemlist[row.rvID][row.Name] = {
                         'req': row.rvItemQty,
-                        'refno': row.rvItemRefNo,
-                        'refdate': new Date(row.rvItemRefDate).toISOString().slice(0, 10)
+                        'refno': row.rvItemRef,
+                        // 'refdate': new Date(row.rvItemRefDate).toISOString().slice(0, 10)
 
                     }
                 });
@@ -78,7 +78,7 @@ rvouchers.post('/new', (req, res) => {
                             throw err;
                         }
                         // console.log(lastVoucherResult);
-                        db.query(`INSERT INTO rvitems (rvID, rvItemID, rvItemQty, rvItemRefNo, rvItemRefDate) VALUES (${lastVoucherResult[0].lastID}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, ${addedJSON[itemNameIDResult[0].Name].refNo}, '${new Date(addedJSON[itemNameIDResult[0].Name].refDate).toISOString().slice(0, 10)}')`, (err, result) => {
+                        db.query(`INSERT INTO rvitems (rvID, rvItemID, rvItemQty, rvItemRef) VALUES (${lastVoucherResult[0].lastID}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, '${addedJSON[itemNameIDResult[0].Name].refNo}')`, (err, result) => {
                             if (err) {
                                 throw err;
                             }
@@ -183,7 +183,7 @@ rvouchers.post('/edit/:Id([0-9]+)', (req, res) => {
                             throw err;
                         }
 
-                        db.query(`INSERT INTO rvitems (rvID, rvItemID, rvItemQty, rvItemRefNo, rvItemRefDate) VALUES (${req.params.Id}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, ${addedJSON[itemNameIDResult[0].Name].refNo}, '${new Date(addedJSON[itemNameIDResult[0].Name].refDate).toISOString().slice(0, 10)}')`, (err, result) => {
+                        db.query(`INSERT INTO rvitems (rvID, rvItemID, rvItemQty, rvItemRef) VALUES (${req.params.Id}, ${itemNameIDResult[0].ID}, ${addedJSON[itemNameIDResult[0].Name].reqQty}, '${addedJSON[itemNameIDResult[0].Name].refNo}')`, (err, result) => {
                             if (err) {
                                 throw err;
                             }

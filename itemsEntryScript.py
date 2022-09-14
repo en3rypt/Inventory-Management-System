@@ -32,7 +32,8 @@ catID = {'STATIONARY ITEMS': 1, 'CLEANING MATERIALS': 2,
 for i in range(len(cat)):
     k = items[i].replace("'", "\\'").replace('"', '\\"')
 
-    s = f"INSERT INTO items (CategoryID, Name, Quantity) VALUES({catID[cat[i]]}, '{k}', {randint(100,1000)})"
+    # s = f"INSERT INTO items (CategoryID, Name, Quantity) VALUES({catID[cat[i]]}, '{k}', {randint(100,1000)})"
+    s = f"INSERT INTO items (CategoryID, Name, Quantity) VALUES({catID[cat[i]]}, '{k}', 0)"
 
     cur.execute(s)
     db.commit()
@@ -43,7 +44,7 @@ for i in name:
     cur.execute("INSERT INTO stations (Name) VALUES (%s)", (i,))
     db.commit()
 
-schemes = ["MPF - Modernization of Police Force",
+schemes = ["-","MPF - Modernization of Police Force",
            "DF - Discretionary Funds", "Nirbhaya Funds"]
 for i in schemes:
     cur.execute("INSERT INTO schemes (Name) VALUES (%s)", (i,))

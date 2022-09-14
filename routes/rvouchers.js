@@ -147,7 +147,7 @@ rvouchers.get('/edit/:Id([0-9]+)', (req, res) => {
                 }
 
 
-                // console.log(rvItemResult);
+                console.log(rvItemResult);
                 // console.log(itemRowResult);
                 db.query(`SELECT * FROM schemes`, (err, schemesResult) => {
                     if (err) {

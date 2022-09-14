@@ -119,8 +119,8 @@
                                                     </td>
                                                     <td class="cell">
                                                         <input class="form-control w-75 ms-4" id="ref-<%= rvItem.Name%>"
-                                                            type="text" name="ReqQty" onblur="checkItem(this)"
-                                                            value="<%= rvItem.rvItemQty%>" placeholder="Required"
+                                                            type="text" name="RefNo" onblur="checkItem(this)"
+                                                            value="<%= rvItem.rvItemRef%>" placeholder="Required"
                                                             required>
                                                     </td>
 
@@ -189,7 +189,7 @@
     list.forEach(function (item) {
         addedItemsList[item.Name] = {
             'reqQty': item.rvItemQty,
-            'refNo': item.rvItemRefNo,
+            'refNo': item.rvItemRef,
             // 'refDate': item.rvItemRefDate
         };
     });

@@ -36,7 +36,8 @@
                         <% } %>
                             <% if(exists){ %>
                                 <div class="alert alert-danger" role="alert">
-                                    Email already Exists. You can <a href="/login" class="alert-link">login</a> to your
+                                    Username already Exists. You can <a href="/login" class="alert-link">login</a> to
+                                    your
                                     account
                                 </div>
                                 <% } %>
@@ -48,9 +49,9 @@
                                                     placeholder="Name" required="required">
                                             </div>
                                             <div class="email mb-3">
-                                                <label class="sr-only" for="email">Email</label>
-                                                <input id="email" name="email" type="email"
-                                                    class="form-control signin-email" placeholder="Email address"
+                                                <label class="sr-only" for="email">Username</label>
+                                                <input id="email" name="email" type="text"
+                                                    class="form-control signin-email" placeholder="Username"
                                                     required="required">
                                             </div>
 

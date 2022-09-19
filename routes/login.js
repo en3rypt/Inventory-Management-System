@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
 
 router.post('/', loginValidation, (req, res, next) => {
     db.query(
-        `SELECT * FROM users WHERE Email = ${db.escape(req.body.email)};`,
+        `SELECT * FROM users WHERE Username = ${db.escape(req.body.email)};`,
         (err, result) => {
 
             // user does not exists
@@ -68,7 +68,7 @@ router.post('/', loginValidation, (req, res, next) => {
                         }).status(200).redirect('/');
                     }
                     return res.status(401).send({
-                        msg: 'Username or password is incorrect3!'
+                        msg: 'Username or password is incorrect!'
                     });
                 }
             );

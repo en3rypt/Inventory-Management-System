@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
 router.post('/', signupValidation, (req, res, next) => {
     db.query(
-        `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(req.body.email)});`,
+        `SELECT * FROM users WHERE LOWER(username) = LOWER(${db.escape(req.body.email)});`,
         (err, result) => {
             if (result.length) {
                 return res.status(401).render('pages/signup', { exists: true, success: false });
@@ -37,7 +37,7 @@ router.post('/', signupValidation, (req, res, next) => {
                         }
 
                         db.query(
-                            `INSERT INTO users (name, email, password,AuthType) VALUES ('${req.body.name}', ${db.escape(
+                            `INSERT INTO users (name, username, password,AuthType) VALUES ('${req.body.name}', ${db.escape(
                                 req.body.email
                             )}, ${db.escape(hash)},${AuthType})`,
                             (err, result) => {

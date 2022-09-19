@@ -71,7 +71,7 @@ CREATE TABLE categories (
 CREATE TABLE users (
 	ID INT NOT NULL AUTO_INCREMENT,
 	Name varchar(255) NOT NULL,
-	Email varchar(255) NOT NULL,
+	Username varchar(255) NOT NULL,
 	Password varchar(255) NOT NULL,
 	AuthType INT NOT NULL,
 	DateOfCreation TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

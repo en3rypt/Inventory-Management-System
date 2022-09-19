@@ -136,8 +136,11 @@ var lineChartConfig = {
 
 function ivDoughtnutChart(option) {
 	if (option == 0) {
+		// var endpoint = `http://192.168.1.89:3000/charts/iv/week`;
 		var endpoint = `http://localhost:3000/charts/iv/week`;
+
 	} else {
+		// var endpoint = `http://192.168.1.89:3000/charts/iv/${option}`;
 		var endpoint = `http://localhost:3000/charts/iv/${option}`;
 
 	}
@@ -223,8 +226,10 @@ function ivDoughtnutChart(option) {
 
 function iiBarChart(option) {
 	if (option == 0) {
+		// var endpoint = `http://192.168.1.89:3000/charts/ii/week`;
 		var endpoint = `http://localhost:3000/charts/ii/week`;
 	} else {
+		// var endpoint = `http://192.168.1.89:3000/charts/ii/${option}`;
 		var endpoint = `http://localhost:3000/charts/ii/${option}`;
 
 	}

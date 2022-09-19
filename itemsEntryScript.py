@@ -1,13 +1,19 @@
 import mysql.connector
 import pandas as pd
 from random import randint
+# db = mysql.connector.connect(
+#     host="sql6.freesqldatabase.com",
+#     user="sql6510904",
+#     password="HE7SwbFPZT"
+# )
 db = mysql.connector.connect(
-    host="sql6.freesqldatabase.com",
-    user="sql6510904",
-    password="HE7SwbFPZT"
+    host="localhost",
+    user="admin",
+    password="admin"
 )
 cur = db.cursor()
-cur.execute("USE sql6510904")
+# cur.execute("USE sql6510904")
+cur.execute("USE cbe_stocks")
 
 xl_file = pd.ExcelFile('file.xlsx')
 dfs = {sheet_name: xl_file.parse(sheet_name)
@@ -25,9 +31,10 @@ catID = {'STATIONARY ITEMS': 1, 'CLEANING MATERIALS': 2,
          "ELECTRONIC ITEMS": 3, "ELECTRICAL ITEMS": 4, "FORMS": 5}
 for i in range(len(cat)):
     k = items[i].replace("'", "\\'").replace('"', '\\"')
-    
-    s = f"INSERT INTO items (CategoryID, Name, Quantity) VALUES({catID[cat[i]]}, '{k}', {randint(100,1000)})"
-    
+
+    # s = f"INSERT INTO items (CategoryID, Name, Quantity) VALUES({catID[cat[i]]}, '{k}', {randint(100,1000)})"
+    s = f"INSERT INTO items (CategoryID, Name, Quantity) VALUES({catID[cat[i]]}, '{k}', 0)"
+
     cur.execute(s)
     db.commit()
 
@@ -37,7 +44,7 @@ for i in name:
     cur.execute("INSERT INTO stations (Name) VALUES (%s)", (i,))
     db.commit()
 
-schemes = ["MPF - Modernization of Police Force",
+schemes = ["-","MPF - Modernization of Police Force",
            "DF - Discretionary Funds", "Nirbhaya Funds"]
 for i in schemes:
     cur.execute("INSERT INTO schemes (Name) VALUES (%s)", (i,))

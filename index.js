@@ -22,8 +22,12 @@ require('dotenv').config()
 
 const { requireAuth, checkUser, authRole } = require('./middleware/authMiddleware')
 
-
 const app = express();
+const cors = require('cors');
+app.use(cors({
+    origin: '*'
+}));
+
 const PORT = 3000;
 
 app.use(cookieParser());
@@ -67,6 +71,5 @@ app.get('/logout', (req, res) => {
 app.get('*', requireAuth, (req, res) => {
     res.render('pages/404');
 });
-//app listen
 app.listen(process.env.PORT || 3000, () => console.log(`Listening on http://localhost:${PORT} .`));
-
+// app.listen(3000,'192.168.1.89', () => console.log(`Listening on http://192.168.1.89:3000 .`));

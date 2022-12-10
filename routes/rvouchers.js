@@ -27,7 +27,7 @@ rvouchers.get('/', (req, res) => {
     if (!(status == 'Addsuccess' || status == 'Deletesuccess' || status == 'Editsuccess' || status == 'Existerror' || status == 'Acceptsuccess' || status == 'Rejectsuccess')) {
         status = null;
     }
-    db.query(`SELECT receivedvouchers.ID as RVID, RVNo, RVYear, Supplier, SNo, schemes.Name as schemeName, users.Name as userName, DateOfReceival, Approval, ApprovalDate, ApprovedBy FROM receivedvouchers INNER JOIN schemes ON schemes.ID = receivedvouchers.Scheme INNER JOIN users ON users.ID = receivedvouchers.ApprovedBy;`, (err, result) => {
+    db.query(`SELECT receivedvouchers.ID as RVID, RVNo, RVYear, Supplier, SNo, schemes.Name as schemeName, DateOfReceival, Approval, ApprovalDate, ApprovedBy FROM receivedvouchers INNER JOIN schemes ON schemes.ID = receivedvouchers.Scheme;`, (err, result) => {
         if (err) {
             throw err;
         }
@@ -50,9 +50,19 @@ rvouchers.get('/', (req, res) => {
 
                     }
                 });
-                // console.log(rvItemlist);
-                // console.log(itemRowResult);
-                res.render('pages/index', { status: status, option: "rvouchers", rvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
+                db.query(`SELECT * FROM users WHERE AuthType=2`, (err, userResult) => {
+                    if (err) {
+                        throw err;
+                    }
+                    result.forEach(re => {
+                        let uidToSearch = re.ApprovedBy;
+                        let newVal = userResult.filter(uR => uR.ID == uidToSearch);
+                        if (newVal.length) {
+                            re.ApprovedBy = newVal[0].Name;
+                        }
+                    })
+                    res.render('pages/index', { status: status, option: "rvouchers", rvouchersData: result, itemRows: itemRowResult, rvItemlist: rvItemlist });
+                });
             });
         });
     });

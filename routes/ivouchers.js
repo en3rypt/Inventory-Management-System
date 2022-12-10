@@ -35,7 +35,7 @@ ivouchers.get('/', (req, res) => {
     if (!error) {
         error = null;
     }
-    db.query(`SELECT issuedvouchers.ID as IVID, IVNo, IVYear, stations.Name as stationName, SNo, schemes.Name as schemeName, users.Name as userName, DateOfReceival, Approval, ApprovalDate, ApprovedBy FROM issuedvouchers INNER JOIN stations ON issuedvouchers.Receiver = stations.ID INNER JOIN schemes ON schemes.ID = issuedvouchers.Scheme INNER JOIN users ON users.ID = issuedvouchers.ApprovedBy;`, (err, result) => {
+    db.query(`SELECT issuedvouchers.ID as IVID, IVNo, IVYear, stations.Name as stationName, SNo, schemes.Name as schemeName, DateOfReceival, Approval, ApprovalDate, ApprovedBy FROM issuedvouchers INNER JOIN stations ON issuedvouchers.Receiver = stations.ID INNER JOIN schemes ON schemes.ID = issuedvouchers.Scheme;`, (err, result) => {
         if (err) {
             throw err;
         }
@@ -47,7 +47,6 @@ ivouchers.get('/', (req, res) => {
                 if (err) {
                     throw err;
                 }
-                // console.log(vItemResult);
                 let ivItemlist = {};
                 vItemResult.forEach(row => {
                     if (!ivItemlist[row.ivID])
@@ -65,9 +64,17 @@ ivouchers.get('/', (req, res) => {
                         }
                     })
                 });
-
-                res.render('pages/index', { status: status, option: "ivouchers", ivouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist, error: error });
-
+                db.query(`SELECT * from users WHERE AuthType=2`, (err, userResult) => {
+                    if (err) { throw err; }
+                    result.forEach(re => {
+                        let uidToSearch = re.ApprovedBy;
+                        let newVal = userResult.filter(uR => uR.ID == uidToSearch);
+                        if (newVal.length) {
+                            re.ApprovedBy = newVal[0].Name;
+                        }
+                    });
+                    res.render('pages/index', { status: status, option: "ivouchers", ivouchersData: result, itemRows: itemRowResult, ivItemlist: ivItemlist, error: error });
+                });
             });
         });
     });

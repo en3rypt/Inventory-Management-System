@@ -47,12 +47,12 @@ router.post('/', loginValidation, (req, res, next) => {
                 (bErr, bResult) => {
                     // wrong password
                     // console.log(bResult);
-                    if (bErr) {
-                        // throw bErr;
-                        return res.status(401).send({
-                            msg: 'Email or password is incorrect!'
-                        });
-                    }
+                    // if (bErr) {
+                    //     // throw bErr;
+                    //     return res.status(401).send({
+                    //         msg: 'Email or password is incorrect!'
+                    //     });
+                    // }
                     if (bResult) {
                         // console.log(result[0]['AuthType']);
                         var payload = {
@@ -67,9 +67,7 @@ router.post('/', loginValidation, (req, res, next) => {
                             maxAge: 86400000,
                         }).status(200).redirect('/');
                     }
-                    return res.status(401).send({
-                        msg: 'Username or password is incorrect!'
-                    });
+                    res.render('pages/login', { error: true });
                 }
             );
         }

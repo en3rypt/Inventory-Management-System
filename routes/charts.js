@@ -13,6 +13,7 @@ charts.get('/iv/week', (req, res) => {
     db.query(`select approval,count(*) as count from issuedvouchers WHERE  YEARWEEK(DateOfCreation, 1) = YEARWEEK(CURDATE(), 1) group by approval 
     `, (err, result) => {
         if (err) throw err;
+        console.log(result);
         res.json(result);
     }
     )

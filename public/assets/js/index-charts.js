@@ -149,8 +149,16 @@ function ivDoughtnutChart(option) {
 		.then(response => response.json())
 		.then(result => {
 			var new_data = [];
+			var new_label = [];
 			for (var i = 0; i < result.length; i++) {
 				new_data.push(result[i].count);
+				if (result[i].approval == 0) {
+					new_label.push(`Pending: ${result[i].count}`);
+				} else if (result[i].approval == 1) {
+					new_label.push(`Approved: ${result[i].count}`);
+				} else if (result[i].approval == 2) {
+					new_label.push(`Denied: ${result[i].count}`);
+				}
 			}
 
 			var doughnutChartConfig = {
@@ -166,12 +174,7 @@ function ivDoughtnutChart(option) {
 						],
 						label: 'Dataset 1'
 					}],
-					labels: [
-						`Pending: ${new_data[0]}`,
-						`Approved: ${new_data[1]}`,
-						`Denied: ${new_data[2]}`,
-
-					]
+					labels: new_label,
 				},
 				options: {
 					responsive: true,
